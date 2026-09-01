@@ -4,51 +4,83 @@
 
 月表示のカレンダー上でイベント日・祝日を確認し、日付を選ぶとその日のイベント一覧を表示します。
 
+公開 URL: https://windhole.github.io/tech-calendar/
+
 ## 現状
 
-プロトタイプ段階です。静的な JSONL ファイルからイベントと祝日を読み込み、フロントエンドのみで動作します。バックエンドや認証は未実装です。
+月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は YAML、見た目はカレンダー専用 CSS に切り出しています。イベント一覧は従来どおり静的 JSONL です。バックエンドや認証は未実装です。
 
 ## 機能
 
-- 月送り・「今日」ボタン付きのカレンダー表示
-- 祝日・イベント日のハイライト
+- 月曜始まりの月間カレンダー（対象月を含む 6 週間）
+- 土曜日セルは薄い青、日曜日・祝日セルは薄い赤
+- 祝日を `data/holidays.yaml` で指定
+- 月送り・「今日」ボタン
 - 日付選択によるイベント一覧の絞り込み
-- イベントの期間・会場・URL の表示
 
 ## 技術スタック
 
 | 区分 | 内容 |
 |------|------|
 | フレームワーク | Vite + React 18 + TypeScript |
-| UI | Tailwind CSS + shadcn/ui（Radix UI） |
+| UI | Tailwind CSS + shadcn/ui（Radix UI）＋ カレンダー専用 CSS |
 | アイコン | lucide-react |
-| データ | 静的 JSONL（`public/`） |
-
-`@supabase/supabase-js` は依存関係に含まれますが、現時点では未使用です。
+| 祝日 | YAML（`data/holidays.yaml`） |
+| イベント | 静的 JSONL（`public/events.jsonl`） |
+| 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
+| パッケージマネージャ | bun 1.4 |
 
 ## セットアップ
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
-開発サーバー起動後、ブラウザで表示された URL を開いてください。
+開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。見た目の確認もこの URL で行います。
 
 ### その他のスクリプト
 
 | コマンド | 説明 |
 |----------|------|
-| `npm run build` | 型チェック後にプロダクションビルド |
-| `npm run preview` | ビルド結果のプレビュー |
-| `npm run lint` | ESLint による静的解析 |
-| `npm run typecheck` | TypeScript の型チェック |
+| `bun run build` | 型チェック後にプロダクションビルド |
+| `bun run preview` | ビルド結果のプレビュー |
+| `bun run lint` | ESLint による静的解析 |
+| `bun run typecheck` | TypeScript の型チェック |
 
-## データ形式
+## 祝日（YAML）
 
-データは `public/` 配下の JSONL（1行1オブジェクト）です。
+`data/holidays.yaml` に 1 件 1 要素で書きます。
 
-### イベント（`public/events.jsonl`）
+```yaml
+- date: "2026-08-11"
+  name: 山の日
+```
+
+| フィールド | 型 | 説明 |
+|------------|-----|------|
+| `date` | `string` | 日付（`YYYY-MM-DD`。引用符推奨） |
+| `name` | `string` | カレンダーに出す祝日名 |
+
+ビルド時に読み込むため、変更後は再ビルドが必要です。
+
+## 見た目のカスタマイズ
+
+カレンダーの色・余白・角丸は `src/calendar/monthly-calendar.css` のカスタムプロパティを変えます。
+
+```css
+.monthly-calendar {
+  --monthly-calendar-saturday-bg: #dbeafe;
+  --monthly-calendar-sunday-bg: #fecaca;
+  --monthly-calendar-holiday-bg: #fecaca;
+}
+```
+
+状態クラスは `--saturday` / `--sunday` / `--holiday` / `--outside` / `--today` / `--selected` です。
+
+## イベントデータ
+
+`public/events.jsonl`（1行1オブジェクト）です。
 
 ```json
 {"startDate":"2026-03-01","endDate":"2026-03-03","eventName":"テックカンファレンス2026","location":"パシフィコ横浜","url":"https://example.com/tech-conf"}
@@ -62,35 +94,23 @@ npm run dev
 | `location` | `string` | 会場 |
 | `url` | `string` | 詳細 URL |
 
-### 祝日（`public/holidays.jsonl`）
-
-```json
-{"date":"2026-01-01","name":"元日"}
-```
-
-| フィールド | 型 | 説明 |
-|------------|-----|------|
-| `date` | `string` | 日付（`YYYY-MM-DD`） |
-| `name` | `string` | 祝日名 |
-
-現状のサンプルはイベント 6 件・祝日 16 件（いずれも 2026 年想定）です。
-
 ## ディレクトリ構成（概要）
 
 ```
+data/
+  holidays.yaml              # 祝日
 public/
-  events.jsonl      # イベントデータ
-  holidays.jsonl    # 祝日データ
+  events.jsonl               # イベント
 src/
-  App.tsx           # アプリ本体
+  App.tsx
+  calendar/
+    MonthlyCalendar.tsx      # 月間カレンダー
+    monthly-calendar.css     # 見た目（カスタムプロパティ）
+    getCalendarGrid.ts       # 月曜始まり 6 週間
+    loadHolidays.ts
   components/
-    Calendar.tsx    # カレンダー表示
-    EventList.tsx   # イベント一覧
-    ui/             # shadcn/ui コンポーネント
-  types/            # Event / Holiday 型定義
-  utils/
-    dataLoader.ts   # JSONL の読み込み
-    dateUtils.ts    # 日付ユーティリティ
+    EventList.tsx
+    ui/
 ```
 
 ## ライセンス
