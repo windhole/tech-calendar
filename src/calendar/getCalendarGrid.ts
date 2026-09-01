@@ -53,3 +53,14 @@ export function getCalendarGrid(
 
   return days;
 }
+
+/** 対象月を含む 6 週間の初日と最終日（YYYY-MM-DD）。 */
+export function getCalendarRange(
+  year: number,
+  monthIndex: number
+): { start: string; end: string } {
+  const firstOfMonth = new Date(year, monthIndex, 1);
+  const start = startOfMondayWeek(firstOfMonth);
+  const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 41);
+  return { start: formatIsoDate(start), end: formatIsoDate(end) };
+}

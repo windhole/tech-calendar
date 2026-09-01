@@ -6,40 +6,42 @@ import { Event } from '@/types';
 
 interface EventListProps {
   events: Event[];
+  title: string;
+  emptyMessage?: string;
 }
 
-export function EventList({ events }: EventListProps) {
-  const sortedEvents = [...events].sort((a, b) =>
-    a.startDate.localeCompare(b.startDate)
-  );
+function formatDateRange(startDate: string, endDate: string) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
 
-  const formatDateRange = (startDate: string, endDate: string) => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+  if (startDate === endDate) {
+    return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日`;
+  }
 
-    if (startDate === endDate) {
-      return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日`;
-    }
+  return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日 - ${end.getFullYear()}年${end.getMonth() + 1}月${end.getDate()}日`;
+}
 
-    return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日 - ${end.getFullYear()}年${end.getMonth() + 1}月${end.getDate()}日`;
-  };
-
+export function EventList({
+  events,
+  title,
+  emptyMessage = 'イベントがありません',
+}: EventListProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarIcon className="h-5 w-5" />
-          すべてのイベント
+          {title}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {sortedEvents.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">イベントがありません</p>
+        {events.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">{emptyMessage}</p>
         ) : (
           <div className="space-y-4">
-            {sortedEvents.map((event, index) => (
+            {events.map((event, index) => (
               <div
-                key={index}
+                key={`${event.eventName}-${event.startDate}-${index}`}
                 className="border rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between gap-4">

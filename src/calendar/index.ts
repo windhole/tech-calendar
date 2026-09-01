@@ -1,5 +1,5 @@
 export { MonthlyCalendar } from './MonthlyCalendar';
-export { getCalendarGrid } from './getCalendarGrid';
+export { getCalendarGrid, getCalendarRange } from './getCalendarGrid';
 export { loadHolidays } from './loadHolidays';
 export { formatIsoDate } from './formatIsoDate';
 export type { CalendarDay, Holiday } from './types';

@@ -1,16 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { MonthlyCalendar, loadHolidays } from '@/calendar';
-import { EventList } from '@/components/EventList';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { AllEventsPage } from '@/pages/AllEventsPage';
+import { CalendarPage } from '@/pages/CalendarPage';
 import { Event } from '@/types';
 import { loadEvents } from '@/utils/dataLoader';
 import './App.css';
 
-const holidays = loadHolidays();
-
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,27 +21,6 @@ function App() {
     loadData();
   }, []);
 
-  const handlePrevMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
-    );
-  };
-
-  const handleNextMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-    );
-  };
-
-  const handleToday = () => {
-    setCurrentDate(new Date());
-  };
-
-  const monthLabel = useMemo(
-    () => `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`,
-    [currentDate]
-  );
-
   if (loading) {
     return (
       <div className="app-shell app-shell--loading">
@@ -59,32 +34,10 @@ function App() {
 
   return (
     <div className="app-shell">
-      <div className="app-shell__inner">
-        <header className="app-header">
-          <div className="app-header__title">
-            <CalendarIcon className="h-8 w-8 text-primary" />
-            <h1>イベントカレンダー</h1>
-          </div>
-          <div className="app-header__actions">
-            <Button onClick={handleToday}>今日</Button>
-          </div>
-        </header>
-
-        <div className="app-layout">
-          <MonthlyCalendar
-            currentDate={currentDate}
-            holidays={holidays}
-            events={events}
-            onPrevMonth={handlePrevMonth}
-            onNextMonth={handleNextMonth}
-          />
-          <EventList events={events} />
-        </div>
-
-        <footer className="app-footer">
-          <p>日本の祝日に対応したイベントカレンダー（{monthLabel}）</p>
-        </footer>
-      </div>
+      <Routes>
+        <Route path="/" element={<CalendarPage events={events} />} />
+        <Route path="/events" element={<AllEventsPage events={events} />} />
+      </Routes>
     </div>
   );
 }

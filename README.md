@@ -2,7 +2,7 @@
 
 日本の祝日に対応したイベントカレンダー Web アプリです。
 
-月表示のカレンダー上でイベント日・祝日を確認し、その下にイベント一覧を表示します。
+月表示のカレンダー上でイベント日・祝日を確認し、その下に表示期間のイベントを出します。全件は別ページで、今日以降を先頭に並べます。
 
 公開 URL: https://windhole.github.io/tech-calendar/
 
@@ -16,7 +16,8 @@
 - 土曜日セルは薄い青、日曜日・祝日セルは薄い赤
 - 祝日を `data/holidays.yaml` で指定
 - 月送り・「今日」ボタン
-- カレンダー下のイベント一覧
+- カレンダー下には、表示中の 6 週間と重なるイベントだけを表示
+- `/events` で全イベントを確認（今日以降が上、スクロールで過去）
 
 ## 技術スタック
 
@@ -37,7 +38,7 @@ bun install
 bun run dev
 ```
 
-開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。見た目の確認もこの URL で行います。
+開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。全イベントは `http://localhost:5173/tech-calendar/events` です。
 
 ### その他のスクリプト
 
@@ -103,10 +104,13 @@ public/
   events.jsonl               # イベント
 src/
   App.tsx
+  pages/
+    CalendarPage.tsx         # 月間カレンダー
+    AllEventsPage.tsx        # 全イベント（今日以降が先頭）
   calendar/
-    MonthlyCalendar.tsx      # 月間カレンダー
-    monthly-calendar.css     # 見た目（カスタムプロパティ）
-    getCalendarGrid.ts       # 月曜始まり 6 週間
+    MonthlyCalendar.tsx
+    monthly-calendar.css
+    getCalendarGrid.ts
     loadHolidays.ts
   components/
     EventList.tsx
