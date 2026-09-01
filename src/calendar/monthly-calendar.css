@@ -13,8 +13,6 @@
   --monthly-calendar-sunday-bg: #fecaca;
   --monthly-calendar-holiday-bg: #fecaca;
   --monthly-calendar-today-ring: #2563eb;
-  --monthly-calendar-selected-ring: #1d4ed8;
-  --monthly-calendar-selected-bg: #eff6ff;
   --monthly-calendar-outside-opacity: 0.55;
   --monthly-calendar-radius: 12px;
   --monthly-calendar-cell-min-height: 5.5rem;
@@ -106,11 +104,6 @@
   color: inherit;
   font: inherit;
   text-align: left;
-  cursor: pointer;
-}
-
-.monthly-calendar__cell:hover {
-  border-color: #93c5fd;
 }
 
 .monthly-calendar__cell--saturday {
@@ -131,10 +124,6 @@
 
 .monthly-calendar__cell--today {
   box-shadow: inset 0 0 0 2px var(--monthly-calendar-today-ring);
-}
-
-.monthly-calendar__cell--selected {
-  box-shadow: inset 0 0 0 2px var(--monthly-calendar-selected-ring);
 }
 
 .monthly-calendar__date {

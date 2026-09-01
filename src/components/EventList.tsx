@@ -3,22 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Event } from '@/types';
-import { formatDate } from '@/utils/dateUtils';
 
 interface EventListProps {
   events: Event[];
-  selectedDate: Date | null;
 }
 
-export function EventList({ events, selectedDate }: EventListProps) {
-  const filteredEvents = selectedDate
-    ? events.filter((event) => {
-        const dateStr = formatDate(selectedDate);
-        return dateStr >= event.startDate && dateStr <= event.endDate;
-      })
-    : events;
-
-  const sortedEvents = [...filteredEvents].sort((a, b) =>
+export function EventList({ events }: EventListProps) {
+  const sortedEvents = [...events].sort((a, b) =>
     a.startDate.localeCompare(b.startDate)
   );
 
@@ -38,18 +29,12 @@ export function EventList({ events, selectedDate }: EventListProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarIcon className="h-5 w-5" />
-          {selectedDate
-            ? `${selectedDate.getFullYear()}年${selectedDate.getMonth() + 1}月${selectedDate.getDate()}日のイベント`
-            : 'すべてのイベント'}
+          すべてのイベント
         </CardTitle>
       </CardHeader>
       <CardContent>
         {sortedEvents.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">
-            {selectedDate
-              ? 'この日にイベントはありません'
-              : 'イベントがありません'}
-          </p>
+          <p className="text-center text-gray-500 py-8">イベントがありません</p>
         ) : (
           <div className="space-y-4">
             {sortedEvents.map((event, index) => (

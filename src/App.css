@@ -47,8 +47,8 @@
 }
 
 .app-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
@@ -77,11 +77,5 @@
 @keyframes app-spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 960px) {
-  .app-layout {
-    grid-template-columns: 1fr;
   }
 }

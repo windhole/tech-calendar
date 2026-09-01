@@ -11,7 +11,6 @@ const holidays = loadHolidays();
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,9 +38,7 @@ function App() {
   };
 
   const handleToday = () => {
-    const today = new Date();
-    setCurrentDate(today);
-    setSelectedDate(today);
+    setCurrentDate(new Date());
   };
 
   const monthLabel = useMemo(
@@ -69,11 +66,6 @@ function App() {
             <h1>イベントカレンダー</h1>
           </div>
           <div className="app-header__actions">
-            {selectedDate && (
-              <Button variant="outline" onClick={() => setSelectedDate(null)}>
-                選択をクリア
-              </Button>
-            )}
             <Button onClick={handleToday}>今日</Button>
           </div>
         </header>
@@ -85,10 +77,8 @@ function App() {
             events={events}
             onPrevMonth={handlePrevMonth}
             onNextMonth={handleNextMonth}
-            onDateSelect={setSelectedDate}
-            selectedDate={selectedDate}
           />
-          <EventList events={events} selectedDate={selectedDate} />
+          <EventList events={events} />
         </div>
 
         <footer className="app-footer">
