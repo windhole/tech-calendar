@@ -1,0 +1,187 @@
+/*
+  月間カレンダーの見た目はここだけを触れば変えられる。
+  色・余白・角丸は .monthly-calendar のカスタムプロパティを上書きする。
+*/
+
+.monthly-calendar {
+  --monthly-calendar-border: #e5e7eb;
+  --monthly-calendar-surface: #ffffff;
+  --monthly-calendar-text: #111827;
+  --monthly-calendar-muted-text: #9ca3af;
+  --monthly-calendar-header-text: #4b5563;
+  --monthly-calendar-saturday-bg: #dbeafe;
+  --monthly-calendar-sunday-bg: #fecaca;
+  --monthly-calendar-holiday-bg: #fecaca;
+  --monthly-calendar-today-ring: #2563eb;
+  --monthly-calendar-selected-ring: #1d4ed8;
+  --monthly-calendar-selected-bg: #eff6ff;
+  --monthly-calendar-outside-opacity: 0.55;
+  --monthly-calendar-radius: 12px;
+  --monthly-calendar-cell-min-height: 5.5rem;
+  --monthly-calendar-gap: 0.4rem;
+  --monthly-calendar-padding: 1.25rem;
+
+  background: var(--monthly-calendar-surface);
+  color: var(--monthly-calendar-text);
+  border: 1px solid var(--monthly-calendar-border);
+  border-radius: var(--monthly-calendar-radius);
+  padding: var(--monthly-calendar-padding);
+}
+
+.monthly-calendar__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.monthly-calendar__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.monthly-calendar__nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.monthly-calendar__nav-button {
+  appearance: none;
+  border: 1px solid var(--monthly-calendar-border);
+  background: var(--monthly-calendar-surface);
+  color: var(--monthly-calendar-text);
+  border-radius: 8px;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.6rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.monthly-calendar__nav-button:hover {
+  background: #f9fafb;
+}
+
+.monthly-calendar__weekdays,
+.monthly-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--monthly-calendar-gap);
+}
+
+.monthly-calendar__weekdays {
+  margin-bottom: 0.35rem;
+}
+
+.monthly-calendar__weekday {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--monthly-calendar-header-text);
+  padding: 0.35rem 0;
+}
+
+.monthly-calendar__weekday--saturday {
+  color: #1d4ed8;
+}
+
+.monthly-calendar__weekday--sunday {
+  color: #b91c1c;
+}
+
+.monthly-calendar__cell {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-height: var(--monthly-calendar-cell-min-height);
+  padding: 0.45rem;
+  border: 1px solid var(--monthly-calendar-border);
+  border-radius: 8px;
+  background: var(--monthly-calendar-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monthly-calendar__cell:hover {
+  border-color: #93c5fd;
+}
+
+.monthly-calendar__cell--saturday {
+  background: var(--monthly-calendar-saturday-bg);
+}
+
+.monthly-calendar__cell--sunday {
+  background: var(--monthly-calendar-sunday-bg);
+}
+
+.monthly-calendar__cell--holiday {
+  background: var(--monthly-calendar-holiday-bg);
+}
+
+.monthly-calendar__cell--outside {
+  opacity: var(--monthly-calendar-outside-opacity);
+}
+
+.monthly-calendar__cell--today {
+  box-shadow: inset 0 0 0 2px var(--monthly-calendar-today-ring);
+}
+
+.monthly-calendar__cell--selected {
+  box-shadow: inset 0 0 0 2px var(--monthly-calendar-selected-ring);
+}
+
+.monthly-calendar__date {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.monthly-calendar__holiday {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #b91c1c;
+  line-height: 1.3;
+}
+
+.monthly-calendar__events {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+}
+
+.monthly-calendar__event {
+  font-size: 0.7rem;
+  line-height: 1.3;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monthly-calendar__event-more {
+  font-size: 0.7rem;
+  color: #4b5563;
+}
+
+@media (max-width: 720px) {
+  .monthly-calendar {
+    --monthly-calendar-cell-min-height: 4.25rem;
+    --monthly-calendar-padding: 0.85rem;
+    --monthly-calendar-gap: 0.25rem;
+  }
+
+  .monthly-calendar__title {
+    font-size: 1.2rem;
+  }
+}

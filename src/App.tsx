@@ -1,28 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { Calendar } from '@/components/Calendar';
+import { MonthlyCalendar, loadHolidays } from '@/calendar';
 import { EventList } from '@/components/EventList';
 import { Button } from '@/components/ui/button';
-import { Event, Holiday } from '@/types';
-import { loadEvents, loadHolidays } from '@/utils/dataLoader';
+import { Event } from '@/types';
+import { loadEvents } from '@/utils/dataLoader';
 import './App.css';
+
+const holidays = loadHolidays();
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
-  const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      const [loadedEvents, loadedHolidays] = await Promise.all([
-        loadEvents(),
-        loadHolidays(),
-      ]);
+      const loadedEvents = await loadEvents();
       setEvents(loadedEvents);
-      setHolidays(loadedHolidays);
       setLoading(false);
     };
 
@@ -47,66 +44,55 @@ function App() {
     setSelectedDate(today);
   };
 
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-  };
-
-  const clearSelection = () => {
-    setSelectedDate(null);
-  };
+  const monthLabel = useMemo(
+    () => `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`,
+    [currentDate]
+  );
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600">読み込み中...</p>
+      <div className="app-shell app-shell--loading">
+        <div className="app-loading">
+          <div className="app-loading__spinner" />
+          <p>読み込み中...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <CalendarIcon className="h-8 w-8 text-primary" />
-              <h1 className="text-3xl font-bold text-gray-900">
-                イベントカレンダー
-              </h1>
-            </div>
-            <div className="flex gap-2">
-              {selectedDate && (
-                <Button variant="outline" onClick={clearSelection}>
-                  選択をクリア
-                </Button>
-              )}
-              <Button onClick={handleToday}>今日</Button>
-            </div>
+    <div className="app-shell">
+      <div className="app-shell__inner">
+        <header className="app-header">
+          <div className="app-header__title">
+            <CalendarIcon className="h-8 w-8 text-primary" />
+            <h1>イベントカレンダー</h1>
+          </div>
+          <div className="app-header__actions">
+            {selectedDate && (
+              <Button variant="outline" onClick={() => setSelectedDate(null)}>
+                選択をクリア
+              </Button>
+            )}
+            <Button onClick={handleToday}>今日</Button>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Calendar
-              currentDate={currentDate}
-              events={events}
-              holidays={holidays}
-              onPrevMonth={handlePrevMonth}
-              onNextMonth={handleNextMonth}
-              onDateSelect={handleDateSelect}
-              selectedDate={selectedDate}
-            />
-          </div>
-          <div className="lg:col-span-1">
-            <EventList events={events} selectedDate={selectedDate} />
-          </div>
+        <div className="app-layout">
+          <MonthlyCalendar
+            currentDate={currentDate}
+            holidays={holidays}
+            events={events}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            onDateSelect={setSelectedDate}
+            selectedDate={selectedDate}
+          />
+          <EventList events={events} selectedDate={selectedDate} />
         </div>
 
-        <footer className="mt-8 text-center text-sm text-gray-600">
-          <p>日本の祝日に対応したイベントカレンダー</p>
+        <footer className="app-footer">
+          <p>日本の祝日に対応したイベントカレンダー（{monthLabel}）</p>
         </footer>
       </div>
     </div>
