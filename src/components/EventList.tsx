@@ -3,58 +3,45 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Event } from '@/types';
-import { formatDate } from '@/utils/dateUtils';
 
 interface EventListProps {
   events: Event[];
-  selectedDate: Date | null;
+  title: string;
+  emptyMessage?: string;
 }
 
-export function EventList({ events, selectedDate }: EventListProps) {
-  const filteredEvents = selectedDate
-    ? events.filter((event) => {
-        const dateStr = formatDate(selectedDate);
-        return dateStr >= event.startDate && dateStr <= event.endDate;
-      })
-    : events;
+function formatDateRange(startDate: string, endDate: string) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
 
-  const sortedEvents = [...filteredEvents].sort((a, b) =>
-    a.startDate.localeCompare(b.startDate)
-  );
+  if (startDate === endDate) {
+    return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日`;
+  }
 
-  const formatDateRange = (startDate: string, endDate: string) => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+  return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日 - ${end.getFullYear()}年${end.getMonth() + 1}月${end.getDate()}日`;
+}
 
-    if (startDate === endDate) {
-      return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日`;
-    }
-
-    return `${start.getFullYear()}年${start.getMonth() + 1}月${start.getDate()}日 - ${end.getFullYear()}年${end.getMonth() + 1}月${end.getDate()}日`;
-  };
-
+export function EventList({
+  events,
+  title,
+  emptyMessage = 'イベントがありません',
+}: EventListProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarIcon className="h-5 w-5" />
-          {selectedDate
-            ? `${selectedDate.getFullYear()}年${selectedDate.getMonth() + 1}月${selectedDate.getDate()}日のイベント`
-            : 'すべてのイベント'}
+          {title}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {sortedEvents.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">
-            {selectedDate
-              ? 'この日にイベントはありません'
-              : 'イベントがありません'}
-          </p>
+        {events.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">{emptyMessage}</p>
         ) : (
           <div className="space-y-4">
-            {sortedEvents.map((event, index) => (
+            {events.map((event, index) => (
               <div
-                key={index}
+                key={`${event.eventName}-${event.startDate}-${index}`}
                 className="border rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between gap-4">

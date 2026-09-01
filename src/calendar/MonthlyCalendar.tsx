@@ -1,5 +1,4 @@
 import type { Event } from '@/types';
-import { formatIsoDate } from './formatIsoDate';
 import { getCalendarGrid } from './getCalendarGrid';
 import type { Holiday } from './types';
 import './monthly-calendar.css';
@@ -10,10 +9,8 @@ interface MonthlyCalendarProps {
   currentDate: Date;
   holidays: Holiday[];
   events?: Event[];
-  selectedDate: Date | null;
   onPrevMonth: () => void;
   onNextMonth: () => void;
-  onDateSelect: (date: Date) => void;
 }
 
 function cellClassName(options: {
@@ -22,7 +19,6 @@ function cellClassName(options: {
   holidayName?: string;
   inCurrentMonth: boolean;
   isToday: boolean;
-  isSelected: boolean;
 }): string {
   const classes = ['monthly-calendar__cell'];
 
@@ -41,9 +37,6 @@ function cellClassName(options: {
   if (options.isToday) {
     classes.push('monthly-calendar__cell--today');
   }
-  if (options.isSelected) {
-    classes.push('monthly-calendar__cell--selected');
-  }
 
   return classes.join(' ');
 }
@@ -52,15 +45,12 @@ export function MonthlyCalendar({
   currentDate,
   holidays,
   events = [],
-  selectedDate,
   onPrevMonth,
   onNextMonth,
-  onDateSelect,
 }: MonthlyCalendarProps) {
   const year = currentDate.getFullYear();
   const monthIndex = currentDate.getMonth();
   const days = getCalendarGrid(year, monthIndex, holidays);
-  const selectedIso = selectedDate ? formatIsoDate(selectedDate) : null;
 
   const eventsByDate = (iso: string) =>
     events.filter((event) => iso >= event.startDate && iso <= event.endDate);
@@ -111,22 +101,17 @@ export function MonthlyCalendar({
       <div className="monthly-calendar__grid">
         {days.map((day) => {
           const dateEvents = eventsByDate(day.iso);
-          const isSelected = selectedIso === day.iso;
 
           return (
-            <button
+            <div
               key={day.iso}
-              type="button"
               className={cellClassName({
                 isSaturday: day.isSaturday,
                 isSunday: day.isSunday,
                 holidayName: day.holidayName,
                 inCurrentMonth: day.inCurrentMonth,
                 isToday: day.isToday,
-                isSelected,
               })}
-              onClick={() => onDateSelect(day.date)}
-              aria-pressed={isSelected}
               aria-current={day.isToday ? 'date' : undefined}
             >
               <span className="monthly-calendar__date">{day.date.getDate()}</span>
@@ -147,7 +132,7 @@ export function MonthlyCalendar({
                   ) : null}
                 </div>
               ) : null}
-            </button>
+            </div>
           );
         })}
       </div>
