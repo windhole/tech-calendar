@@ -28,24 +28,25 @@
 | 祝日 | YAML（`data/holidays.yaml`） |
 | イベント | 静的 JSONL（`public/events.jsonl`） |
 | 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
+| パッケージマネージャ | bun 1.4 |
 
 ## セットアップ
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
-開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。
+開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。見た目の確認もこの URL で行います。
 
 ### その他のスクリプト
 
 | コマンド | 説明 |
 |----------|------|
-| `npm run build` | 型チェック後にプロダクションビルド |
-| `npm run preview` | ビルド結果のプレビュー |
-| `npm run lint` | ESLint による静的解析 |
-| `npm run typecheck` | TypeScript の型チェック |
+| `bun run build` | 型チェック後にプロダクションビルド |
+| `bun run preview` | ビルド結果のプレビュー |
+| `bun run lint` | ESLint による静的解析 |
+| `bun run typecheck` | TypeScript の型チェック |
 
 ## 祝日（YAML）
 

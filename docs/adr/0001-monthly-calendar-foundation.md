@@ -12,7 +12,7 @@ Status: Accepted
 - 表示範囲は対象月を含む 6 週間（42 日）とし、週の始まりは月曜日とする。
 - 祝日は `data/holidays.yaml` に `date` と `name` のリストで置く。ビルド時に Vite の raw import と `js-yaml` で読み込む。
 - カレンダーの見た目は `src/calendar/monthly-calendar.css` に集約する。色や余白は CSS カスタムプロパティ、状態は BEM 風クラス（`--saturday` / `--sunday` / `--holiday`）で切り替える。
-- GitHub Pages には GitHub Actions で `npm run build` した `dist/` を載せる。Vite の `base` はリポジトリ名パス `/tech-calendar/` とする。
+- GitHub Pages には GitHub Actions でビルドした `dist/` を載せる。Vite の `base` はリポジトリ名パス `/tech-calendar/` とする。パッケージマネージャは bun（ADR-0002）。
 
 ## Consequences
 
