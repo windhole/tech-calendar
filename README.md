@@ -8,7 +8,7 @@
 
 ## 現状
 
-月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は YAML、見た目はカレンダー専用 CSS に切り出しています。イベント一覧は従来どおり静的 JSONL です。バックエンドや認証は未実装です。
+月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は年別 YAML、イベントは `public/events.yaml` です。見た目はカレンダー専用 CSS に切り出しています。バックエンドや認証は未実装です。
 
 ## 機能
 
@@ -27,7 +27,7 @@
 | UI | Tailwind CSS + shadcn/ui（Radix UI）＋ カレンダー専用 CSS |
 | アイコン | lucide-react |
 | 祝日 | 年別 YAML（`public/holidays/YYYY.yaml`） |
-| イベント | 静的 JSONL（`public/events.jsonl`） |
+| イベント | YAML（`public/events.yaml`） |
 | 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
 | パッケージマネージャ | bun 1.4 |
 
@@ -81,10 +81,14 @@ bun run dev
 
 ## イベントデータ
 
-`public/events.jsonl`（1行1オブジェクト）です。
+`public/events.yaml` に 1 件 1 要素で書きます。
 
-```json
-{"startDate":"2026-03-01","endDate":"2026-03-03","eventName":"テックカンファレンス2026","location":"パシフィコ横浜","url":"https://example.com/tech-conf"}
+```yaml
+- startDate: "2026-03-01"
+  endDate: "2026-03-03"
+  eventName: テックカンファレンス2026
+  location: パシフィコ横浜
+  url: https://example.com/tech-conf
 ```
 
 | フィールド | 型 | 説明 |
@@ -99,7 +103,7 @@ bun run dev
 
 ```
 public/
-  events.jsonl               # イベント
+  events.yaml                # イベント
   holidays/
     2026.yaml                # 祝日（年ごと）
 src/
