@@ -14,7 +14,7 @@
 
 - 月曜始まりの月間カレンダー（対象月を含む 6 週間）
 - 土曜日セルは薄い青、日曜日・祝日セルは薄い赤
-- 祝日を `data/holidays.yaml` で指定
+- 祝日を `public/holidays/YYYY.yaml` で年ごとに指定
 - 月送り・「今日」ボタン
 - カレンダー下には、表示中の 6 週間と重なるイベントだけを表示
 - `/events` で全イベントを確認（今日以降が上、スクロールで過去）
@@ -26,7 +26,7 @@
 | フレームワーク | Vite + React 18 + TypeScript |
 | UI | Tailwind CSS + shadcn/ui（Radix UI）＋ カレンダー専用 CSS |
 | アイコン | lucide-react |
-| 祝日 | YAML（`data/holidays.yaml`） |
+| 祝日 | 年別 YAML（`public/holidays/YYYY.yaml`） |
 | イベント | 静的 JSONL（`public/events.jsonl`） |
 | 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
 | パッケージマネージャ | bun 1.4 |
@@ -51,7 +51,7 @@ bun run dev
 
 ## 祝日（YAML）
 
-`data/holidays.yaml` に 1 件 1 要素で書きます。
+`public/holidays/YYYY.yaml` に年ごとのファイルを置きます。例: `public/holidays/2026.yaml`。
 
 ```yaml
 - date: "2026-08-11"
@@ -63,7 +63,7 @@ bun run dev
 | `date` | `string` | 日付（`YYYY-MM-DD`。引用符推奨） |
 | `name` | `string` | カレンダーに出す祝日名 |
 
-ビルド時に読み込むため、変更後は再ビルドが必要です。
+カレンダーが表示している 6 週間がまたぐ年のファイルだけを読みます。その年のファイルが無ければ、その年の祝日は出ません。イベントと同じく `public/` の静的ファイルなので、GitHub Pages に出すにはデプロイが必要です。
 
 ## 見た目のカスタマイズ
 
@@ -98,10 +98,10 @@ bun run dev
 ## ディレクトリ構成（概要）
 
 ```
-data/
-  holidays.yaml              # 祝日
 public/
   events.jsonl               # イベント
+  holidays/
+    2026.yaml                # 祝日（年ごと）
 src/
   App.tsx
   pages/
