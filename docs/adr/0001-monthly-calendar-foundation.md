@@ -10,13 +10,12 @@ Status: Accepted
 ## Decision
 
 - 表示範囲は対象月を含む 6 週間（42 日）とし、週の始まりは月曜日とする。
-- 祝日は `data/holidays.yaml` に `date` と `name` のリストで置く。ビルド時に Vite の raw import と `js-yaml` で読み込む。
+- 祝日は年別 YAML を `public/holidays/` に置き、実行時に読む（ADR-0004）。
 - カレンダーの見た目は `src/calendar/monthly-calendar.css` に集約する。色や余白は CSS カスタムプロパティ、状態は BEM 風クラス（`--saturday` / `--sunday` / `--holiday`）で切り替える。
 - GitHub Pages には GitHub Actions でビルドした `dist/` を載せる。Vite の `base` はリポジトリ名パス `/tech-calendar/` とする。パッケージマネージャは bun（ADR-0002）。
 
 ## Consequences
 
-- 祝日の追加・修正は YAML を編集してビルドし直せば反映される。実行時 fetch は不要。
 - セル色の調整は CSS 変数の変更で足りる。コンポーネント側は日付と状態クラスだけを付ける。
 - Pages の URL は `https://windhole.github.io/tech-calendar/` になる。ローカル開発も同じ base パス配下で動かす。
 - YAML の日付は js-yaml が Date にパースすることがあるため、ローダ側で `YYYY-MM-DD` に正規化する。

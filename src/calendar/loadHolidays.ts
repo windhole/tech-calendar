@@ -1,6 +1,7 @@
 import { load } from 'js-yaml';
-import holidaysYaml from '../../data/holidays.yaml?raw';
 import type { Holiday } from './types';
+
+const holidayCache = new Map<number, Holiday[]>();
 
 function toIsoDate(value: unknown): string | null {
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
@@ -21,11 +22,11 @@ function isHolidayRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function loadHolidays(): Holiday[] {
-  const parsed = load(holidaysYaml);
+function parseHolidayYaml(text: string): Holiday[] {
+  const parsed = load(text);
 
   if (!Array.isArray(parsed)) {
-    console.error('holidays.yaml はリストである必要があります');
+    console.error('祝日 YAML はリストである必要があります');
     return [];
   }
 
@@ -45,4 +46,47 @@ export function loadHolidays(): Holiday[] {
   }
 
   return holidays;
+}
+
+export function yearsCoveredByRange(startIso: string, endIso: string): number[] {
+  const startYear = Number(startIso.slice(0, 4));
+  const endYear = Number(endIso.slice(0, 4));
+  const years: number[] = [];
+
+  for (let year = startYear; year <= endYear; year += 1) {
+    years.push(year);
+  }
+
+  return years;
+}
+
+export async function loadHolidaysForYear(year: number): Promise<Holiday[]> {
+  const cached = holidayCache.get(year);
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}holidays/${year}.yaml`
+    );
+    if (!response.ok) {
+      holidayCache.set(year, []);
+      return [];
+    }
+
+    const holidays = parseHolidayYaml(await response.text());
+    holidayCache.set(year, holidays);
+    return holidays;
+  } catch (error) {
+    console.error(`Failed to load holidays for ${year}:`, error);
+    holidayCache.set(year, []);
+    return [];
+  }
+}
+
+export async function loadHolidaysForYears(years: number[]): Promise<Holiday[]> {
+  const uniqueYears = [...new Set(years)];
+  const lists = await Promise.all(uniqueYears.map(loadHolidaysForYear));
+  return lists.flat();
 }

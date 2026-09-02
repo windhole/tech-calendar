@@ -1,12 +1,16 @@
-import { useMemo, useState } from 'react';
-import { MonthlyCalendar, getCalendarRange, loadHolidays } from '@/calendar';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  MonthlyCalendar,
+  getCalendarRange,
+  loadHolidaysForYears,
+  yearsCoveredByRange,
+  type Holiday,
+} from '@/calendar';
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { Button } from '@/components/ui/button';
 import { eventOverlapsRange } from '@/events/range';
 import type { Event } from '@/types';
-
-const holidays = loadHolidays();
 
 function formatRangeLabel(start: string, end: string): string {
   const toLabel = (iso: string) => {
@@ -22,6 +26,7 @@ interface CalendarPageProps {
 
 export function CalendarPage({ events }: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [holidays, setHolidays] = useState<Holiday[]>([]);
 
   const handlePrevMonth = () => {
     setCurrentDate(
@@ -47,6 +52,21 @@ export function CalendarPage({ events }: CalendarPageProps) {
         .sort((a, b) => a.startDate.localeCompare(b.startDate)),
     [events, range]
   );
+
+  useEffect(() => {
+    const years = yearsCoveredByRange(range.start, range.end);
+    let cancelled = false;
+
+    loadHolidaysForYears(years).then((loaded) => {
+      if (!cancelled) {
+        setHolidays(loaded);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [range]);
 
   const monthLabel = `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`;
 
