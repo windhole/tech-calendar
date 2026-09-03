@@ -1,4 +1,11 @@
+import { useState } from 'react';
 import type { Event } from '@/types';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { EventDetailDialog } from './EventDetailDialog';
 import { getCalendarGrid } from './getCalendarGrid';
 import type { Holiday } from './types';
 import './monthly-calendar.css';
@@ -48,6 +55,7 @@ export function MonthlyCalendar({
   onPrevMonth,
   onNextMonth,
 }: MonthlyCalendarProps) {
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const year = currentDate.getFullYear();
   const monthIndex = currentDate.getMonth();
   const days = getCalendarGrid(year, monthIndex, holidays);
@@ -120,10 +128,28 @@ export function MonthlyCalendar({
               ) : null}
               {dateEvents.length > 0 ? (
                 <div className="monthly-calendar__events">
-                  {dateEvents.slice(0, 2).map((event) => (
-                    <div key={event.eventName} className="monthly-calendar__event">
-                      {event.eventName}
-                    </div>
+                  {dateEvents.slice(0, 2).map((event, index) => (
+                    <Tooltip
+                      key={`${day.iso}-${event.startDate}-${event.eventName}-${index}`}
+                      delayDuration={250}
+                      open={selectedEvent ? false : undefined}
+                    >
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          className="monthly-calendar__event"
+                          onClick={() => setSelectedEvent(event)}
+                        >
+                          {event.eventName}
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="top"
+                        className="max-w-xs whitespace-normal break-words text-left"
+                      >
+                        {event.eventName}
+                      </TooltipContent>
+                    </Tooltip>
                   ))}
                   {dateEvents.length > 2 ? (
                     <div className="monthly-calendar__event-more">
@@ -136,6 +162,14 @@ export function MonthlyCalendar({
           );
         })}
       </div>
+      <EventDetailDialog
+        event={selectedEvent}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedEvent(null);
+          }
+        }}
+      />
     </section>
   );
 }
