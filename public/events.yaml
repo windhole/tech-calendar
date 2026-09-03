@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026.csv
+# generated from techイベントデータ - 2026 (1).csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -53,6 +53,11 @@
   eventName: "オープンセミナー2026@岡山"
   location: 岡山（岡山）
   url: https://okayama.open-seminar.org/
+- startDate: "2026-09-12"
+  endDate: "2026-09-12"
+  eventName: Helpfeel Tech Conf 2026
+  location: 東京（竹芝）
+  url: https://techconf2026.helpfeel.com/
 - startDate: "2026-09-13"
   endDate: "2026-09-13"
   eventName: 第十四回 技術書同人誌博覧会
