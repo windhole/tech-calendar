@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   MonthlyCalendar,
+  clearHolidayCache,
   getCalendarRange,
   loadHolidaysForYears,
   yearsCoveredByRange,
@@ -22,9 +23,10 @@ function formatRangeLabel(start: string, end: string): string {
 
 interface CalendarPageProps {
   events: Event[];
+  onReloadEvents: () => void | Promise<void>;
 }
 
-export function CalendarPage({ events }: CalendarPageProps) {
+export function CalendarPage({ events, onReloadEvents }: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [holidays, setHolidays] = useState<Holiday[]>([]);
 
@@ -68,13 +70,27 @@ export function CalendarPage({ events }: CalendarPageProps) {
     };
   }, [range]);
 
+  const handleToday = () => {
+    const today = new Date();
+    const todayRange = getCalendarRange(today.getFullYear(), today.getMonth());
+    const years = yearsCoveredByRange(todayRange.start, todayRange.end);
+
+    void (async () => {
+      clearHolidayCache();
+      const loaded = await loadHolidaysForYears(years, { bypassCache: true });
+      setHolidays(loaded);
+      setCurrentDate(today);
+      await onReloadEvents();
+    })();
+  };
+
   const monthLabel = `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`;
 
   return (
     <div className="app-shell__inner">
       <AppHeader
         actions={
-          <Button onClick={() => setCurrentDate(new Date())}>今日</Button>
+          <Button onClick={handleToday}>今日</Button>
         }
       />
 

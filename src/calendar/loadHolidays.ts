@@ -1,5 +1,9 @@
 import { load } from 'js-yaml';
 import type { Holiday } from './types';
+import {
+  fetchPublicYaml,
+  type LoadYamlOptions,
+} from '@/utils/yamlFetch';
 
 const holidayCache = new Map<number, Holiday[]>();
 
@@ -60,16 +64,23 @@ export function yearsCoveredByRange(startIso: string, endIso: string): number[] 
   return years;
 }
 
-export async function loadHolidaysForYear(year: number): Promise<Holiday[]> {
-  const cached = holidayCache.get(year);
-  if (cached) {
-    return cached;
+export function clearHolidayCache(): void {
+  holidayCache.clear();
+}
+
+export async function loadHolidaysForYear(
+  year: number,
+  options: LoadYamlOptions = {}
+): Promise<Holiday[]> {
+  if (!options.bypassCache) {
+    const cached = holidayCache.get(year);
+    if (cached) {
+      return cached;
+    }
   }
 
   try {
-    const response = await fetch(
-      `${import.meta.env.BASE_URL}holidays/${year}.yaml`
-    );
+    const response = await fetchPublicYaml(`holidays/${year}.yaml`, options);
     if (!response.ok) {
       holidayCache.set(year, []);
       return [];
@@ -85,8 +96,13 @@ export async function loadHolidaysForYear(year: number): Promise<Holiday[]> {
   }
 }
 
-export async function loadHolidaysForYears(years: number[]): Promise<Holiday[]> {
+export async function loadHolidaysForYears(
+  years: number[],
+  options: LoadYamlOptions = {}
+): Promise<Holiday[]> {
   const uniqueYears = [...new Set(years)];
-  const lists = await Promise.all(uniqueYears.map(loadHolidaysForYear));
+  const lists = await Promise.all(
+    uniqueYears.map((year) => loadHolidaysForYear(year, options))
+  );
   return lists.flat();
 }

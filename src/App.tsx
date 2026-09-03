@@ -10,6 +10,11 @@ function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const reloadEvents = async () => {
+    const loadedEvents = await loadEvents({ bypassCache: true });
+    setEvents(loadedEvents);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -35,7 +40,7 @@ function App() {
   return (
     <div className="app-shell">
       <Routes>
-        <Route path="/" element={<CalendarPage events={events} />} />
+        <Route path="/" element={<CalendarPage events={events} onReloadEvents={reloadEvents} />} />
         <Route path="/events" element={<AllEventsPage events={events} />} />
       </Routes>
     </div>

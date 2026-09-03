@@ -1,5 +1,6 @@
 import { load } from 'js-yaml';
 import { Event } from '@/types';
+import { fetchPublicYaml, type LoadYamlOptions } from '@/utils/yamlFetch';
 
 function toIsoDate(value: unknown): string | null {
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
@@ -59,9 +60,11 @@ function parseEventsYaml(text: string): Event[] {
   return events;
 }
 
-export async function loadEvents(): Promise<Event[]> {
+export async function loadEvents(
+  options: LoadYamlOptions = {}
+): Promise<Event[]> {
   try {
-    const response = await fetch(`${import.meta.env.BASE_URL}events.yaml`);
+    const response = await fetchPublicYaml('events.yaml', options);
     if (!response.ok) {
       console.error('Failed to load events.yaml:', response.status);
       return [];
