@@ -11,6 +11,7 @@ import type { Holiday } from './types';
 import './monthly-calendar.css';
 
 const WEEKDAYS = ['月', '火', '水', '木', '金', '土', '日'] as const;
+const MAX_VISIBLE_EVENTS = 5;
 
 interface MonthlyCalendarProps {
   currentDate: Date;
@@ -128,7 +129,7 @@ export function MonthlyCalendar({
               ) : null}
               {dateEvents.length > 0 ? (
                 <div className="monthly-calendar__events">
-                  {dateEvents.slice(0, 2).map((event, index) => (
+                  {dateEvents.slice(0, MAX_VISIBLE_EVENTS).map((event, index) => (
                     <Tooltip
                       key={`${day.iso}-${event.startDate}-${event.eventName}-${index}`}
                       delayDuration={250}
@@ -151,9 +152,9 @@ export function MonthlyCalendar({
                       </TooltipContent>
                     </Tooltip>
                   ))}
-                  {dateEvents.length > 2 ? (
+                  {dateEvents.length > MAX_VISIBLE_EVENTS ? (
                     <div className="monthly-calendar__event-more">
-                      +{dateEvents.length - 2}件
+                      +{dateEvents.length - MAX_VISIBLE_EVENTS}件
                     </div>
                   ) : null}
                 </div>
