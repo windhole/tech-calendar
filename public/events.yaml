@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026 (2).csv
+# generated from techイベントデータ - 2026.csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -13,11 +13,26 @@
   eventName: アクセシビリティカンファレンスCHIBA2026
   location: 千葉（幕張）
   url: https://a11y-chiba.connpass.com/event/389386/
+- startDate: "2026-09-05"
+  endDate: "2026-09-06"
+  eventName: Maker Faire Tokyo 2026
+  location: 東京（有明）
+  url: https://makezine.jp/event/mft2026/about/
 - startDate: "2026-09-08"
   endDate: "2026-09-08"
   eventName: 時雨堂 雑談会 (2026-09)
   location: オンライン
   url: https://gist.github.com/voluntas/8ced7231586f1aef924a47bc4356f733
+- startDate: "2026-09-09"
+  endDate: "2026-09-09"
+  eventName: "Newbee Conference 2026: Beyond the Screen"
+  location: 東京（渋谷）
+  url: https://techplay.jp/event/995870
+- startDate: "2026-09-10"
+  endDate: "2026-09-11"
+  eventName: AGNTCon + MCPCon
+  location: 東京（渋谷）
+  url: https://events.linuxfoundation.org/agntcon-mcpcon-japan/
 - startDate: "2026-09-11"
   endDate: "2026-09-11"
   eventName: Go Conference 2026
@@ -58,6 +73,11 @@
   eventName: Scrum Fest Kanagawa 2026  -夏の陣-
   location: 神奈川（海老名）
   url: https://www.scrumfestkanagawa.org/
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: Platform Engineering Kaigi 2026
+  location: 東京（中野）
+  url: https://www.cnia.io/pek2026/
 - startDate: "2026-10-02"
   endDate: "2026-10-03"
   eventName: オープンソースカンファレンス2026 Online/Fall
@@ -78,6 +98,11 @@
   eventName: NT東京 2026
   location: 東京（千代田区）
   url: https://nt-tokyo.org/
+- startDate: "2026-10-10"
+  endDate: "2026-10-11"
+  eventName: 高専プロコン2026 香川大会（本選）
+  location: 香川（高松）
+  url: https://www.procon.gr.jp/
 - startDate: "2026-10-11"
   endDate: "2026-10-11"
   eventName: Hono Conference in Tokyo 2026
@@ -113,11 +138,21 @@
   eventName: "[JAWS-UG 青森] 勉強会"
   location: 青森（八戸）
   url: https://jaws-tohoku.connpass.com/event/388199/
+- startDate: "2026-10-17"
+  endDate: "2026-10-17"
+  eventName: OSINT.JP Conference 2026
+  location: 東京（両国）
+  url: https://osint.jp/2026
 - startDate: "2026-10-23"
   endDate: "2026-10-24"
   eventName: スクラム祭り2026
   location: 各地＋オンライン
   url: https://www.scrummatsuri.org/
+- startDate: "2026-10-24"
+  endDate: "2026-10-24"
+  eventName: Vue Fes Japan 2026
+  location: 東京（大手町）
+  url: https://vuefes.jp/2026/
 - startDate: "2026-10-26"
   endDate: "2026-10-26"
   eventName: MPLS Japan 2026
@@ -148,11 +183,21 @@
   eventName: DojoCon Japan 2026
   location: 岩手（盛岡）
   url: https://dojocon2026.coderdojo.jp/
+- startDate: "2026-11-01"
+  endDate: "2026-11-01"
+  eventName: TSKaigi Sendai 2026
+  location: 宮城（仙台）
+  url: https://sendai.tskaigi.org/
 - startDate: "2026-11-05"
   endDate: "2026-11-06"
   eventName: db tech showcase 2026
   location: 東京（大手町）
   url: https://www.db-tech-showcase.com/2026/
+- startDate: "2026-11-12"
+  endDate: "2026-11-13"
+  eventName: Agile Japan 2026
+  location: 東京（新宿）
+  url: https://2026.agilejapan.jp/
 - startDate: "2026-11-13"
   endDate: "2026-11-14"
   eventName: スクラムフェス札幌
@@ -183,11 +228,26 @@
   eventName: オープンソースカンファレンス2026 Yamaguchi
   location: 山口（宇部）
   url: https://ospn.connpass.com/event/398565/
+- startDate: "2026-11-22"
+  endDate: "2026-11-22"
+  eventName: JSConf JP 2026
+  location: 東京（神田）
+  url: https://jsconf.jp/2026/
 - startDate: "2026-11-23"
   endDate: "2026-11-23"
   eventName: 技術書典21 オフライン開催
   location: 東京（池袋）
   url: https://techbookfest.org/event/tbf21
+- startDate: "2026-11-25"
+  endDate: "2026-11-16"
+  eventName: 東北サイバーセキュリティシンポジウム2026
+  location: 宮城（仙台）
+  url: https://www.ipa.go.jp/security/seminar/sec-touhoku/index.html
+- startDate: "2026-11-26"
+  endDate: "2026-11-27"
+  eventName: アーキテクチャConference 2026
+  location: 東京（羽田）
+  url: https://architecture-con.findy-tools.io/2026
 - startDate: "2026-11-27"
   endDate: "2026-11-28"
   eventName: BTCONJP 2026
@@ -198,6 +258,11 @@
   eventName: YAPC::Tokyo 2026
   location: 東京（有明）
   url: https://yapcjapan.org/2026tokyo/
+- startDate: "2026-11-27"
+  endDate: "2026-11-27"
+  eventName: PostgreSQL Conference Japan 2026
+  location: 東京（八重洲）
+  url: https://www.postgresql.jp/jpug-pgcon2026
 - startDate: "2026-11-28"
   endDate: "2026-11-28"
   eventName: Backlog world 2026
