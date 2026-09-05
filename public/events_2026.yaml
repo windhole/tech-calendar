@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026 (3).csv
+# generated from techイベントデータ - 2026.csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -243,6 +243,11 @@
   eventName: PHPMatsuri Reboot in Hackone
   location: 神奈川（箱根）
   url: https://phpmatsuri.asumikam.com/
+- startDate: "2026-11-07"
+  endDate: "2026-11-07"
+  eventName: JAWS FESTA 2026 in AKITA
+  location: 秋田（秋田）
+  url: https://jawsfesta2026.jaws-ug.jp/
 - startDate: "2026-11-08"
   endDate: "2026-11-08"
   eventName: 変態ガジェットフリマ2026
@@ -253,6 +258,11 @@
   eventName: Agile Japan 2026
   location: 東京（新宿）
   url: https://2026.agilejapan.jp/
+- startDate: "2026-11-12"
+  endDate: "2026-11-13"
+  eventName: Open NetworkIng Conference Japan 2026
+  location: 長野（軽井沢）
+  url: https://www.onic.jp/
 - startDate: "2026-11-13"
   endDate: "2026-11-14"
   eventName: スクラムフェス札幌
@@ -268,6 +278,11 @@
   eventName: Kotlin Fest 2026
   location: 東京（品川）
   url: https://2026.kotlinfest.dev/
+- startDate: "2026-11-20"
+  endDate: "2026-11-21"
+  eventName: TechRAMEN 2026 Conference
+  location: 北海道（富良野）
+  url: https://techramenconf.net/2026/
 - startDate: "2026-11-21"
   endDate: "2026-11-21"
   eventName: オープンソースカンファレンス2026 Nagaoka
