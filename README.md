@@ -2,22 +2,26 @@
 
 日本の祝日に対応した techカレンダー Web アプリです。
 
-月表示のカレンダー上でイベント日・祝日を確認し、その下に表示期間のイベントを出します。全件は別ページで、今日以降を先頭に並べます。
+月表示のカレンダー上でイベント日・祝日を確認し、その下に表示期間のイベントを出します。全件はリスト表示で、今日以降を先頭に並べます。
 
 公開 URL: https://windhole.github.io/tech-calendar/
 
 ## 現状
 
-月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は年別 YAML、イベントは `public/events*.yaml` です。見た目はカレンダー専用 CSS に切り出しています。バックエンドや認証は未実装です。
+GitHub Pages で公開しています。祝日は年別 YAML、イベントは `public/events*.yaml` です。見た目はカレンダー専用 CSS に切り出しています。バックエンドや認証はありません。
 
 ## 機能
 
 - 月曜始まりの月間カレンダー（対象月を含む 6 週間）
 - 土曜日セルは薄い青、日曜日・祝日セルは薄い赤
 - 祝日を `public/holidays/YYYY.yaml` で年ごとに指定
-- 月送り・「今日」ボタン
+- 日付セルには最大 5 件までイベント名を出し、それ以上は `+N件`
+- イベント名にマウスを乗せると全文、クリックすると詳細ダイアログ（開催日・会場・「イベントサイトを開く」）
+- ヘッダ右上は、左から「今日」（カレンダー表示のみ）、「カレンダー表示」「リスト表示」
+- 「今日」は表示月を今日に戻し、イベントと祝日の YAML をキャッシュを避けて取り直す
+- タイトル下に、読んだ YAML の更新日時（複数あるときは最も新しい `Last-Modified`。キャプションは `events.yaml` または `events_2027.yaml ほか1件` など）
 - カレンダー下には、表示中の 6 週間と重なるイベントだけを表示
-- `/events` で全イベントを確認（今日以降が上、スクロールで過去）
+- リスト表示（`/events`）で全イベントを確認（今日以降が上、その下に過去）
 
 ## 技術スタック
 
@@ -27,9 +31,11 @@
 | UI | Tailwind CSS + shadcn/ui（Radix UI）＋ カレンダー専用 CSS |
 | アイコン | lucide-react |
 | 祝日 | 年別 YAML（`public/holidays/YYYY.yaml`） |
-| イベント | YAML（`public/events*.yaml`） |
+| イベント | YAML（`public/events*.yaml`。ビルド時にファイル名を列挙） |
 | 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
+| アクセス計測 | GoatCounter（本番のみ。`VITE_GOATCOUNTER_COUNT_URL`） |
 | パッケージマネージャ | bun 1.4 |
+| データ変換 | Ruby（`csv2yaml.rb` / `check_events.rb`。標準ライブラリのみ） |
 
 ## セットアップ
 
@@ -38,7 +44,7 @@ bun install
 bun run dev
 ```
 
-開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。全イベントは `http://localhost:5173/tech-calendar/events` です。
+開発サーバーは `http://localhost:5173/tech-calendar/` で開きます（GitHub Pages と同じ base パスです）。リスト表示は `http://localhost:5173/tech-calendar/events` です。
 
 ### その他のスクリプト
 
@@ -48,6 +54,8 @@ bun run dev
 | `bun run preview` | ビルド結果のプレビュー |
 | `bun run lint` | ESLint による静的解析 |
 | `bun run typecheck` | TypeScript の型チェック |
+| `make events` | `data/` の最新 CSV から YAML を生成（`csv2yaml.rb`） |
+| `make check-events` | 1 日 3 件以上重なる日付を表示（`check_events.rb`） |
 
 ## 祝日（YAML）
 
@@ -81,7 +89,7 @@ bun run dev
 
 ## イベントデータ
 
-`public/` 直下の、名前が `events` で始まる YAML（`events.yaml`、`events_2027.yaml` など）をすべて読みます。同じ開始日・同じイベント名があるときは、ファイルの更新時刻が新しいほうを使います。
+`public/` 直下の、名前が `events` で始まる YAML（`events.yaml`、`events_2027.yaml` など）をすべて読みます。GitHub Pages はディレクトリ一覧を返さないので、読むファイルはビルド時（開発サーバーでは起動時と、ファイル追加時の再読み込み）に列挙します。同じ開始日・同じイベント名があるときは、ファイルの更新時刻が新しいほうを使います。時刻が同じならファイル名の辞書順で後のほうです。
 
 1 件 1 要素で書きます。
 
@@ -100,6 +108,39 @@ bun run dev
 | `eventName` | `string` | イベント名 |
 | `location` | `string` | 会場 |
 | `url` | `string` | 詳細 URL |
+| `tag` | `string` | 任意。csv2yaml が CSV にあれば残すが、アプリはまだ使わない |
+
+公開するには `public/` に置いてデプロイします。ファイルを足したあとは再ビルド（または `bun run dev` の再読み込み）が必要です。中身だけ直したときは、開発中ならヘッダの「今日」で取り直せます。
+
+## CSV から YAML を作る
+
+元データはスプレッドシートから落とした CSV です。`data/` は git に入れていません。
+
+```bash
+make events
+# 開始日を変える例
+make events SINCE=2026-10-01
+# または
+ruby csv2yaml.rb 2026-10-01
+```
+
+- 入力は `data/*.csv` のうち更新時刻が最も新しい 1 ファイル。年はファイル名の 4 桁西暦から取る
+- `Public` が `TRUE` の行だけを出す。開始日の省略時は `2026-09-01` 以降
+- 日付は「9月5日(土)」と `YYYY/M/D`（ゼロ埋めなし可）を `YYYY-MM-DD` にする
+- 出力は `data/events_YYYYMMDD_NNN.yaml`（実行日とその日の 3 桁シリアル）。`public/` は上書きしない
+- `endDate` が `startDate` より前、またはイベント名が重複しているときは YAML を書かずに終了する
+
+確認したファイルを `public/events.yaml` や `public/events_2027.yaml` などへコピーして使います。
+
+## 1 日に重なる件数を見る
+
+```bash
+make check-events
+# 1 ファイルだけ見る例
+ruby check_events.rb data/events_20260905_001.yaml
+```
+
+開催期間が重なるイベントが 3 件以上の日付を表示します。引数なしでは `public/events*.yaml` をアプリと同じ規則で合成します。日付の逆転とイベント名の重複はここでは見ません（`make events` 側のエラーです）。
 
 ## アクセス計測（GoatCounter）
 
@@ -128,7 +169,7 @@ Settings → Environments の `github-pages` にも入れないでください�
 6. 次を入れて **Add variable** する
 
 | 欄 | 値 |
-|----|----|
+|----|-----|
 | Name | `VITE_GOATCOUNTER_COUNT_URL` |
 | Value | `https://YOURCODE.goatcounter.com/count` |
 
@@ -141,28 +182,38 @@ Name は一字一句これです。Value の前後に空白や `" "` は付け�
 - まだ PR が未マージなら、変数を入れてからマージする（`main` への push で Deploy GitHub Pages が走る）
 - すでに `main` に乗っているなら、**Actions** タブ → **Deploy GitHub Pages** → **Run workflow**（`main`）
 
-カレンダー（`/tech-calendar/`）と全イベント（`/tech-calendar/events`）は別パスとして数えます。比較メモは `docs/analytics-goatcounter-vs-cloudflare.md`、判断は `docs/adr/0009-goatcounter-analytics.md` です。
+カレンダー（`/tech-calendar/`）とリスト表示（`/tech-calendar/events`）は別パスとして数えます。比較メモは `docs/analytics-goatcounter-vs-cloudflare.md`、判断は `docs/adr/0009-goatcounter-analytics.md` です。
 
 ## ディレクトリ構成（概要）
 
 ```
+csv2yaml.rb                  # data/*.csv → data/events_YYYYMMDD_NNN.yaml
+check_events.rb              # 1日3件以上の日付を表示
+Makefile                     # make events / make check-events
+data/                        # CSV と変換結果（git 対象外）
 public/
   events.yaml                # イベント（events*.yaml をすべて読む）
   holidays/
     2026.yaml                # 祝日（年ごと）
 src/
   App.tsx
+  analytics/                 # GoatCounter（本番のみ）
   pages/
     CalendarPage.tsx         # 月間カレンダー
-    AllEventsPage.tsx        # 全イベント（今日以降が先頭）
+    AllEventsPage.tsx        # リスト表示（今日以降が先頭）
   calendar/
     MonthlyCalendar.tsx
+    EventDetailDialog.tsx
     monthly-calendar.css
     getCalendarGrid.ts
     loadHolidays.ts
   components/
+    AppHeader.tsx
     EventList.tsx
     ui/
+  utils/
+    dataLoader.ts            # events*.yaml の取得と合成
+    mergeEvents.ts
 ```
 
 ## ライセンス
