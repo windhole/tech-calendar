@@ -4,6 +4,7 @@
 # data/ の最新 CSV を public/events.yaml と同じ形式の YAML に変換する。
 # 使い方: リポジトリ直下で `ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
 # 開始日（省略時は 2026-09-01）以降に始まるイベントだけを出す。
+# 出力は data/events_YYYYMMDD_NNN.yaml（実行日とその日の 3 桁シリアル）。
 
 require 'csv'
 require 'date'
@@ -86,52 +87,69 @@ def public_true?(row)
   row['Public'].to_s.strip.casecmp('TRUE').zero?
 end
 
-csv_path = latest_csv
-year = year_from_filename(csv_path)
-since = parse_since(ARGV[0])
-events = []
+def date_stamp(now = Time.now)
+  now.strftime('%Y%m%d')
+end
 
-File.open(csv_path, 'r:BOM|UTF-8') do |file|
-  CSV.new(file, headers: true).each.with_index(2) do |row, line|
-    next unless public_true?(row)
+def next_output_path(dir, stamp)
+  pattern = /\Aevents_#{Regexp.escape(stamp)}_(\d{3})\.yaml\z/
+  serials = Dir.children(dir).filter_map do |name|
+    match = name.match(pattern)
+    match && match[1].to_i
+  end
+  serial = serials.max.to_i + 1
+  abort "その日のシリアルが 999 を超えます: events_#{stamp}_NNN.yaml" if serial > 999
 
-    event_name = row['eventName'].to_s.strip
-    next if event_name.empty?
+  File.join(dir, format('events_%s_%03d.yaml', stamp, serial))
+end
 
-    begin
-      start_date = parse_date(row['startDate'], year)
-      next if Date.strptime(start_date, '%Y-%m-%d') < since
+if $PROGRAM_NAME == __FILE__
+  csv_path = latest_csv
+  year = year_from_filename(csv_path)
+  since = parse_since(ARGV[0])
+  events = []
 
-      events << {
-        start_date: start_date,
-        end_date: parse_date(row['endDate'], year),
-        event_name: event_name,
-        location: row['location'].to_s.strip,
-        url: row['url'].to_s.strip,
-        tag: row['tag'].to_s.strip
-      }
-    rescue StandardError => e
-      abort "#{File.basename(csv_path)}:#{line}: #{e.message}"
+  File.open(csv_path, 'r:BOM|UTF-8') do |file|
+    CSV.new(file, headers: true).each.with_index(2) do |row, line|
+      next unless public_true?(row)
+
+      event_name = row['eventName'].to_s.strip
+      next if event_name.empty?
+
+      begin
+        start_date = parse_date(row['startDate'], year)
+        next if Date.strptime(start_date, '%Y-%m-%d') < since
+
+        events << {
+          start_date: start_date,
+          end_date: parse_date(row['endDate'], year),
+          event_name: event_name,
+          location: row['location'].to_s.strip,
+          url: row['url'].to_s.strip,
+          tag: row['tag'].to_s.strip
+        }
+      rescue StandardError => e
+        abort "#{File.basename(csv_path)}:#{line}: #{e.message}"
+      end
     end
   end
-end
 
-stamp = Time.now.strftime('%Y%m%d-%H%M')
-out_path = File.join(DATA_DIR, "events_#{stamp}.yaml")
+  out_path = next_output_path(DATA_DIR, date_stamp)
 
-File.open(out_path, 'w:UTF-8') do |io|
-  io.puts '# イベント一覧。date は YYYY-MM-DD（引用符推奨）。'
-  io.puts '#'
-  io.puts "# generated from #{File.basename(csv_path)}"
-  io.puts "# since #{since.strftime('%Y-%m-%d')}"
-  io.puts
+  File.open(out_path, 'w:UTF-8') do |io|
+    io.puts '# イベント一覧。date は YYYY-MM-DD（引用符推奨）。'
+    io.puts '#'
+    io.puts "# generated from #{File.basename(csv_path)}"
+    io.puts "# since #{since.strftime('%Y-%m-%d')}"
+    io.puts
 
-  events.each do |event|
-    emit_event(io, event)
+    events.each do |event|
+      emit_event(io, event)
+    end
   end
-end
 
-warn "入力: #{csv_path}"
-warn "開始日: #{since.strftime('%Y-%m-%d')} 以降"
-warn "件数: #{events.size}"
-warn "出力: #{out_path}"
+  warn "入力: #{csv_path}"
+  warn "開始日: #{since.strftime('%Y-%m-%d')} 以降"
+  warn "件数: #{events.size}"
+  warn "出力: #{out_path}"
+end
