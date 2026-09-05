@@ -3,7 +3,9 @@
 Date: 2026-09-05  
 対象サイト: GitHub Pages の [tech-calendar](https://windhole.github.io/tech-calendar/)
 
-この文書は、アクセス数を測るための候補として **GoatCounter** と **Cloudflare Web Analytics** を調べたメモです。導入の決定はまだしていません。
+**決定（2026-09-05）:** まずは GoatCounter。利用が増えたら Cloudflare Web Analytics を検討し、そのときは Cloudflare Pages への移行も一緒に見てよい。理由と実装方針は [ADR-0009](adr/0009-goatcounter-analytics.md)。
+
+この文書は、アクセス数を測るための候補として **GoatCounter** と **Cloudflare Web Analytics** を調べたメモです。
 
 名前について: よく似た **Cloudflare Access** は、社内アプリへのログイン制限用の製品です。計測ツールではありません。ここで扱うのは **Cloudflare Web Analytics**（旧称 Browser Insights）です。
 

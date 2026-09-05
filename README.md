@@ -99,6 +99,17 @@ bun run dev
 | `location` | `string` | 会場 |
 | `url` | `string` | 詳細 URL |
 
+## アクセス計測（GoatCounter）
+
+公開サイトの訪問は GoatCounter で数えます。localhost ではスクリプトを読みません。エンドポイントが未設定のビルドも何もしません。
+
+1. [GoatCounter](https://www.goatcounter.com/) でサイトを作る
+2. カウント URL を控える（例: `https://YOURCODE.goatcounter.com/count`）
+3. GitHub リポジトリの **Settings → Secrets and variables → Actions → Variables** に `VITE_GOATCOUNTER_COUNT_URL` をその URL で追加する
+4. Actions の Deploy GitHub Pages を再実行する（変数はビルド時に埋め込まれる）
+
+カレンダー（`/tech-calendar/`）と全イベント（`/tech-calendar/events`）は別パスとして数えます。比較メモは `docs/analytics-goatcounter-vs-cloudflare.md`、判断は `docs/adr/0009-goatcounter-analytics.md` です。
+
 ## ディレクトリ構成（概要）
 
 ```

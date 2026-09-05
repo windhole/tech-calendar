@@ -26,6 +26,8 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run typecheck
       - run: bun run build
+        env:
+          VITE_GOATCOUNTER_COUNT_URL: ${{ vars.VITE_GOATCOUNTER_COUNT_URL }}
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
