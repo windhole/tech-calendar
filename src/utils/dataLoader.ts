@@ -21,6 +21,21 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+export type LoadedEvents = {
+  events: Event[];
+  sourceModifiedAt: Date | null;
+};
+
+function modifiedAtFromResponse(response: Response): Date | null {
+  const raw = response.headers.get('Last-Modified');
+  if (!raw) {
+    return null;
+  }
+
+  const date = new Date(raw);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 function parseEventsYaml(text: string): Event[] {
   const parsed = load(text);
 
@@ -62,17 +77,20 @@ function parseEventsYaml(text: string): Event[] {
 
 export async function loadEvents(
   options: LoadYamlOptions = {}
-): Promise<Event[]> {
+): Promise<LoadedEvents> {
   try {
     const response = await fetchPublicYaml('events.yaml', options);
     if (!response.ok) {
       console.error('Failed to load events.yaml:', response.status);
-      return [];
+      return { events: [], sourceModifiedAt: null };
     }
 
-    return parseEventsYaml(await response.text());
+    return {
+      events: parseEventsYaml(await response.text()),
+      sourceModifiedAt: modifiedAtFromResponse(response),
+    };
   } catch (error) {
     console.error('Failed to load events:', error);
-    return [];
+    return { events: [], sourceModifiedAt: null };
   }
 }

@@ -9,7 +9,6 @@ import {
 } from '@/calendar';
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
-import { Button } from '@/components/ui/button';
 import { eventOverlapsRange } from '@/events/range';
 import type { Event } from '@/types';
 
@@ -23,10 +22,15 @@ function formatRangeLabel(start: string, end: string): string {
 
 interface CalendarPageProps {
   events: Event[];
+  eventsUpdatedAt: Date | null;
   onReloadEvents: () => void | Promise<void>;
 }
 
-export function CalendarPage({ events, onReloadEvents }: CalendarPageProps) {
+export function CalendarPage({
+  events,
+  eventsUpdatedAt,
+  onReloadEvents,
+}: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [holidays, setHolidays] = useState<Holiday[]>([]);
 
@@ -88,11 +92,7 @@ export function CalendarPage({ events, onReloadEvents }: CalendarPageProps) {
 
   return (
     <div className="app-shell__inner">
-      <AppHeader
-        actions={
-          <Button onClick={handleToday}>今日</Button>
-        }
-      />
+      <AppHeader eventsUpdatedAt={eventsUpdatedAt} onToday={handleToday} />
 
       <div className="app-layout">
         <MonthlyCalendar
@@ -110,7 +110,7 @@ export function CalendarPage({ events, onReloadEvents }: CalendarPageProps) {
       </div>
 
       <footer className="app-footer">
-        <p>日本の祝日に対応したイベントカレンダー（{monthLabel}）</p>
+        <p>日本の祝日に対応した techカレンダー（{monthLabel}）</p>
       </footer>
     </div>
   );

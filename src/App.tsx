@@ -8,18 +8,23 @@ import './App.css';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [eventsUpdatedAt, setEventsUpdatedAt] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const applyLoadedEvents = async (bypassCache = false) => {
+    const loaded = await loadEvents(bypassCache ? { bypassCache: true } : {});
+    setEvents(loaded.events);
+    setEventsUpdatedAt(loaded.sourceModifiedAt);
+  };
+
   const reloadEvents = async () => {
-    const loadedEvents = await loadEvents({ bypassCache: true });
-    setEvents(loadedEvents);
+    await applyLoadedEvents(true);
   };
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      const loadedEvents = await loadEvents();
-      setEvents(loadedEvents);
+      await applyLoadedEvents(false);
       setLoading(false);
     };
 
@@ -40,8 +45,20 @@ function App() {
   return (
     <div className="app-shell">
       <Routes>
-        <Route path="/" element={<CalendarPage events={events} onReloadEvents={reloadEvents} />} />
-        <Route path="/events" element={<AllEventsPage events={events} />} />
+        <Route
+          path="/"
+          element={
+            <CalendarPage
+              events={events}
+              eventsUpdatedAt={eventsUpdatedAt}
+              onReloadEvents={reloadEvents}
+            />
+          }
+        />
+        <Route
+          path="/events"
+          element={<AllEventsPage events={events} eventsUpdatedAt={eventsUpdatedAt} />}
+        />
       </Routes>
     </div>
   );
