@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# 使い方: リポジトリ直下で `ruby check_events.rb [path]` または `make check-events`
+# 使い方: リポジトリ直下で `ruby check_events.rb [path]` または `make check`
 # 省略時は public/events*.yaml をすべて読む（新しいファイルが同じ開始日・同じ名前を上書き）。
 # 件数は startDate〜endDate が重なる日で数える。
 # イベント名の重複と日付の逆転は csv2yaml.rb がエラーにする（ADR-0012）。
@@ -67,12 +67,8 @@ def print_crowded_days(days)
     return
   end
 
-  days.each do |day, group|
-    puts "- #{day.strftime('%Y-%m-%d')} (#{group.size}件)"
-    group.each do |event|
-      label = event[:name].empty? ? '(名前なし)' : event[:name]
-      puts "  - #{label}"
-    end
+  days.each do |day, _group|
+    puts "- #{day.strftime('%Y-%m-%d')}"
   end
 end
 
@@ -103,7 +99,7 @@ if $PROGRAM_NAME == __FILE__
   layers = paths.map { |path| load_events(path) }
   events = merge_event_layers(layers)
 
-  warn "対象: #{paths.join(', ')}"
+  warn "対象: #{paths.map { |path| File.basename(path) }.join(', ')}"
   warn "件数: #{events.size}"
   puts
   print_crowded_days(crowded_days(events))

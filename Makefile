@@ -1,4 +1,4 @@
-.PHONY: events check-events clean
+.PHONY: events check clean
 
 SINCE ?= 2026-09-01
 
@@ -11,7 +11,7 @@ events:
 # public/events*.yaml を合成して、1日3件以上の日付を表示する（check_events.rb）
 # イベント名の重複と日付の逆転は make events（csv2yaml.rb）がエラーにする
 # ファイルを変える例: ruby check_events.rb public/events_2026.yaml
-check-events:
+check:
 	ruby check_events.rb
 
 # data/ のうち csv2yaml が使わない CSV を削除する

@@ -63,7 +63,7 @@ bun run dev
 |----------|------|
 | `make events` | `data/` の年付き CSV から `public/events_YYYY.yaml` を生成する |
 | `make events SINCE=2026-10-01` | 開始日を変えて生成する（省略時は `2026-09-01`） |
-| `make check-events` | `public/events*.yaml` を合成し、1 日 3 件以上重なる日付を表示する |
+| `make check` | `public/events*.yaml` を合成し、1 日 3 件以上重なる日付を表示する |
 | `make clean` | `data/` のうち、変換に使わない CSV を削除する |
 
 手元の流れは次のとおりです。
@@ -71,7 +71,7 @@ bun run dev
 1. スプレッドシートから、ファイル名に西暦が入った CSV を `data/` に置く（`data/` は git 対象外。例: `events-2026.csv`、`events-2027.csv`）
 2. `make events` で `public/events_2026.yaml` などへ書き出す（同じ年の CSV が複数あれば更新が新しい 1 つだけ）
 3. git の差分を確認する
-4. `make check-events` で日付セルが込み合う日を見る
+4. `make check` で日付セルが込み合う日を見る
 5. `make clean` で、西暦のない CSV と、同じ年の古い CSV を `data/` から消す
 6. コミットしてデプロイする
 
@@ -153,7 +153,7 @@ ruby check_events.rb public/events_2026.yaml
 
 ## 1 日に重なる件数を見る
 
-実行は `make check-events` です。開催期間が重なるイベントが 3 件以上の日付を表示します。引数なしでは `public/events*.yaml` をアプリと同じ規則で合成します。日付の逆転とイベント名の重複はここでは見ません（`make events` 側のエラーです）。
+実行は `make check` です。開催期間が重なるイベントが 3 件以上の日付だけを表示します（イベント名は出しません）。引数なしでは `public/events*.yaml` をアプリと同じ規則で合成します。日付の逆転とイベント名の重複はここでは見ません（`make events` 側のエラーです）。
 
 ## アクセス計測（GoatCounter）
 
@@ -202,7 +202,7 @@ Name は一字一句これです。Value の前後に空白や `" "` は付け�
 ```
 csv2yaml.rb                  # data/ の年付き CSV → public/events_YYYY.yaml
 check_events.rb              # 1日3件以上の日付を表示
-Makefile                     # make events / make check-events / make clean
+Makefile                     # make events / make check / make clean
 data/                        # CSV（git 対象外）
 public/
   events.yaml                # 互換用。make events は events_YYYY.yaml を書く
