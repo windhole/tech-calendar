@@ -67,8 +67,8 @@ def print_crowded_days(days)
     return
   end
 
-  days.each do |day, _group|
-    puts "- #{day.strftime('%Y-%m-%d')}"
+  days.each do |day, group|
+    puts "- #{day.strftime('%Y-%m-%d')} (#{group.size}件)"
   end
 end
 
