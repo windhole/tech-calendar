@@ -13,7 +13,7 @@ Amends: [0005](0005-events-yaml.md)
 - `public/` 直下の、名前が `events` で始まり拡張子が `.yaml` のファイルをすべて読む（例: `events.yaml` と `events_2027.yaml`）。
 - ビルド／開発サーバー起動時にファイル名と更新時刻を列挙し、アプリはそれを fetch する。ファイルを足したら、反映には再ビルド（または dev の再読み込み）が要る。
 - 同じ `startDate` かつ同じ `eventName` があるときは、ファイルの更新時刻が新しいほうの内容を残す。時刻が同じならファイル名の辞書順で後のほう。
-- ヘッダの日時は、読めたファイルのうち最も新しい `Last-Modified`（無ければ列挙時の mtime）を出す。
+- ヘッダの日時は、読めたファイルのうち最も新しい `Last-Modified`（無ければ列挙時の mtime）を出す。表記は [ADR-0017](0017-header-last-updated.md)。
 
 ## Consequences
 

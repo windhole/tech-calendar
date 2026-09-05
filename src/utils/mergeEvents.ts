@@ -25,14 +25,3 @@ export function mergeEventLayers(layers: Event[][]): Event[] {
   }
   return [...byKey.values()];
 }
-
-export function eventSourceCaption(loadedNames: string[]): string {
-  if (loadedNames.length === 0) {
-    return 'イベントデータ';
-  }
-  if (loadedNames.length === 1) {
-    return loadedNames[0];
-  }
-  const newest = loadedNames[loadedNames.length - 1];
-  return `${newest} ほか${loadedNames.length - 1}件`;
-}

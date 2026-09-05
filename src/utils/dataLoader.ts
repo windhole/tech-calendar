@@ -2,7 +2,6 @@ import { load } from 'js-yaml';
 import { eventYamlSources } from 'virtual:event-yaml-sources';
 import { Event } from '@/types';
 import {
-  eventSourceCaption,
   mergeEventLayers,
   sortEventYamlSources,
 } from '@/utils/mergeEvents';
@@ -30,7 +29,6 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export type LoadedEvents = {
   events: Event[];
   sourceModifiedAt: Date | null;
-  sourceCaption: string;
 };
 
 function modifiedAtFromResponse(response: Response): Date | null {
@@ -99,7 +97,7 @@ export async function loadEvents(
 
   if (sources.length === 0) {
     console.error('public/ に events*.yaml がありません');
-    return { events: [], sourceModifiedAt: null, sourceCaption: 'イベントデータ' };
+    return { events: [], sourceModifiedAt: null };
   }
 
   try {
@@ -132,10 +130,9 @@ export async function loadEvents(
     return {
       events: mergeEventLayers(loaded.map((layer) => layer.events)),
       sourceModifiedAt,
-      sourceCaption: eventSourceCaption(loaded.map((layer) => layer.name)),
     };
   } catch (error) {
     console.error('Failed to load events:', error);
-    return { events: [], sourceModifiedAt: null, sourceCaption: 'イベントデータ' };
+    return { events: [], sourceModifiedAt: null };
   }
 }

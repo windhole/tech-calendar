@@ -23,14 +23,12 @@ function formatRangeLabel(start: string, end: string): string {
 interface CalendarPageProps {
   events: Event[];
   eventsUpdatedAt: Date | null;
-  eventsSourceCaption: string;
   onReloadEvents: () => void | Promise<void>;
 }
 
 export function CalendarPage({
   events,
   eventsUpdatedAt,
-  eventsSourceCaption,
   onReloadEvents,
 }: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -96,7 +94,6 @@ export function CalendarPage({
     <div className="app-shell__inner">
       <AppHeader
         eventsUpdatedAt={eventsUpdatedAt}
-        eventsSourceCaption={eventsSourceCaption}
         onToday={handleToday}
       />
 

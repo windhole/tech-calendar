@@ -1,33 +1,20 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Calendar as CalendarIcon } from 'lucide-react';
-
-function formatYamlStamp(date: Date | null, sourceCaption: string): string {
-  if (!date) {
-    return `${sourceCaption}  更新日時不明`;
-  }
-
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${sourceCaption}  ${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
-}
+import { formatLastUpdated } from '@/utils/formatLastUpdated';
 
 interface AppHeaderProps {
   eventsUpdatedAt: Date | null;
-  eventsSourceCaption: string;
   onToday?: () => void;
 }
 
-export function AppHeader({
-  eventsUpdatedAt,
-  eventsSourceCaption,
-  onToday,
-}: AppHeaderProps) {
+export function AppHeader({ eventsUpdatedAt, onToday }: AppHeaderProps) {
   return (
     <header className="app-header">
       <Link to="/" className="app-header__title">
         <CalendarIcon className="h-8 w-8 text-primary" />
         <div className="app-header__title-text">
           <h1>techカレンダー</h1>
-          <p className="app-header__meta">{formatYamlStamp(eventsUpdatedAt, eventsSourceCaption)}</p>
+          <p className="app-header__meta">{formatLastUpdated(eventsUpdatedAt)}</p>
         </div>
       </Link>
       <div className="app-header__toolbar">
