@@ -103,10 +103,41 @@ bun run dev
 
 公開サイトの訪問は GoatCounter で数えます。localhost ではスクリプトを読みません。エンドポイントが未設定のビルドも何もしません。
 
-1. [GoatCounter](https://www.goatcounter.com/) でサイトを作る
-2. カウント URL を控える（例: `https://YOURCODE.goatcounter.com/count`）
-3. GitHub リポジトリの **Settings → Secrets and variables → Actions → Variables** に `VITE_GOATCOUNTER_COUNT_URL` をその URL で追加する
-4. Actions の Deploy GitHub Pages を再実行する（変数はビルド時に埋め込まれる）
+### 1. GoatCounter でカウント URL を用意する
+
+1. [GoatCounter](https://www.goatcounter.com/) でアカウントを作り、サイトを 1 つ作る（サブドメインが `YOURCODE` になる）
+2. サイト設定の埋め込み用 HTML に `data-goatcounter="https://YOURCODE.goatcounter.com/count"` と出る
+3. その **`https://YOURCODE.goatcounter.com/count` 全体** をコピーする（`/count` まで含める。引用符は付けない）
+
+### 2. GitHub に変数を入れる（Actions の Variables）
+
+ワークフローは GitHub Actions の **`vars`** から読むので、入れる場所は **Actions** です。同じ「Secrets and variables」の下にある **Agents** は Cursor などのエージェント用で、このデプロイには届きません。**Secrets** タブでもありません（秘密値ではなく、公開サイトの JS に埋め込まれる URL です）。
+
+Settings → Environments の `github-pages` にも入れないでください。変数を使うのは **build** ジョブで、こちらは environment を指定していません。
+
+手順:
+
+1. リポジトリ [windhole/tech-calendar](https://github.com/windhole/tech-calendar) を開く
+2. **Settings**（権限が必要。見えないときはリポジトリ名の右の `…` から）
+3. 左サイドバーの **Secrets and variables** を開き、その下の **Actions** をクリックする  
+   直接開くなら [この Variables のページ](https://github.com/windhole/tech-calendar/settings/variables/actions)
+4. 画面上部のタブで **Variables** を選ぶ（隣の **Secrets** ではない）
+5. **New repository variable** をクリックする
+6. 次を入れて **Add variable** する
+
+| 欄 | 値 |
+|----|----|
+| Name | `VITE_GOATCOUNTER_COUNT_URL` |
+| Value | `https://YOURCODE.goatcounter.com/count` |
+
+Name は一字一句これです。Value の前後に空白や `" "` は付けません。
+
+### 3. 本番ビルドをやり直す
+
+この変数は `bun run build` のときに JS へ埋め込まれます。変数を足しただけ、または PR をマージしただけでは、すでに公開中のサイトは変わりません。
+
+- まだ PR が未マージなら、変数を入れてからマージする（`main` への push で Deploy GitHub Pages が走る）
+- すでに `main` に乗っているなら、**Actions** タブ → **Deploy GitHub Pages** → **Run workflow**（`main`）
 
 カレンダー（`/tech-calendar/`）と全イベント（`/tech-calendar/events`）は別パスとして数えます。比較メモは `docs/analytics-goatcounter-vs-cloudflare.md`、判断は `docs/adr/0009-goatcounter-analytics.md` です。
 
