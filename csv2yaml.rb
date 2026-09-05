@@ -7,6 +7,7 @@
 # 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
 # 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
+# 使わない CSV の削除は `ruby csv2yaml.rb --clean` または `make clean`。
 
 require 'csv'
 require 'date'
@@ -34,39 +35,60 @@ def year_from_filename(path)
   match && match[1].to_i
 end
 
-def select_year_csvs(data_dir)
+def classify_year_csvs(data_dir)
   files = Dir.glob(File.join(data_dir, '*.csv'))
-  abort "#{data_dir} に CSV がありません" if files.empty?
-
+  unused = []
   by_year = Hash.new { |h, k| h[k] = [] }
-  skipped = []
 
   files.each do |path|
     year = year_from_filename(path)
     if year.nil?
-      skipped << path
+      unused << path
       next
     end
     by_year[year] << path
   end
 
-  abort "#{data_dir} に西暦（4桁）を含む CSV がありません" if by_year.empty?
-
-  skipped.each do |path|
-    warn "スキップ（ファイル名に西暦がない）: #{path}"
-  end
-
   selected = {}
   by_year.keys.sort.each do |year|
     paths = by_year[year].sort_by { |path| [File.mtime(path), path] }
-    chosen = paths.last
-    paths[0...-1].each do |path|
+    unused.concat(paths[0...-1])
+    selected[year] = paths.last
+  end
+
+  [selected, unused]
+end
+
+def select_year_csvs(data_dir)
+  files = Dir.glob(File.join(data_dir, '*.csv'))
+  abort "#{data_dir} に CSV がありません" if files.empty?
+
+  selected, unused = classify_year_csvs(data_dir)
+  abort "#{data_dir} に西暦（4桁）を含む CSV がありません" if selected.empty?
+
+  unused.sort.each do |path|
+    year = year_from_filename(path)
+    if year.nil?
+      warn "スキップ（ファイル名に西暦がない）: #{path}"
+    else
       warn "スキップ（#{year} のより新しい CSV がある）: #{path}"
     end
-    selected[year] = chosen
   end
 
   selected
+end
+
+def clean_unused_csvs!(data_dir)
+  _selected, unused = classify_year_csvs(data_dir)
+  if unused.empty?
+    warn '削除する CSV はありません'
+    return
+  end
+
+  unused.sort.each do |path|
+    File.delete(path)
+    warn "削除: #{path}"
+  end
 end
 
 def parse_date(raw, year)
@@ -235,9 +257,13 @@ def convert_all!(data_dir:, public_dir:, since:)
 end
 
 if $PROGRAM_NAME == __FILE__
-  convert_all!(
-    data_dir: DATA_DIR,
-    public_dir: PUBLIC_DIR,
-    since: parse_since(ARGV[0])
-  )
+  if ARGV[0] == '--clean'
+    clean_unused_csvs!(DATA_DIR)
+  else
+    convert_all!(
+      data_dir: DATA_DIR,
+      public_dir: PUBLIC_DIR,
+      since: parse_since(ARGV[0])
+    )
+  end
 end

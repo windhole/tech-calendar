@@ -1,4 +1,4 @@
-.PHONY: events check-events
+.PHONY: events check-events clean
 
 SINCE ?= 2026-09-01
 
@@ -13,3 +13,8 @@ events:
 # ファイルを変える例: ruby check_events.rb public/events_2026.yaml
 check-events:
 	ruby check_events.rb
+
+# data/ のうち csv2yaml が使わない CSV を削除する
+# （西暦なし、または同じ年のより古いファイル）
+clean:
+	ruby csv2yaml.rb --clean

@@ -23,4 +23,5 @@ ADR-0006 / ADR-0010 の変換は、`data/` の最新 CSV 1 つだけを読み、
 
 - `make events` のあとに `public/` へコピーする手順は不要になる。生成物は git の差分として確認できる。
 - ADR-0010 のシリアル付きファイルは出さない。手元の古い `data/events_YYYYMMDD_NNN.yaml` は使わない。
-- 年を足すには、西暦の入った CSV を `data/` に置けばよい。出力ファイルが増えるので、初回は dev の再読み込みまたは再ビルドが要る（ADR-0014）。
+- `make clean` は `make events` が使わない `data/*.csv` を削除する（ADR-0016）。
+
