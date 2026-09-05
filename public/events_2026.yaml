@@ -48,6 +48,16 @@
   eventName: Developers Summit 2026 FUKUOKA
   location: 福岡（福岡）
   url: https://event.shoeisha.jp/devsumi/20260911/
+- startDate: "2026-09-11"
+  endDate: "2026-09-11"
+  eventName: Cloud Operator Days Tokyo 2026
+  location: 東京（お台場）
+  url: https://cloudopsdays.com/
+- startDate: "2026-09-11"
+  endDate: "2026-09-11"
+  eventName: OSAKA WEB SUMMIT 2026
+  location: 大阪（梅田）
+  url: https://osaka-web-summit.org/
 - startDate: "2026-09-12"
   endDate: "2026-09-12"
   eventName: フロントエンドカンファレンス福岡 2026
@@ -73,6 +83,11 @@
   eventName: 第十四回 技術書同人誌博覧会
   location: 東京（蒲田）
   url: https://gishohaku.dev/
+- startDate: "2026-09-15"
+  endDate: "2026-09-15"
+  eventName: 第4回 GMO大会議秋 フィジカルAI 2026
+  location: 東京（渋谷）
+  url: https://gmo.connpass.com/event/404917/
 - startDate: "2026-09-19"
   endDate: "2026-09-19"
   eventName: 名古屋Ruby会議05
@@ -83,6 +98,16 @@
   eventName: "C# Kaigi 2026"
   location: 東京（お台場）
   url: https://csharpkaigi.net/
+- startDate: "2026-09-19"
+  endDate: "2026-09-19"
+  eventName: ServerlessDays Tokyo 2026（Day1）
+  location: 東京（新宿）
+  url: https://tokyo.serverlessdays.io/
+- startDate: "2026-09-20"
+  endDate: "2026-09-20"
+  eventName: ServerlessDays Tokyo 2026（Day2）
+  location: 東京（お台場）
+  url: https://tokyo.serverlessdays.io/
 - startDate: "2026-09-23"
   endDate: "2026-09-23"
   eventName: TOKYO KEYBOARD EXPO 2026
@@ -103,6 +128,11 @@
   eventName: オープンソースカンファレンス2026 Online/Fall
   location: オンライン
   url: https://event.ospn.jp/osc2026-online-fall/
+- startDate: "2026-10-02"
+  endDate: "2026-10-02"
+  eventName: Akamai AI Summit Japan
+  location: 東京（大手町）
+  url: https://web.cvent.com/event/74fb720b-7542-4e4c-94bb-ca5d426a817e/summary
 - startDate: "2026-10-03"
   endDate: "2026-10-03"
   eventName: PHPカンファレンス愛媛 2026
@@ -128,6 +158,11 @@
   eventName: Sakana AI Engineer Open House
   location: 東京（虎ノ門）
   url: https://connpass.com/event/405653/
+- startDate: "2026-10-08"
+  endDate: "2026-10-09"
+  eventName: "2026 Global LeSS Conference Japan / LeSS' Yoaké Asia 2026"
+  location: 東京（豊洲）
+  url: https://japan.less.works/ja/
 - startDate: "2026-10-10"
   endDate: "2026-10-11"
   eventName: 高専プロコン2026 香川大会（本選）
@@ -163,6 +198,21 @@
   eventName: Kaigi on Rails 2026
   location: 東京（渋谷）
   url: https://kaigionrails.org/2026/
+- startDate: "2026-10-16"
+  endDate: "2026-10-16"
+  eventName: JSTQB カンファレンス in 2026 Autumn
+  location: オンライン
+  url: https://jstqb.connpass.com/event/386944/
+- startDate: "2026-10-16"
+  endDate: "2026-10-16"
+  eventName: AIx開発組織Summit 2026
+  location: 東京（汐留）
+  url: https://ai-dev-org-summit.findy-tools.io/2026
+- startDate: "2026-10-16"
+  endDate: "2026-10-16"
+  eventName: GREE Tech Conference 2026
+  location: 東京（六本木）
+  url: https://techcon.gree.jp/2026
 - startDate: "2026-10-17"
   endDate: "2026-10-17"
   eventName: オープンソースカンファレンス2026 Tokyo/Fall
@@ -178,6 +228,16 @@
   eventName: OSINT.JP Conference 2026
   location: 東京（両国）
   url: https://osint.jp/2026
+- startDate: "2026-10-18"
+  endDate: "2026-10-18"
+  eventName: DevFest Kansai 2026
+  location: 大阪（梅田）
+  url: https://gdgkwansai.connpass.com/event/388434/
+- startDate: "2026-10-21"
+  endDate: "2026-10-21"
+  eventName: SAISON Technology Days 2026（会場開催）
+  location: 東京（有楽町）
+  url: https://www.saison-technology.com/days2026/
 - startDate: "2026-10-23"
   endDate: "2026-10-24"
   eventName: スクラム祭り2026
@@ -203,6 +263,16 @@
   eventName: KDDI SUMMIT 2026
   location: 東京（高輪ゲートウェイ）
   url: https://www.kddi.com/summit/
+- startDate: "2026-10-27"
+  endDate: "2026-10-29"
+  eventName: Qiita Conference 2026 Autumn
+  location: オンライン
+  url: https://qiita.com/conference
+- startDate: "2026-10-28"
+  endDate: "2026-10-28"
+  eventName: AI×Security Conference 2026
+  location: 東京（兜町）
+  url: https://ai-x-security-con.findy-tools.io/2026
 - startDate: "2026-10-29"
   endDate: "2026-10-30"
   eventName: TiDB User Day
@@ -218,6 +288,11 @@
   eventName: FlutterKaigi 2026
   location: 東京（浜松町）
   url: https://2026.flutterkaigi.jp/
+- startDate: "2026-10-29"
+  endDate: "2026-10-29"
+  eventName: "Red Hat Summit: Connect 2026 Tokyo"
+  location: 東京（赤坂）
+  url: https://www.redhat.com/ja/summit/connect/apac/tokyo-2026
 - startDate: "2026-10-31"
   endDate: "2026-10-31"
   eventName: KomeKaigi 2026
@@ -238,6 +313,11 @@
   eventName: db tech showcase 2026
   location: 東京（大手町）
   url: https://www.db-tech-showcase.com/2026/
+- startDate: "2026-11-06"
+  endDate: "2026-11-06"
+  eventName: TechLead Conference 2026 Autumn powered by connpass
+  location: 東京（有明）
+  url: https://techplay.jp/event/998812
 - startDate: "2026-11-07"
   endDate: "2026-11-08"
   eventName: PHPMatsuri Reboot in Hackone
@@ -263,11 +343,21 @@
   eventName: Open NetworkIng Conference Japan 2026
   location: 長野（軽井沢）
   url: https://www.onic.jp/
+- startDate: "2026-11-12"
+  endDate: "2026-11-12"
+  eventName: Tokyo Test Fest 2026
+  location: 東京（大崎）
+  url: https://fienta.com/tokyotestfest2026
 - startDate: "2026-11-13"
   endDate: "2026-11-14"
   eventName: スクラムフェス札幌
   location: 北海道（札幌）
   url: https://www.scrumfestsapporo.org/
+- startDate: "2026-11-13"
+  endDate: "2026-11-14"
+  eventName: 関西オープンフォーラム（KOF）2026
+  location: 大阪（南港）
+  url: https://www.k-of.jp/2026/
 - startDate: "2026-11-14"
   endDate: "2026-11-14"
   eventName: PHPカンファレンス新潟2026
@@ -278,6 +368,11 @@
   eventName: Kotlin Fest 2026
   location: 東京（品川）
   url: https://2026.kotlinfest.dev/
+- startDate: "2026-11-17"
+  endDate: "2026-11-18"
+  eventName: CODE BLUE 2026（カンファレンス）
+  location: 東京（高田馬場）
+  url: https://codeblue.jp/
 - startDate: "2026-11-20"
   endDate: "2026-11-21"
   eventName: TechRAMEN 2026 Conference
@@ -350,7 +445,7 @@
   url: https://www.postgresql.jp/jpug-pgcon2026
 - startDate: "2026-11-28"
   endDate: "2026-11-28"
-  eventName: Backlog world 2026
+  eventName: Backlog World 2026
   location: 神奈川（横浜）
   url: https://jbuginfo.backlog.com/backlogworld2026/
 - startDate: "2026-12-03"

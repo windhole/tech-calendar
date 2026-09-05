@@ -10,7 +10,7 @@ require 'date'
 require 'yaml'
 
 DEFAULT_DIR = File.expand_path('public', __dir__)
-MIN_EVENTS_PER_DAY = 3
+MIN_EVENTS_PER_DAY = 4
 
 def iso_date(value, field, event_name)
   text = value.is_a?(Date) ? value.strftime('%Y-%m-%d') : value.to_s.strip
