@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026 (1).csv
+# generated from techイベントデータ - 2026 (3).csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -23,6 +23,11 @@
   eventName: 時雨堂 雑談会 (2026-09)
   location: オンライン
   url: https://gist.github.com/voluntas/8ced7231586f1aef924a47bc4356f733
+- startDate: "2026-09-08"
+  endDate: "2026-09-08"
+  eventName: 生成AIカンファレンス2026
+  location: 東京（本郷）
+  url: https://gen-ai-conf.org/
 - startDate: "2026-09-09"
   endDate: "2026-09-09"
   eventName: "Newbee Conference 2026: Beyond the Screen"
@@ -38,6 +43,11 @@
   eventName: Go Conference 2026
   location: 東京（中野）
   url: https://gocon.jp/2026/
+- startDate: "2026-09-11"
+  endDate: "2026-09-11"
+  eventName: Developers Summit 2026 FUKUOKA
+  location: 福岡（福岡）
+  url: https://event.shoeisha.jp/devsumi/20260911/
 - startDate: "2026-09-12"
   endDate: "2026-09-12"
   eventName: フロントエンドカンファレンス福岡 2026
@@ -68,6 +78,11 @@
   eventName: 名古屋Ruby会議05
   location: 愛知（名古屋）
   url: https://regional.rubykaigi.org/nagoya05/
+- startDate: "2026-09-19"
+  endDate: "2026-09-19"
+  eventName: "C# Kaigi 2026"
+  location: 東京（お台場）
+  url: https://csharpkaigi.net/
 - startDate: "2026-09-23"
   endDate: "2026-09-23"
   eventName: TOKYO KEYBOARD EXPO 2026
@@ -103,11 +118,26 @@
   eventName: NT東京 2026
   location: 東京（千代田区）
   url: https://nt-tokyo.org/
+- startDate: "2026-10-03"
+  endDate: "2026-10-03"
+  eventName: Japan Azure User Group 16周年イベント
+  location: 東京（品川）
+  url: https://jazug.connpass.com/event/404770/
+- startDate: "2026-10-05"
+  endDate: "2026-10-05"
+  eventName: Sakana AI Engineer Open House
+  location: 東京（虎ノ門）
+  url: https://connpass.com/event/405653/
 - startDate: "2026-10-10"
   endDate: "2026-10-11"
   eventName: 高専プロコン2026 香川大会（本選）
   location: 香川（高松）
   url: https://www.procon.gr.jp/
+- startDate: "2026-10-10"
+  endDate: "2026-10-11"
+  eventName: Designship 2026
+  location: 東京（六本木）
+  url: https://design-ship.jp/2026/
 - startDate: "2026-10-11"
   endDate: "2026-10-11"
   eventName: Hono Conference in Tokyo 2026
@@ -153,6 +183,11 @@
   eventName: スクラム祭り2026
   location: 各地＋オンライン
   url: https://www.scrummatsuri.org/
+- startDate: "2026-10-23"
+  endDate: "2026-10-23"
+  eventName: pmconf 2026
+  location: 福岡（福岡）
+  url: https://2026.pmconf.jp/
 - startDate: "2026-10-24"
   endDate: "2026-10-24"
   eventName: Vue Fes Japan 2026
@@ -178,6 +213,11 @@
   eventName: Search Engineering Tech Talk 2026 Autumn
   location: 東京（三田）
   url: https://search-tech.connpass.com/event/404880/
+- startDate: "2026-10-29"
+  endDate: "2026-10-30"
+  eventName: FlutterKaigi 2026
+  location: 東京（浜松町）
+  url: https://2026.flutterkaigi.jp/
 - startDate: "2026-10-31"
   endDate: "2026-10-31"
   eventName: KomeKaigi 2026
@@ -198,6 +238,16 @@
   eventName: db tech showcase 2026
   location: 東京（大手町）
   url: https://www.db-tech-showcase.com/2026/
+- startDate: "2026-11-07"
+  endDate: "2026-11-08"
+  eventName: PHPMatsuri Reboot in Hackone
+  location: 神奈川（箱根）
+  url: https://phpmatsuri.asumikam.com/
+- startDate: "2026-11-08"
+  endDate: "2026-11-08"
+  eventName: 変態ガジェットフリマ2026
+  location: 東京（竹芝）
+  url: https://gadget2026.peatix.com/
 - startDate: "2026-11-12"
   endDate: "2026-11-13"
   eventName: Agile Japan 2026
@@ -213,6 +263,11 @@
   eventName: PHPカンファレンス新潟2026
   location: 新潟（新潟）
   url: https://x.com/phpcon_niigata/status/2010182191016517632
+- startDate: "2026-11-14"
+  endDate: "2026-11-14"
+  eventName: Kotlin Fest 2026
+  location: 東京（品川）
+  url: https://2026.kotlinfest.dev/
 - startDate: "2026-11-21"
   endDate: "2026-11-21"
   eventName: オープンソースカンファレンス2026 Nagaoka
@@ -228,6 +283,11 @@
   eventName: アクセシビリティカンファレンス福岡2026
   location: 福岡（福岡）
   url: https://fukuoka-a11yconf.connpass.com/event/404619/
+- startDate: "2026-11-21"
+  endDate: "2026-11-21"
+  eventName: "仙台RUby会議 #03"
+  location: 宮城（仙台）
+  url: https://regional.rubykaigi.org/sendai03/
 - startDate: "2026-11-22"
   endDate: "2026-11-22"
   eventName: オープンソースカンファレンス2026 Yamaguchi
@@ -244,10 +304,15 @@
   location: 東京（池袋）
   url: https://techbookfest.org/event/tbf21
 - startDate: "2026-11-25"
-  endDate: "2026-11-16"
+  endDate: "2026-11-26"
   eventName: 東北サイバーセキュリティシンポジウム2026
   location: 宮城（仙台）
   url: https://www.ipa.go.jp/security/seminar/sec-touhoku/index.html
+- startDate: "2026-11-25"
+  endDate: "2026-11-25"
+  eventName: Developers X Summit 2026
+  location: 東京（神田）
+  url: https://event.shoeisha.jp/devsumi/20261125
 - startDate: "2026-11-26"
   endDate: "2026-11-27"
   eventName: アーキテクチャConference 2026
@@ -288,3 +353,8 @@
   eventName: オープンソースカンファレンス2026 Fukuoka
   location: 福岡（福岡）
   url: https://event.ospn.jp/osc2026-fukuoka/
+- startDate: "2026-12-13"
+  endDate: "2026-12-13"
+  eventName: TechTAMA 2026 Conference
+  location: 東京（聖蹟桜ヶ丘）
+  url: https://tamadev.jp/events/20261213/

@@ -1,0 +1,25 @@
+# イベント一覧。date は YYYY-MM-DD（引用符推奨）。
+#
+# generated from techイベントデータ - 2027 (1).csv
+# since 2026-09-01
+
+- startDate: "2027-01-06"
+  endDate: "2027-01-08"
+  eventName: Regional Scrum Gathering Tokyo 2027
+  location: 東京（羽田）
+  url: https://2027.scrumgatheringtokyo.org/
+- startDate: "2027-01-08"
+  endDate: "2027-01-09"
+  eventName: BuriKaigi 2027
+  location: 富山（富山）
+  url: https://burikaigi.dev/
+- startDate: "2027-04-14"
+  endDate: "2027-04-16"
+  eventName: RubyKaigi 2027
+  location: 宮崎（宮崎）
+  url: https://rubykaigi.org/2027/
+- startDate: "2027-01-20"
+  endDate: "2027-01-22"
+  eventName: JANOG59 Meeting
+  location: 福井（福井）
+  url: https://www.janog.gr.jp/meeting/janog59/
