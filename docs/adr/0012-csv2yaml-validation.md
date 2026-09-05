@@ -10,7 +10,7 @@ CSV の終了日が開始日より前だと、変換後の YAML にそのまま�
 
 ## Decision
 
-- `csv2yaml.rb` は YAML を書く前に、次をエラーとして全部出して終了する。ファイルは作らない。
+- `csv2yaml.rb` は YAML を書く前に、次をエラーとして全部出して終了する。どれか 1 年でもエラーがあれば、どの `public/events_YYYY.yaml` も書かない。
   - `endDate` が `startDate` より前
   - 同じ `eventName` が 2 件以上（空の名前は対象外。空行は従来どおりスキップ）
 - 行番号と期間が分かるメッセージにする。最初の 1 件で止めず、該当をまとめて出す。
@@ -18,4 +18,4 @@ CSV の終了日が開始日より前だと、変換後の YAML にそのまま�
 ## Consequences
 
 - スプレッドシート側を直すまで `make events` は通らない。
-- すでに `public/events.yaml` にある不正は、再変換しない限り残る。
+- すでに `public/events_YYYY.yaml` にある不正は、再変換しない限り残る。

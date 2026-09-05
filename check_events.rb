@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# events.yaml で、1日3件以上の日付を表示する。
 # 使い方: リポジトリ直下で `ruby check_events.rb [path]` または `make check-events`
 # 省略時は public/events*.yaml をすべて読む（新しいファイルが同じ開始日・同じ名前を上書き）。
 # 件数は startDate〜endDate が重なる日で数える。

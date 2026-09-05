@@ -61,22 +61,22 @@ bun run dev
 
 | コマンド | 説明 |
 |----------|------|
-| `make events` | `data/` の最新 CSV から `data/events_YYYYMMDD_NNN.yaml` を生成する |
+| `make events` | `data/` の年付き CSV から `public/events_YYYY.yaml` を生成する |
 | `make events SINCE=2026-10-01` | 開始日を変えて生成する（省略時は `2026-09-01`） |
 | `make check-events` | `public/events*.yaml` を合成し、1 日 3 件以上重なる日付を表示する |
 
 手元の流れは次のとおりです。
 
-1. スプレッドシートから CSV を `data/` に置く（`data/` は git 対象外）
-2. `make events` で YAML を生成する
-3. 生成物を確認し、`public/events.yaml` や `public/events_2027.yaml` などへコピーする（`make events` は `public/` を上書きしない）
+1. スプレッドシートから、ファイル名に西暦が入った CSV を `data/` に置く（`data/` は git 対象外。例: `events-2026.csv`、`events-2027.csv`）
+2. `make events` で `public/events_2026.yaml` などへ書き出す（同じ年の CSV が複数あれば更新が新しい 1 つだけ）
+3. git の差分を確認する
 4. `make check-events` で日付セルが込み合う日を見る
 5. コミットしてデプロイする
 
-生成した 1 ファイルだけを見るときは、Makefile ではなく次です。
+1 ファイルだけを見るときは、Makefile ではなく次です。
 
 ```bash
-ruby check_events.rb data/events_20260905_001.yaml
+ruby check_events.rb public/events_2026.yaml
 ```
 
 変換ルールと入力チェックの詳細は下の「CSV から YAML を作る」を見てください。
@@ -140,11 +140,13 @@ ruby check_events.rb data/events_20260905_001.yaml
 
 元データはスプレッドシートから落とした CSV です。実行は `make events`（上の「Makefile の操作」）です。`ruby csv2yaml.rb 2026-10-01` でも同じです。
 
-- 入力は `data/*.csv` のうち更新時刻が最も新しい 1 ファイル。年はファイル名の 4 桁西暦から取る
+- 入力は `data/*.csv` のうち、ファイル名に独立した 4 桁西暦があるもの（例: `2026`、`2027`）
+- 同じ西暦の CSV が複数あるときは、更新時刻が新しい 1 ファイルだけを使う
 - `Public` が `TRUE` の行だけを出す。開始日の省略時は `2026-09-01` 以降
-- 日付は「9月5日(土)」と `YYYY/M/D`（ゼロ埋めなし可）を `YYYY-MM-DD` にする
-- 出力は `data/events_YYYYMMDD_NNN.yaml`（実行日とその日の 3 桁シリアル）。`public/` は上書きしない
-- `endDate` が `startDate` より前、またはイベント名が重複しているときは YAML を書かずに終了する
+- 日付は「9月5日(土)」と `YYYY/M/D`（ゼロ埋めなし可）を `YYYY-MM-DD` にする。年の無い日付はファイル名の西暦を使う
+- 出力は `public/events_YYYY.yaml`（2026 の CSV なら `events_2026.yaml`）。同じ年の既存ファイルは上書きする
+- `endDate` が `startDate` より前、または同じ CSV 内でイベント名が重複しているときは、どの年の YAML も書かずに終了する
+- `public/events.yaml`（年なし）は作らない。残っていると年別ファイルと二重に出ることがある
 
 ## 1 日に重なる件数を見る
 
@@ -195,12 +197,13 @@ Name は一字一句これです。Value の前後に空白や `" "` は付け�
 ## ディレクトリ構成（概要）
 
 ```
-csv2yaml.rb                  # data/*.csv → data/events_YYYYMMDD_NNN.yaml
+csv2yaml.rb                  # data/ の年付き CSV → public/events_YYYY.yaml
 check_events.rb              # 1日3件以上の日付を表示
 Makefile                     # make events / make check-events
-data/                        # CSV と変換結果（git 対象外）
+data/                        # CSV（git 対象外）
 public/
-  events.yaml                # イベント（events*.yaml をすべて読む）
+  events.yaml                # 互換用。make events は events_YYYY.yaml を書く
+  events_2026.yaml           # 年別イベント（csv2yaml の出力）
   holidays/
     2026.yaml                # 祝日（年ごと）
 src/

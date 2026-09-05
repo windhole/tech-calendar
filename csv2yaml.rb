@@ -1,18 +1,20 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# data/ の最新 CSV を public/events.yaml と同じ形式の YAML に変換する。
+# data/ の年付き CSV を public/events_YYYY.yaml に変換する。
 # 使い方: リポジトリ直下で `ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
 # 開始日（省略時は 2026-09-01）以降に始まるイベントだけを出す。
-# 出力は data/events_YYYYMMDD_NNN.yaml（実行日とその日の 3 桁シリアル）。
-# 公開するときは public/events.yaml や public/events_2027.yaml などへコピーする。
+# 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
+# 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
 
 require 'csv'
 require 'date'
 
 DATA_DIR = File.expand_path('data', __dir__)
+PUBLIC_DIR = File.expand_path('public', __dir__)
 DEFAULT_SINCE = '2026-09-01'
+LEGACY_EVENTS_YAML = 'events.yaml'
 
 def parse_since(raw)
   text = raw.to_s.strip
@@ -26,18 +28,45 @@ rescue ArgumentError
   abort "開始日が暦として不正です: #{raw.inspect}"
 end
 
-def latest_csv
-  files = Dir.glob(File.join(DATA_DIR, '*.csv'))
-  abort "data/ に CSV がありません" if files.empty?
-
-  files.max_by { |path| File.mtime(path) }
+# ファイル名に独立した 4 桁西暦があればそれを返す。長い数字の一部は年とみなさない。
+def year_from_filename(path)
+  match = File.basename(path).match(/(?<!\d)(\d{4})(?!\d)/)
+  match && match[1].to_i
 end
 
-def year_from_filename(path)
-  match = File.basename(path).match(/(\d{4})/)
-  abort "CSV ファイル名から西暦（4桁）を取れません: #{File.basename(path)}" unless match
+def select_year_csvs(data_dir)
+  files = Dir.glob(File.join(data_dir, '*.csv'))
+  abort "#{data_dir} に CSV がありません" if files.empty?
 
-  match[1].to_i
+  by_year = Hash.new { |h, k| h[k] = [] }
+  skipped = []
+
+  files.each do |path|
+    year = year_from_filename(path)
+    if year.nil?
+      skipped << path
+      next
+    end
+    by_year[year] << path
+  end
+
+  abort "#{data_dir} に西暦（4桁）を含む CSV がありません" if by_year.empty?
+
+  skipped.each do |path|
+    warn "スキップ（ファイル名に西暦がない）: #{path}"
+  end
+
+  selected = {}
+  by_year.keys.sort.each do |year|
+    paths = by_year[year].sort_by { |path| [File.mtime(path), path] }
+    chosen = paths.last
+    paths[0...-1].each do |path|
+      warn "スキップ（#{year} のより新しい CSV がある）: #{path}"
+    end
+    selected[year] = chosen
+  end
+
+  selected
 end
 
 def parse_date(raw, year)
@@ -89,22 +118,6 @@ def public_true?(row)
   row['Public'].to_s.strip.casecmp('TRUE').zero?
 end
 
-def date_stamp(now = Time.now)
-  now.strftime('%Y%m%d')
-end
-
-def next_output_path(dir, stamp)
-  pattern = /\Aevents_#{Regexp.escape(stamp)}_(\d{3})\.yaml\z/
-  serials = Dir.children(dir).filter_map do |name|
-    match = name.match(pattern)
-    match && match[1].to_i
-  end
-  serial = serials.max.to_i + 1
-  abort "その日のシリアルが 999 を超えます: events_#{stamp}_NNN.yaml" if serial > 999
-
-  File.join(dir, format('events_%s_%03d.yaml', stamp, serial))
-end
-
 def validation_errors(events)
   errors = []
 
@@ -129,26 +142,20 @@ def validation_errors(events)
   errors
 end
 
-def abort_if_invalid!(events, source)
-  errors = validation_errors(events)
-  return if errors.empty?
-
+def format_source_errors(errors, source)
   label = File.basename(source)
-  errors.each do |msg|
+  errors.map do |msg|
     if msg.match?(/\A\d+: /)
-      warn "#{label}:#{msg}"
+      "#{label}:#{msg}"
     else
-      warn "#{label}: #{msg}"
+      "#{label}: #{msg}"
     end
   end
-  abort "エラーが #{errors.size} 件あるため YAML を出力しません"
 end
 
-if $PROGRAM_NAME == __FILE__
-  csv_path = latest_csv
-  year = year_from_filename(csv_path)
-  since = parse_since(ARGV[0])
+def read_events(csv_path, year, since)
   events = []
+  errors = []
 
   File.open(csv_path, 'r:BOM|UTF-8') do |file|
     CSV.new(file, headers: true).each.with_index(2) do |row, line|
@@ -171,19 +178,20 @@ if $PROGRAM_NAME == __FILE__
           tag: row['tag'].to_s.strip
         }
       rescue StandardError => e
-        abort "#{File.basename(csv_path)}:#{line}: #{e.message}"
+        errors << "#{File.basename(csv_path)}:#{line}: #{e.message}"
       end
     end
   end
 
-  abort_if_invalid!(events, csv_path)
+  errors.concat(format_source_errors(validation_errors(events), csv_path))
+  [events, errors]
+end
 
-  out_path = next_output_path(DATA_DIR, date_stamp)
-
+def write_events_yaml(out_path, events, csv_basename, since)
   File.open(out_path, 'w:UTF-8') do |io|
     io.puts '# イベント一覧。date は YYYY-MM-DD（引用符推奨）。'
     io.puts '#'
-    io.puts "# generated from #{File.basename(csv_path)}"
+    io.puts "# generated from #{csv_basename}"
     io.puts "# since #{since.strftime('%Y-%m-%d')}"
     io.puts
 
@@ -191,9 +199,45 @@ if $PROGRAM_NAME == __FILE__
       emit_event(io, event)
     end
   end
+end
 
-  warn "入力: #{csv_path}"
-  warn "開始日: #{since.strftime('%Y-%m-%d')} 以降"
-  warn "件数: #{events.size}"
-  warn "出力: #{out_path}"
+def convert_all!(data_dir:, public_dir:, since:)
+  selected = select_year_csvs(data_dir)
+  prepared = []
+  errors = []
+
+  selected.each do |year, csv_path|
+    events, file_errors = read_events(csv_path, year, since)
+    errors.concat(file_errors)
+    prepared << [year, csv_path, events]
+  end
+
+  unless errors.empty?
+    errors.each { |msg| warn msg }
+    abort "エラーが #{errors.size} 件あるため YAML を出力しません"
+  end
+
+  Dir.mkdir(public_dir) unless File.directory?(public_dir)
+
+  prepared.each do |year, csv_path, events|
+    out_path = File.join(public_dir, format('events_%d.yaml', year))
+    write_events_yaml(out_path, events, File.basename(csv_path), since)
+    warn "入力: #{csv_path}"
+    warn "開始日: #{since.strftime('%Y-%m-%d')} 以降"
+    warn "件数: #{events.size}"
+    warn "出力: #{out_path}"
+  end
+
+  legacy = File.join(public_dir, LEGACY_EVENTS_YAML)
+  return unless File.file?(legacy)
+
+  warn "注意: #{legacy} が残っています。アプリは events*.yaml をすべて読むので、年別ファイルと内容が重なると二重に出ます。"
+end
+
+if $PROGRAM_NAME == __FILE__
+  convert_all!(
+    data_dir: DATA_DIR,
+    public_dir: PUBLIC_DIR,
+    since: parse_since(ARGV[0])
+  )
 end

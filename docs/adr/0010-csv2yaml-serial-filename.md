@@ -1,7 +1,7 @@
 # 0010. csv2yaml の出力名は日付と 3 桁シリアルにする
 
 Date: 2026-09-05
-Status: Accepted
+Status: Superseded by [0015](0015-csv2yaml-yearly-public.md)
 Amends: [0006](0006-csv2yaml.md)
 
 ## Context
