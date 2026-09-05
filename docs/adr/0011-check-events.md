@@ -9,7 +9,7 @@ Status: Accepted
 
 ## Decision
 
-- リポジトリ直下の `check_events.rb` が `public/events.yaml` を読む。パスは引数で変えられる。実行は `ruby check_events.rb` または `make check-events`。
+- リポジトリ直下の `check_events.rb` が `public/events*.yaml` をすべて読む（ADR-0014 と同じ合成）。パスを引数に渡せばその 1 ファイルだけ。実行は `ruby check_events.rb` または `make check-events`。
 - 開催期間（`startDate` から `endDate` まで）が重なるイベントが 3 件以上ある日付を一覧する。カレンダーのセルと同じ数え方。
 - 標準ライブラリの `yaml` / `date` だけを使う。ファイルが読めないときだけ非ゼロで終了する。密集は表示するだけで、終了コードは変えない。
 

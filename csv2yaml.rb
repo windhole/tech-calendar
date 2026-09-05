@@ -5,6 +5,7 @@
 # 使い方: リポジトリ直下で `ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
 # 開始日（省略時は 2026-09-01）以降に始まるイベントだけを出す。
 # 出力は data/events_YYYYMMDD_NNN.yaml（実行日とその日の 3 桁シリアル）。
+# 公開するときは public/events.yaml や public/events_2027.yaml などへコピーする。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
 
 require 'csv'

@@ -8,9 +8,14 @@ import type { Event } from '@/types';
 interface AllEventsPageProps {
   events: Event[];
   eventsUpdatedAt: Date | null;
+  eventsSourceCaption: string;
 }
 
-export function AllEventsPage({ events, eventsUpdatedAt }: AllEventsPageProps) {
+export function AllEventsPage({
+  events,
+  eventsUpdatedAt,
+  eventsSourceCaption,
+}: AllEventsPageProps) {
   const today = formatIsoDate(new Date());
 
   const { upcoming, past } = useMemo(() => {
@@ -25,7 +30,10 @@ export function AllEventsPage({ events, eventsUpdatedAt }: AllEventsPageProps) {
 
   return (
     <div className="app-shell__inner">
-      <AppHeader eventsUpdatedAt={eventsUpdatedAt} />
+      <AppHeader
+        eventsUpdatedAt={eventsUpdatedAt}
+        eventsSourceCaption={eventsSourceCaption}
+      />
 
       <div className="app-layout">
         <EventList

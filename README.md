@@ -8,7 +8,7 @@
 
 ## 現状
 
-月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は年別 YAML、イベントは `public/events.yaml` です。見た目はカレンダー専用 CSS に切り出しています。バックエンドや認証は未実装です。
+月間カレンダーを GitHub Pages 向けに作り直している段階です。祝日は年別 YAML、イベントは `public/events*.yaml` です。見た目はカレンダー専用 CSS に切り出しています。バックエンドや認証は未実装です。
 
 ## 機能
 
@@ -27,7 +27,7 @@
 | UI | Tailwind CSS + shadcn/ui（Radix UI）＋ カレンダー専用 CSS |
 | アイコン | lucide-react |
 | 祝日 | 年別 YAML（`public/holidays/YYYY.yaml`） |
-| イベント | YAML（`public/events.yaml`） |
+| イベント | YAML（`public/events*.yaml`） |
 | 公開 | GitHub Pages（Actions で `dist/` をデプロイ） |
 | パッケージマネージャ | bun 1.4 |
 
@@ -81,7 +81,9 @@ bun run dev
 
 ## イベントデータ
 
-`public/events.yaml` に 1 件 1 要素で書きます。
+`public/` 直下の、名前が `events` で始まる YAML（`events.yaml`、`events_2027.yaml` など）をすべて読みます。同じ開始日・同じイベント名があるときは、ファイルの更新時刻が新しいほうを使います。
+
+1 件 1 要素で書きます。
 
 ```yaml
 - startDate: "2026-03-01"
@@ -145,7 +147,7 @@ Name は一字一句これです。Value の前後に空白や `" "` は付け�
 
 ```
 public/
-  events.yaml                # イベント
+  events.yaml                # イベント（events*.yaml をすべて読む）
   holidays/
     2026.yaml                # 祝日（年ごと）
 src/

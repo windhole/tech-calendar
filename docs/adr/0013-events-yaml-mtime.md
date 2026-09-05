@@ -9,7 +9,7 @@ Status: Accepted
 
 ## Decision
 
-- 左上タイトルの下に、読み込んだ `events.yaml` の HTTP `Last-Modified` を小さく出す。
+- 左上タイトルの下に、読み込んだイベント YAML のうち最も新しい HTTP `Last-Modified` を小さく出す。ファイルが複数なら、新しいほうのファイル名と件数も出す（ADR-0014）。
 - 表示はブラウザのローカル時刻。ヘッダが無いときは「更新日時不明」。
 - 「今日」で YAML を取り直したら、そのときの `Last-Modified` に更新する。
 

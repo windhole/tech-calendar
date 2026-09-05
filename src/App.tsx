@@ -9,12 +9,14 @@ import './App.css';
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [eventsUpdatedAt, setEventsUpdatedAt] = useState<Date | null>(null);
+  const [eventsSourceCaption, setEventsSourceCaption] = useState('イベントデータ');
   const [loading, setLoading] = useState(true);
 
   const applyLoadedEvents = async (bypassCache = false) => {
     const loaded = await loadEvents(bypassCache ? { bypassCache: true } : {});
     setEvents(loaded.events);
     setEventsUpdatedAt(loaded.sourceModifiedAt);
+    setEventsSourceCaption(loaded.sourceCaption);
   };
 
   const reloadEvents = async () => {
@@ -51,13 +53,20 @@ function App() {
             <CalendarPage
               events={events}
               eventsUpdatedAt={eventsUpdatedAt}
+              eventsSourceCaption={eventsSourceCaption}
               onReloadEvents={reloadEvents}
             />
           }
         />
         <Route
           path="/events"
-          element={<AllEventsPage events={events} eventsUpdatedAt={eventsUpdatedAt} />}
+          element={
+            <AllEventsPage
+              events={events}
+              eventsUpdatedAt={eventsUpdatedAt}
+              eventsSourceCaption={eventsSourceCaption}
+            />
+          }
         />
       </Routes>
     </div>

@@ -3,13 +3,14 @@
 
 # events.yaml で、1日3件以上の日付を表示する。
 # 使い方: リポジトリ直下で `ruby check_events.rb [path]` または `make check-events`
-# 省略時は public/events.yaml。件数は startDate〜endDate が重なる日で数える。
+# 省略時は public/events*.yaml をすべて読む（新しいファイルが同じ開始日・同じ名前を上書き）。
+# 件数は startDate〜endDate が重なる日で数える。
 # イベント名の重複と日付の逆転は csv2yaml.rb がエラーにする（ADR-0012）。
 
 require 'date'
 require 'yaml'
 
-DEFAULT_PATH = File.expand_path('public/events.yaml', __dir__)
+DEFAULT_DIR = File.expand_path('public', __dir__)
 MIN_EVENTS_PER_DAY = 3
 
 def iso_date(value, field, event_name)
@@ -76,11 +77,34 @@ def print_crowded_days(days)
   end
 end
 
-if $PROGRAM_NAME == __FILE__
-  path = ARGV[0] ? File.expand_path(ARGV[0]) : DEFAULT_PATH
-  events = load_events(path)
+def default_event_yaml_paths
+  Dir.glob(File.join(DEFAULT_DIR, 'events*.yaml')).sort_by { |path| [File.mtime(path), path] }
+end
 
-  warn "対象: #{path}"
+def merge_event_layers(layers)
+  by_key = {}
+  layers.each do |events|
+    events.each do |event|
+      key = [event[:start_date].strftime('%Y-%m-%d'), event[:name]]
+      by_key[key] = event
+    end
+  end
+  by_key.values
+end
+
+if $PROGRAM_NAME == __FILE__
+  paths =
+    if ARGV[0]
+      [File.expand_path(ARGV[0])]
+    else
+      default_event_yaml_paths
+    end
+  abort 'public/ に events*.yaml がありません' if paths.empty?
+
+  layers = paths.map { |path| load_events(path) }
+  events = merge_event_layers(layers)
+
+  warn "対象: #{paths.join(', ')}"
   warn "件数: #{events.size}"
   puts
   print_crowded_days(crowded_days(events))

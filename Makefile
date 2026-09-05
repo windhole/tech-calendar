@@ -8,7 +8,7 @@ SINCE ?= 2026-09-01
 events:
 	ruby csv2yaml.rb $(SINCE)
 
-# public/events.yaml で、1日3件以上の日付を表示する（check_events.rb）
+# public/events*.yaml を合成して、1日3件以上の日付を表示する（check_events.rb）
 # イベント名の重複と日付の逆転は make events（csv2yaml.rb）がエラーにする
 # ファイルを変える例: ruby check_events.rb data/events_20260905_001.yaml
 check-events:
