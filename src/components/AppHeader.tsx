@@ -26,6 +26,13 @@ export function AppHeader({ eventsUpdatedAt, onToday }: AppHeaderProps) {
         </div>
       </Link>
       <div className="app-header__toolbar">
+        {onToday ? (
+          <div className="app-header__today">
+            <button type="button" className="app-today-button" onClick={onToday}>
+              今日
+            </button>
+          </div>
+        ) : null}
         <nav className="app-header__views" aria-label="表示切替">
           <NavLink
             to="/"
@@ -45,13 +52,6 @@ export function AppHeader({ eventsUpdatedAt, onToday }: AppHeaderProps) {
             リスト表示
           </NavLink>
         </nav>
-        {onToday ? (
-          <div className="app-header__today">
-            <button type="button" className="app-today-button" onClick={onToday}>
-              今日
-            </button>
-          </div>
-        ) : null}
       </div>
     </header>
   );
