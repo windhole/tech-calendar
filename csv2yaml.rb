@@ -5,6 +5,7 @@
 # 使い方: リポジトリ直下で `ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
 # 開始日（省略時は 2026-09-01）以降に始まるイベントだけを出す。
 # 出力は data/events_YYYYMMDD_NNN.yaml（実行日とその日の 3 桁シリアル）。
+# endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
 
 require 'csv'
 require 'date'
@@ -103,6 +104,45 @@ def next_output_path(dir, stamp)
   File.join(dir, format('events_%s_%03d.yaml', stamp, serial))
 end
 
+def validation_errors(events)
+  errors = []
+
+  events.each do |event|
+    start_date = Date.strptime(event[:start_date], '%Y-%m-%d')
+    end_date = Date.strptime(event[:end_date], '%Y-%m-%d')
+    next unless end_date < start_date
+
+    where = event[:line] ? "#{event[:line]}: " : ''
+    errors << "#{where}#{event[:event_name]}: endDate (#{event[:end_date]}) が startDate (#{event[:start_date]}) より前です"
+  end
+
+  events.group_by { |event| event[:event_name] }.sort_by { |name, _group| name }.each do |name, group|
+    next if name.to_s.empty? || group.size < 2
+
+    lines = group.filter_map { |event| event[:line] }
+    where = lines.empty? ? '' : "（行 #{lines.join(', ')}）"
+    ranges = group.map { |event| "#{event[:start_date]}〜#{event[:end_date]}" }.join(', ')
+    errors << "イベント名が重複しています: #{name} (#{group.size}件: #{ranges})#{where}"
+  end
+
+  errors
+end
+
+def abort_if_invalid!(events, source)
+  errors = validation_errors(events)
+  return if errors.empty?
+
+  label = File.basename(source)
+  errors.each do |msg|
+    if msg.match?(/\A\d+: /)
+      warn "#{label}:#{msg}"
+    else
+      warn "#{label}: #{msg}"
+    end
+  end
+  abort "エラーが #{errors.size} 件あるため YAML を出力しません"
+end
+
 if $PROGRAM_NAME == __FILE__
   csv_path = latest_csv
   year = year_from_filename(csv_path)
@@ -121,6 +161,7 @@ if $PROGRAM_NAME == __FILE__
         next if Date.strptime(start_date, '%Y-%m-%d') < since
 
         events << {
+          line: line,
           start_date: start_date,
           end_date: parse_date(row['endDate'], year),
           event_name: event_name,
@@ -133,6 +174,8 @@ if $PROGRAM_NAME == __FILE__
       end
     end
   end
+
+  abort_if_invalid!(events, csv_path)
 
   out_path = next_output_path(DATA_DIR, date_stamp)
 
