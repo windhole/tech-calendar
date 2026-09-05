@@ -58,7 +58,7 @@ export function EventDetailDialog({ event, onOpenChange }: EventDetailDialogProp
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2"
                 >
-                  詳細を開く
+                  イベントサイトを開く
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </Button>
