@@ -1,6 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 function formatYamlStamp(date: Date | null): string {
   if (!date) {
@@ -48,14 +47,9 @@ export function AppHeader({ eventsUpdatedAt, onToday }: AppHeaderProps) {
         </nav>
         {onToday ? (
           <div className="app-header__today">
-            <Button
-              type="button"
-              variant="outline"
-              className="app-today-button"
-              onClick={onToday}
-            >
+            <button type="button" className="app-today-button" onClick={onToday}>
               今日
-            </Button>
+            </button>
           </div>
         ) : null}
       </div>
