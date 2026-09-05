@@ -54,8 +54,32 @@ bun run dev
 | `bun run preview` | ビルド結果のプレビュー |
 | `bun run lint` | ESLint による静的解析 |
 | `bun run typecheck` | TypeScript の型チェック |
-| `make events` | `data/` の最新 CSV から YAML を生成（`csv2yaml.rb`） |
-| `make check-events` | 1 日 3 件以上重なる日付を表示（`check_events.rb`） |
+
+## Makefile の操作
+
+イベント CSV の変換と、公開用 YAML の点検は Makefile から実行します。Ruby はシステムのものを使います（bun の依存には入れていません）。
+
+| コマンド | 説明 |
+|----------|------|
+| `make events` | `data/` の最新 CSV から `data/events_YYYYMMDD_NNN.yaml` を生成する |
+| `make events SINCE=2026-10-01` | 開始日を変えて生成する（省略時は `2026-09-01`） |
+| `make check-events` | `public/events*.yaml` を合成し、1 日 3 件以上重なる日付を表示する |
+
+手元の流れは次のとおりです。
+
+1. スプレッドシートから CSV を `data/` に置く（`data/` は git 対象外）
+2. `make events` で YAML を生成する
+3. 生成物を確認し、`public/events.yaml` や `public/events_2027.yaml` などへコピーする（`make events` は `public/` を上書きしない）
+4. `make check-events` で日付セルが込み合う日を見る
+5. コミットしてデプロイする
+
+生成した 1 ファイルだけを見るときは、Makefile ではなく次です。
+
+```bash
+ruby check_events.rb data/events_20260905_001.yaml
+```
+
+変換ルールと入力チェックの詳細は下の「CSV から YAML を作る」を見てください。
 
 ## 祝日（YAML）
 
@@ -114,15 +138,7 @@ bun run dev
 
 ## CSV から YAML を作る
 
-元データはスプレッドシートから落とした CSV です。`data/` は git に入れていません。
-
-```bash
-make events
-# 開始日を変える例
-make events SINCE=2026-10-01
-# または
-ruby csv2yaml.rb 2026-10-01
-```
+元データはスプレッドシートから落とした CSV です。実行は `make events`（上の「Makefile の操作」）です。`ruby csv2yaml.rb 2026-10-01` でも同じです。
 
 - 入力は `data/*.csv` のうち更新時刻が最も新しい 1 ファイル。年はファイル名の 4 桁西暦から取る
 - `Public` が `TRUE` の行だけを出す。開始日の省略時は `2026-09-01` 以降
@@ -130,17 +146,9 @@ ruby csv2yaml.rb 2026-10-01
 - 出力は `data/events_YYYYMMDD_NNN.yaml`（実行日とその日の 3 桁シリアル）。`public/` は上書きしない
 - `endDate` が `startDate` より前、またはイベント名が重複しているときは YAML を書かずに終了する
 
-確認したファイルを `public/events.yaml` や `public/events_2027.yaml` などへコピーして使います。
-
 ## 1 日に重なる件数を見る
 
-```bash
-make check-events
-# 1 ファイルだけ見る例
-ruby check_events.rb data/events_20260905_001.yaml
-```
-
-開催期間が重なるイベントが 3 件以上の日付を表示します。引数なしでは `public/events*.yaml` をアプリと同じ規則で合成します。日付の逆転とイベント名の重複はここでは見ません（`make events` 側のエラーです）。
+実行は `make check-events` です。開催期間が重なるイベントが 3 件以上の日付を表示します。引数なしでは `public/events*.yaml` をアプリと同じ規則で合成します。日付の逆転とイベント名の重複はここでは見ません（`make events` 側のエラーです）。
 
 ## アクセス計測（GoatCounter）
 
