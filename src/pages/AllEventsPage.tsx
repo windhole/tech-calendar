@@ -28,9 +28,7 @@ export function AllEventsPage({
 
   return (
     <div className="app-shell__inner">
-      <AppHeader
-        eventsUpdatedAt={eventsUpdatedAt}
-      />
+      <AppHeader eventsUpdatedAt={eventsUpdatedAt} />
 
       <div className="app-layout">
         <EventList

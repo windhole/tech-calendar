@@ -92,10 +92,7 @@ export function CalendarPage({
 
   return (
     <div className="app-shell__inner">
-      <AppHeader
-        eventsUpdatedAt={eventsUpdatedAt}
-        onToday={handleToday}
-      />
+      <AppHeader eventsUpdatedAt={eventsUpdatedAt} onToday={handleToday} />
 
       <div className="app-layout">
         <MonthlyCalendar
