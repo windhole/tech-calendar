@@ -1,5 +1,6 @@
 import { load } from 'js-yaml';
 import { eventYamlSources } from 'virtual:event-yaml-sources';
+import { parseEventTags } from '@/events/tags';
 import { Event } from '@/types';
 import {
   eventSourceCaption,
@@ -76,6 +77,7 @@ function parseEventsYaml(text: string, sourceName: string): Event[] {
       eventName: item.eventName,
       location: item.location,
       url: item.url,
+      tags: parseEventTags(item),
     });
   }
 

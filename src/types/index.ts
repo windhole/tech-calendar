@@ -4,6 +4,7 @@ export interface Event {
   eventName: string;
   location: string;
   url: string;
+  tags: string[];
 }
 
 export interface Holiday {

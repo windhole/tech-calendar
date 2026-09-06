@@ -3,6 +3,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { formatIsoDate } from '@/calendar';
 import { isUpcomingEvent } from '@/events/range';
+import { useEventTagFilter } from '@/hooks/useEventTagFilter';
 import type { Event } from '@/types';
 
 interface AllEventsPageProps {
@@ -17,34 +18,48 @@ export function AllEventsPage({
   eventsSourceCaption,
 }: AllEventsPageProps) {
   const today = formatIsoDate(new Date());
+  const { uniqueTags, selectedTags, filteredEvents, toggleTag, clearTags } =
+    useEventTagFilter(events);
 
   const { upcoming, past } = useMemo(() => {
-    const upcomingEvents = events
+    const upcomingEvents = filteredEvents
       .filter((event) => isUpcomingEvent(event, today))
       .sort((a, b) => a.startDate.localeCompare(b.startDate));
-    const pastEvents = events
+    const pastEvents = filteredEvents
       .filter((event) => !isUpcomingEvent(event, today))
       .sort((a, b) => b.startDate.localeCompare(a.startDate));
     return { upcoming: upcomingEvents, past: pastEvents };
-  }, [events, today]);
+  }, [filteredEvents, today]);
 
   return (
     <div className="app-shell__inner">
       <AppHeader
         eventsUpdatedAt={eventsUpdatedAt}
         eventsSourceCaption={eventsSourceCaption}
+        uniqueTags={uniqueTags}
+        selectedTags={selectedTags}
+        onToggleTag={toggleTag}
+        onClearTags={clearTags}
       />
 
       <div className="app-layout">
         <EventList
           events={upcoming}
           title="今日以降のイベント"
-          emptyMessage="今日以降のイベントはありません"
+          emptyMessage={
+            selectedTags.length > 0
+              ? 'このタグのイベントはありません'
+              : '今日以降のイベントはありません'
+          }
         />
         <EventList
           events={past}
           title="過去のイベント"
-          emptyMessage="過去のイベントはありません"
+          emptyMessage={
+            selectedTags.length > 0
+              ? 'このタグのイベントはありません'
+              : '過去のイベントはありません'
+          }
         />
       </div>
 

@@ -70,6 +70,15 @@ export function EventList({
                         日間
                       </Badge>
                     )}
+                    {event.tags.length > 0 ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {event.tags.map((tag) => (
+                          <Badge key={tag} variant="outline">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
 
                   {event.url && (

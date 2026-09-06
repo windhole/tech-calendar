@@ -7,6 +7,7 @@
 # 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
 # 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
+# CSV の tag 列は `,` と `、` で分割し、空でなければ YAML の tags 配列にする。
 # 使わない CSV の削除は `ruby csv2yaml.rb --clean` または `make clean`。
 
 require 'csv'
@@ -127,13 +128,23 @@ def yaml_string(value)
   needs_quotes ? yaml_quote(text) : text
 end
 
+def split_tags(raw)
+  raw.to_s.split(/[,、]/).map(&:strip).reject(&:empty?).uniq
+end
+
 def emit_event(io, event)
   io.puts "- startDate: #{yaml_string(event[:start_date])}"
   io.puts "  endDate: #{yaml_string(event[:end_date])}"
   io.puts "  eventName: #{yaml_string(event[:event_name])}"
   io.puts "  location: #{yaml_string(event[:location])}"
   io.puts "  url: #{yaml_string(event[:url])}"
-  io.puts "  tag: #{yaml_string(event[:tag])}" unless event[:tag].to_s.empty?
+  tags = event[:tags]
+  return if tags.nil? || tags.empty?
+
+  io.puts '  tags:'
+  tags.each do |tag|
+    io.puts "    - #{yaml_string(tag)}"
+  end
 end
 
 def public_true?(row)
@@ -197,7 +208,7 @@ def read_events(csv_path, year, since)
           event_name: event_name,
           location: row['location'].to_s.strip,
           url: row['url'].to_s.strip,
-          tag: row['tag'].to_s.strip
+          tags: split_tags(row['tag'])
         }
       rescue StandardError => e
         errors << "#{File.basename(csv_path)}:#{line}: #{e.message}"
