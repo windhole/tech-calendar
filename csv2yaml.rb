@@ -7,7 +7,7 @@
 # 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
 # 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
-# CSV の tag 列は開催地（13種のうち1つ）。空でなければ YAML の region にする。
+# CSV の 開催地 列は 13 種のうち 1 つ。空でなければ YAML の region にする。
 # 使わない CSV の削除は `ruby csv2yaml.rb --clean` または `make clean`。
 
 require 'csv'
@@ -143,6 +143,10 @@ def yaml_string(value)
   needs_quotes ? yaml_quote(text) : text
 end
 
+def region_cell(row)
+  row['開催地'] || row['tag']
+end
+
 def parse_region(raw)
   text = raw.to_s.strip.sub(/\A#/, '').strip
   return nil if text.empty?
@@ -223,7 +227,7 @@ def read_events(csv_path, year, since)
           event_name: event_name,
           location: row['location'].to_s.strip,
           url: row['url'].to_s.strip,
-          region: parse_region(row['tag'])
+          region: parse_region(region_cell(row))
         }
       rescue StandardError => e
         errors << "#{File.basename(csv_path)}:#{line}: #{e.message}"
