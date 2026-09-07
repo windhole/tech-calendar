@@ -1,7 +1,7 @@
 # 0017. イベントに複数タグを付けて OR で絞り込む
 
 Date: 2026-09-06
-Status: Accepted
+Status: Superseded by [ADR-0018](0018-event-region.md)
 Amends: [0005](0005-events-yaml.md), [0006](0006-csv2yaml.md)
 
 ## Context

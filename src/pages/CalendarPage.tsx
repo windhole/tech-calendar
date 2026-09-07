@@ -10,7 +10,7 @@ import {
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { eventOverlapsRange } from '@/events/range';
-import { useEventTagFilter } from '@/hooks/useEventTagFilter';
+import { useEventRegionFilter } from '@/hooks/useEventRegionFilter';
 import type { Event } from '@/types';
 
 function formatRangeLabel(start: string, end: string): string {
@@ -36,8 +36,8 @@ export function CalendarPage({
 }: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [holidays, setHolidays] = useState<Holiday[]>([]);
-  const { uniqueTags, selectedTags, filteredEvents, toggleTag, clearTags } =
-    useEventTagFilter(events);
+  const { uniqueRegions, selectedRegions, filteredEvents, toggleRegion, clearRegions } =
+    useEventRegionFilter(events);
 
   const handlePrevMonth = () => {
     setCurrentDate(
@@ -101,10 +101,10 @@ export function CalendarPage({
         eventsUpdatedAt={eventsUpdatedAt}
         eventsSourceCaption={eventsSourceCaption}
         onToday={handleToday}
-        uniqueTags={uniqueTags}
-        selectedTags={selectedTags}
-        onToggleTag={toggleTag}
-        onClearTags={clearTags}
+        uniqueRegions={uniqueRegions}
+        selectedRegions={selectedRegions}
+        onToggleRegion={toggleRegion}
+        onClearRegions={clearRegions}
       />
 
       <div className="app-layout">
@@ -119,8 +119,8 @@ export function CalendarPage({
           events={visibleEvents}
           title={`この期間のイベント（${formatRangeLabel(range.start, range.end)}）`}
           emptyMessage={
-            selectedTags.length > 0
-              ? 'このタグのイベントはありません'
+            selectedRegions.length > 0
+              ? 'この開催地のイベントはありません'
               : 'この期間にイベントはありません'
           }
         />

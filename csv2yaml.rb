@@ -7,7 +7,7 @@
 # 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
 # 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
-# CSV の tag 列は `,` と `、` で分割し、空でなければ YAML の tags 配列にする。
+# CSV の tag 列は開催地（13種のうち1つ）。空でなければ YAML の region にする。
 # 使わない CSV の削除は `ruby csv2yaml.rb --clean` または `make clean`。
 
 require 'csv'
@@ -17,6 +17,21 @@ DATA_DIR = File.expand_path('data', __dir__)
 PUBLIC_DIR = File.expand_path('public', __dir__)
 DEFAULT_SINCE = '2026-09-01'
 LEGACY_EVENTS_YAML = 'events.yaml'
+REGIONS = %w[
+  オンライン
+  北海道
+  東北
+  関東
+  東京
+  甲信越
+  中部
+  北陸
+  関西
+  中国
+  四国
+  九州
+  沖縄
+].freeze
 
 def parse_since(raw)
   text = raw.to_s.strip
@@ -128,8 +143,12 @@ def yaml_string(value)
   needs_quotes ? yaml_quote(text) : text
 end
 
-def split_tags(raw)
-  raw.to_s.split(/[,、]/).map(&:strip).reject(&:empty?).uniq
+def parse_region(raw)
+  text = raw.to_s.strip.sub(/\A#/, '').strip
+  return nil if text.empty?
+  return text if REGIONS.include?(text)
+
+  raise "開催地が不正です: #{raw.inspect}（#{REGIONS.join(' / ')} のいずれか）"
 end
 
 def emit_event(io, event)
@@ -138,13 +157,9 @@ def emit_event(io, event)
   io.puts "  eventName: #{yaml_string(event[:event_name])}"
   io.puts "  location: #{yaml_string(event[:location])}"
   io.puts "  url: #{yaml_string(event[:url])}"
-  tags = event[:tags]
-  return if tags.nil? || tags.empty?
+  return unless event[:region]
 
-  io.puts '  tags:'
-  tags.each do |tag|
-    io.puts "    - #{yaml_string(tag)}"
-  end
+  io.puts "  region: #{yaml_string(event[:region])}"
 end
 
 def public_true?(row)
@@ -208,7 +223,7 @@ def read_events(csv_path, year, since)
           event_name: event_name,
           location: row['location'].to_s.strip,
           url: row['url'].to_s.strip,
-          tags: split_tags(row['tag'])
+          region: parse_region(row['tag'])
         }
       rescue StandardError => e
         errors << "#{File.basename(csv_path)}:#{line}: #{e.message}"

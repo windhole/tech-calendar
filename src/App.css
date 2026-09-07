@@ -143,13 +143,13 @@
   outline-offset: 2px;
 }
 
-.tag-filter {
+.region-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.tag-filter__chip {
+.region-filter__chip {
   display: inline-flex;
   align-items: center;
   height: 1.75rem;
@@ -163,22 +163,22 @@
   cursor: pointer;
 }
 
-.tag-filter__chip:hover {
+.region-filter__chip:hover {
   background: #f9fafb;
 }
 
-.tag-filter__chip--active {
+.region-filter__chip--active {
   background: #111827;
   border-color: #111827;
   color: #ffffff;
 }
 
-.tag-filter__chip--active:hover {
+.region-filter__chip--active:hover {
   background: #1f2937;
   border-color: #1f2937;
 }
 
-.tag-filter__chip:focus-visible {
+.region-filter__chip:focus-visible {
   outline: 2px solid #93c5fd;
   outline-offset: 2px;
 }

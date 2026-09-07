@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { TagFilter } from '@/components/TagFilter';
+import { RegionFilter } from '@/components/RegionFilter';
+import type { EventRegion } from '@/types';
 
 function formatYamlStamp(date: Date | null, sourceCaption: string): string {
   if (!date) {
@@ -15,20 +16,20 @@ interface AppHeaderProps {
   eventsUpdatedAt: Date | null;
   eventsSourceCaption: string;
   onToday?: () => void;
-  uniqueTags?: string[];
-  selectedTags?: string[];
-  onToggleTag?: (tag: string) => void;
-  onClearTags?: () => void;
+  uniqueRegions?: EventRegion[];
+  selectedRegions?: EventRegion[];
+  onToggleRegion?: (region: EventRegion) => void;
+  onClearRegions?: () => void;
 }
 
 export function AppHeader({
   eventsUpdatedAt,
   eventsSourceCaption,
   onToday,
-  uniqueTags = [],
-  selectedTags = [],
-  onToggleTag,
-  onClearTags,
+  uniqueRegions = [],
+  selectedRegions = [],
+  onToggleRegion,
+  onClearRegions,
 }: AppHeaderProps) {
   const { search } = useLocation();
 
@@ -71,12 +72,12 @@ export function AppHeader({
           </nav>
         </div>
       </header>
-      {onToggleTag && onClearTags ? (
-        <TagFilter
-          tags={uniqueTags}
-          selectedTags={selectedTags}
-          onToggle={onToggleTag}
-          onClear={onClearTags}
+      {onToggleRegion && onClearRegions ? (
+        <RegionFilter
+          regions={uniqueRegions}
+          selectedRegions={selectedRegions}
+          onToggle={onToggleRegion}
+          onClear={onClearRegions}
         />
       ) : null}
     </div>

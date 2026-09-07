@@ -3,7 +3,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { formatIsoDate } from '@/calendar';
 import { isUpcomingEvent } from '@/events/range';
-import { useEventTagFilter } from '@/hooks/useEventTagFilter';
+import { useEventRegionFilter } from '@/hooks/useEventRegionFilter';
 import type { Event } from '@/types';
 
 interface AllEventsPageProps {
@@ -18,8 +18,8 @@ export function AllEventsPage({
   eventsSourceCaption,
 }: AllEventsPageProps) {
   const today = formatIsoDate(new Date());
-  const { uniqueTags, selectedTags, filteredEvents, toggleTag, clearTags } =
-    useEventTagFilter(events);
+  const { uniqueRegions, selectedRegions, filteredEvents, toggleRegion, clearRegions } =
+    useEventRegionFilter(events);
 
   const { upcoming, past } = useMemo(() => {
     const upcomingEvents = filteredEvents
@@ -36,10 +36,10 @@ export function AllEventsPage({
       <AppHeader
         eventsUpdatedAt={eventsUpdatedAt}
         eventsSourceCaption={eventsSourceCaption}
-        uniqueTags={uniqueTags}
-        selectedTags={selectedTags}
-        onToggleTag={toggleTag}
-        onClearTags={clearTags}
+        uniqueRegions={uniqueRegions}
+        selectedRegions={selectedRegions}
+        onToggleRegion={toggleRegion}
+        onClearRegions={clearRegions}
       />
 
       <div className="app-layout">
@@ -47,8 +47,8 @@ export function AllEventsPage({
           events={upcoming}
           title="今日以降のイベント"
           emptyMessage={
-            selectedTags.length > 0
-              ? 'このタグのイベントはありません'
+            selectedRegions.length > 0
+              ? 'この開催地のイベントはありません'
               : '今日以降のイベントはありません'
           }
         />
@@ -56,8 +56,8 @@ export function AllEventsPage({
           events={past}
           title="過去のイベント"
           emptyMessage={
-            selectedTags.length > 0
-              ? 'このタグのイベントはありません'
+            selectedRegions.length > 0
+              ? 'この開催地のイベントはありません'
               : '過去のイベントはありません'
           }
         />
