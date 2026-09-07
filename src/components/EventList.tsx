@@ -8,6 +8,7 @@ interface EventListProps {
   events: Event[];
   title: string;
   emptyMessage?: string;
+  showCount?: boolean;
 }
 
 function formatDateRange(startDate: string, endDate: string) {
@@ -25,14 +26,20 @@ export function EventList({
   events,
   title,
   emptyMessage = 'イベントがありません',
+  showCount = false,
 }: EventListProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <CalendarIcon className="h-5 w-5" />
-          {title}
-        </CardTitle>
+        <div className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2">
+            <CalendarIcon className="h-5 w-5" />
+            {title}
+          </CardTitle>
+          {showCount ? (
+            <Badge variant="secondary">{events.length}件</Badge>
+          ) : null}
+        </div>
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (

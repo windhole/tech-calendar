@@ -43,6 +43,7 @@ export function AllEventsPage({
         <EventList
           events={upcoming}
           title="今日以降のイベント"
+          showCount
           emptyMessage={
             selectedRegions.length > 0
               ? 'この開催地のイベントはありません'
