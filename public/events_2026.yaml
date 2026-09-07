@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026.csv
+# generated from techイベントデータ - 2026 (1).csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -32,6 +32,18 @@
   eventName: 生成AIカンファレンス2026
   location: 東京（本郷）
   url: https://gen-ai-conf.org/
+  region: 東京
+- startDate: "2026-09-08"
+  endDate: "2026-09-09"
+  eventName: IoTセキュリティフォーラム 2026
+  location: 東京（兜町）
+  url: https://evt-entry.impress.co.jp/iot2026/
+  region: 東京
+- startDate: "2026-09-08"
+  endDate: "2026-09-08"
+  eventName: Kotlin 15周年記念イベント
+  location: 東京（五反田）
+  url: https://kotlin.connpass.com/event/402617/
   region: 東京
 - startDate: "2026-09-09"
   endDate: "2026-09-09"
@@ -399,6 +411,12 @@
   location: 神奈川（箱根）
   url: https://phpmatsuri.asumikam.com/
   region: 関東
+- startDate: "2026-11-07"
+  endDate: "2026-11-07"
+  eventName: Internet Media Day 2026
+  location: 東京（丸の内）
+  url: https://jima.media/imd2026/
+  region: 東京
 - startDate: "2026-11-08"
   endDate: "2026-11-08"
   eventName: 変態ガジェットフリマ2026
@@ -447,11 +465,23 @@
   location: 東京（品川）
   url: https://2026.kotlinfest.dev/
   region: 東京
+- startDate: "2026-11-14"
+  endDate: "2026-11-14"
+  eventName: 北陸Ruby会議02
+  location: 福井（勝山）
+  url: https://regional.rubykaigi.org/hokuriku02/index.html
+  region: 北陸
 - startDate: "2026-11-17"
   endDate: "2026-11-18"
   eventName: CODE BLUE 2026（カンファレンス）
   location: 東京（高田馬場）
   url: https://codeblue.jp/
+  region: 東京
+- startDate: "2026-11-18"
+  endDate: "2026-11-19"
+  eventName: CloudNative Days Winter 2026
+  location: 東京（有明）
+  url: ""
   region: 東京
 - startDate: "2026-11-20"
   endDate: "2026-11-21"
@@ -543,6 +573,12 @@
   location: 神奈川（横浜）
   url: https://jbuginfo.backlog.com/backlogworld2026/
   region: 関東
+- startDate: "2026-11-29"
+  endDate: "2026-11-29"
+  eventName: Google Developer Group  DevFest Tokyo 2026
+  location: 東京（丸の内）
+  url: ""
+  region: 東京
 - startDate: "2026-12-03"
   endDate: "2026-12-04"
   eventName: Okinawa Open Days 2026
@@ -560,6 +596,18 @@
   eventName: "Product Security Square #6"
   location: 東京（渋谷）
   url: https://flatt.connpass.com/event/404926/
+  region: 東京
+- startDate: "2026-12-05"
+  endDate: "2026-12-05"
+  eventName: オープンソースカンファレンス2026 Okinawa
+  location: 沖縄（那覇）
+  url: ""
+  region: 沖縄
+- startDate: "2026-12-05"
+  endDate: "2026-12-05"
+  eventName: フロントエンドカンファレンス東京2026
+  location: 東京（渋谷）
+  url: ""
   region: 東京
 - startDate: "2026-12-12"
   endDate: "2026-12-12"

@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2027.csv
+# generated from techイベントデータ - 2027 (2).csv
 # since 2026-09-01
 
 - startDate: "2027-01-06"
@@ -27,9 +27,39 @@
   location: 福井（福井）
   url: https://www.janog.gr.jp/meeting/janog59/
   region: 北陸
+- startDate: "2027-02-17"
+  endDate: "2027-02-19"
+  eventName: Developers Summit 2027
+  location: 東京
+  url: ""
+  region: 東京
+- startDate: "2027-02-20"
+  endDate: "2027-02-20"
+  eventName: SRE Kaigi 2027
+  location: 東京（中野）
+  url: ""
+  region: 東京
+- startDate: "2027-03-02"
+  endDate: "2027-03-02"
+  eventName: EMConf 2027
+  location: 東京（有明）
+  url: ""
+  region: 東京
+- startDate: "2027-04-10"
+  endDate: "2027-04-10"
+  eventName: PHPカンファレンス小田原2027
+  location: 神奈川（小田原）
+  url: ""
+  region: 関東
 - startDate: "2027-04-14"
   endDate: "2027-04-16"
   eventName: RubyKaigi 2027
   location: 宮崎（宮崎）
   url: https://rubykaigi.org/2027/
   region: 九州
+- startDate: "2027-04-24"
+  endDate: "2027-04-24"
+  eventName: React Conf Japan
+  location: 東京
+  url: ""
+  region: 東京
