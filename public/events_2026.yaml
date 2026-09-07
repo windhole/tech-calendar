@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026 (1).csv
+# generated from techイベントデータ - 2026.csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -297,6 +297,12 @@
   location: 大阪（梅田）
   url: https://gdgkwansai.connpass.com/event/388434/
   region: 関西
+- startDate: "2026-10-18"
+  endDate: "2026-10-18"
+  eventName: さくらじまハウス2026
+  location: 鹿児島（鹿児島）
+  url: ""
+  region: 九州
 - startDate: "2026-10-21"
   endDate: "2026-10-21"
   eventName: SAISON Technology Days 2026（会場開催）
