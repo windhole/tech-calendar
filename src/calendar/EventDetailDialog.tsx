@@ -1,5 +1,6 @@
 import { Calendar as CalendarIcon, ExternalLink, MapPin } from 'lucide-react';
 import type { Event } from '@/types';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -35,7 +36,7 @@ export function EventDetailDialog({ event, onOpenChange }: EventDetailDialogProp
             <DialogHeader>
               <DialogTitle>{event.eventName}</DialogTitle>
               <DialogDescription className="sr-only">
-                イベントの開催日、会場、詳細 URL
+                イベントの開催日、会場、開催地、詳細 URL
               </DialogDescription>
             </DialogHeader>
             <dl className="space-y-3 text-sm">
@@ -49,6 +50,14 @@ export function EventDetailDialog({ event, onOpenChange }: EventDetailDialogProp
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                 <dd>{event.location}</dd>
               </div>
+              {event.region ? (
+                <div className="flex items-start gap-2">
+                  <dt className="sr-only">開催地</dt>
+                  <dd>
+                    <Badge variant="secondary">{event.region}</Badge>
+                  </dd>
+                </div>
+              ) : null}
             </dl>
             {event.url ? (
               <Button variant="outline" asChild>

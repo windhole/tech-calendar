@@ -1,7 +1,7 @@
 # 0005. イベントは YAML 1 ファイルにする
 
 Date: 2026-09-02
-Status: Accepted（入力ファイルは [ADR-0014](0014-multiple-events-yaml.md) で複数可に変更）
+Status: Accepted（入力ファイルは [ADR-0014](0014-multiple-events-yaml.md) で複数可に変更。開催地は [ADR-0019](0019-event-region.md)）
 
 ## Context
 

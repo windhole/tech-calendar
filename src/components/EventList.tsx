@@ -58,18 +58,23 @@ export function EventList({
                       <span>{event.location}</span>
                     </div>
 
-                    {event.startDate === event.endDate ? (
-                      <Badge variant="secondary">1日間</Badge>
-                    ) : (
-                      <Badge variant="secondary">
-                        {Math.ceil(
-                          (new Date(event.endDate).getTime() -
-                            new Date(event.startDate).getTime()) /
-                            (1000 * 60 * 60 * 24)
-                        ) + 1}
-                        日間
-                      </Badge>
-                    )}
+                    <div className="flex flex-wrap gap-1.5">
+                      {event.startDate === event.endDate ? (
+                        <Badge variant="secondary">1日間</Badge>
+                      ) : (
+                        <Badge variant="secondary">
+                          {Math.ceil(
+                            (new Date(event.endDate).getTime() -
+                              new Date(event.startDate).getTime()) /
+                              (1000 * 60 * 60 * 24)
+                          ) + 1}
+                          日間
+                        </Badge>
+                      )}
+                      {event.region ? (
+                        <Badge variant="outline">{event.region}</Badge>
+                      ) : null}
+                    </div>
                   </div>
 
                   {event.url && (

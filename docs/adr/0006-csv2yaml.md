@@ -12,7 +12,7 @@ Status: Accepted（入力と出力先は [ADR-0015](0015-csv2yaml-yearly-public.
 - 変換はリポジトリ直下の `csv2yaml.rb` とし、標準ライブラリ（`csv` / `date`）のみ使う。実行は `make events`。
 - 入力は `data/*.csv` のうちファイル名に西暦があるもの。同じ年が複数あるときは更新が新しい 1 ファイル（ADR-0015）。年はファイル名の 4 桁西暦から取る。
 - 日付は「9月5日(土)」と、スプレッドシート由来の `YYYY/M/D`（ゼロ埋めなし可）を `YYYY-MM-DD` に正規化する。年が書いてあればその年を使う。
-- `Public` が `TRUE` の行だけを出す。開始日が `2026-09-01` 以降のイベントに限る（`ruby csv2yaml.rb YYYY-MM-DD` または `make events SINCE=...` で変更可）。`tag` はアプリではまだ使わないが、CSV に値があれば YAML にも残す。
+- `Public` が `TRUE` の行だけを出す。開始日が `2026-09-01` 以降のイベントに限る（`ruby csv2yaml.rb YYYY-MM-DD` または `make events SINCE=...` で変更可）。CSV の `開催地` 列は [ADR-0019](0019-event-region.md) のとおり 13 種のうち 1 つで、YAML の `region` にする（古い `tag` 列も読む）。
 - 出力は `public/events_YYYY.yaml`（ADR-0015）。同じ年の既存ファイルは上書きする。
 - `endDate` が `startDate` より前、またはイベント名が重複しているときはエラーで止め、YAML は書かない（ADR-0012）。
 

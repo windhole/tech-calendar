@@ -10,6 +10,7 @@ import {
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { eventOverlapsRange } from '@/events/range';
+import { useEventRegionFilter } from '@/hooks/useEventRegionFilter';
 import type { Event } from '@/types';
 
 function formatRangeLabel(start: string, end: string): string {
@@ -33,6 +34,8 @@ export function CalendarPage({
 }: CalendarPageProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const { uniqueRegions, selectedRegions, filteredEvents, toggleRegion, clearRegions } =
+    useEventRegionFilter(events);
 
   const handlePrevMonth = () => {
     setCurrentDate(
@@ -53,10 +56,10 @@ export function CalendarPage({
 
   const visibleEvents = useMemo(
     () =>
-      events
+      filteredEvents
         .filter((event) => eventOverlapsRange(event, range.start, range.end))
         .sort((a, b) => a.startDate.localeCompare(b.startDate)),
-    [events, range]
+    [filteredEvents, range]
   );
 
   useEffect(() => {
@@ -92,20 +95,31 @@ export function CalendarPage({
 
   return (
     <div className="app-shell__inner">
-      <AppHeader eventsUpdatedAt={eventsUpdatedAt} onToday={handleToday} />
+      <AppHeader
+        eventsUpdatedAt={eventsUpdatedAt}
+        onToday={handleToday}
+        uniqueRegions={uniqueRegions}
+        selectedRegions={selectedRegions}
+        onToggleRegion={toggleRegion}
+        onClearRegions={clearRegions}
+      />
 
       <div className="app-layout">
         <MonthlyCalendar
           currentDate={currentDate}
           holidays={holidays}
-          events={events}
+          events={filteredEvents}
           onPrevMonth={handlePrevMonth}
           onNextMonth={handleNextMonth}
         />
         <EventList
           events={visibleEvents}
           title={`この期間のイベント（${formatRangeLabel(range.start, range.end)}）`}
-          emptyMessage="この期間にイベントはありません"
+          emptyMessage={
+            selectedRegions.length > 0
+              ? 'この開催地のイベントはありません'
+              : 'この期間にイベントはありません'
+          }
         />
       </div>
 
