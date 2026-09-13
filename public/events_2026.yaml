@@ -165,6 +165,12 @@
   location: 東京（中野）
   url: https://www.cnia.io/pek2026/
   region: 東京
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: "Hachinohe Tech Meetup #4"
+  location: 青森（八戸）
+  url: https://hachinohe-tech-meetup.connpass.com/event/401136/
+  region: 東北
 - startDate: "2026-10-02"
   endDate: "2026-10-03"
   eventName: オープンソースカンファレンス2026 Online/Fall
