@@ -124,7 +124,7 @@ export function CalendarPage({
       </div>
 
       <footer className="app-footer">
-        <p>日本の祝日に対応した techカレンダー（{monthLabel}）</p>
+        <p>日本の祝日に対応した windhole's tech calendar（{monthLabel}）</p>
       </footer>
     </div>
   );

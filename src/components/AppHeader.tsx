@@ -29,7 +29,7 @@ export function AppHeader({
         <Link to={{ pathname: '/', search }} className="app-header__title">
           <CalendarIcon className="h-8 w-8 text-primary" />
           <div className="app-header__title-text">
-            <h1>techカレンダー</h1>
+            <h1>windhole's tech calendar</h1>
             <p className="app-header__meta">{formatLastUpdated(eventsUpdatedAt)}</p>
           </div>
         </Link>
