@@ -57,6 +57,12 @@
   location: 東京（渋谷）
   url: https://events.linuxfoundation.org/agntcon-mcpcon-japan/
   region: 東京
+- startDate: "2026-09-10"
+  endDate: "2026-09-10"
+  eventName: "Cloudflare Workers Tech Talks in Fukuoka #2"
+  location: 福岡（福岡）
+  url: https://workers-tech.connpass.com/event/401855/
+  region: 九州
 - startDate: "2026-09-11"
   endDate: "2026-09-11"
   eventName: OSAKA WEB SUMMIT 2026
@@ -117,12 +123,24 @@
   location: 東京（蒲田）
   url: https://gishohaku.dev/
   region: 東京
+- startDate: "2026-09-13"
+  endDate: "2026-09-13"
+  eventName: "Gleam meetup/tokyo #1"
+  location: 東京（千駄ヶ谷）
+  url: https://gleam-jp.connpass.com/event/405459/
+  region: 東京
 - startDate: "2026-09-15"
   endDate: "2026-09-15"
   eventName: 第4回 GMO大会議秋 フィジカルAI 2026
   location: 東京（渋谷）
   url: https://gmo.connpass.com/event/404917/
   region: 東京
+- startDate: "2026-09-15"
+  endDate: "2026-09-16"
+  eventName: インプレス AI Days 2026
+  location: オンライン
+  url: https://academy.impress.co.jp/event/ai-day2026/
+  region: オンライン
 - startDate: "2026-09-19"
   endDate: "2026-09-19"
   eventName: 名古屋Ruby会議05
@@ -153,6 +171,24 @@
   location: 東京（平和島）
   url: https://tkx.yushakobo.jp/tkx2026/
   region: 東京
+- startDate: "2026-09-23"
+  endDate: "2026-09-23"
+  eventName: 生成AIなんでも展示会 Vol.6
+  location: 東京（竹芝）
+  url: https://www.genai-expo.com/
+  region: 東京
+- startDate: "2026-09-23"
+  endDate: "2026-09-23"
+  eventName: Agentic Summit
+  location: 東京（本郷）
+  url: https://agentic-summit.org/
+  region: 東京
+- startDate: "2026-09-23"
+  endDate: "2026-09-27"
+  eventName: NoMaps 2026
+  location: 北海道（札幌）
+  url: https://no-maps.jp/2026
+  region: 北海道
 - startDate: "2026-09-26"
   endDate: "2026-09-26"
   eventName: Scrum Fest Kanagawa 2026  -夏の陣-
@@ -182,6 +218,12 @@
   eventName: Akamai AI Summit Japan
   location: 東京（大手町）
   url: https://web.cvent.com/event/74fb720b-7542-4e4c-94bb-ca5d426a817e/summary
+  region: 東京
+- startDate: "2026-10-02"
+  endDate: "2026-10-02"
+  eventName: INCYBER SUMMIT 2026
+  location: 東京（大手町）
+  url: https://neon.event.nikkei.com/e/13590
   region: 東京
 - startDate: "2026-10-03"
   endDate: "2026-10-03"
@@ -213,6 +255,12 @@
   location: 東京（虎ノ門）
   url: https://connpass.com/event/405653/
   region: 東京
+- startDate: "2026-10-07"
+  endDate: "2026-10-11"
+  eventName: RAMEN TECH
+  location: 福岡（福岡）
+  url: https://www.ramentech.jp/
+  region: 九州
 - startDate: "2026-10-08"
   endDate: "2026-10-09"
   eventName: "2026 Global LeSS Conference Japan / LeSS' Yoaké Asia 2026"
@@ -249,12 +297,24 @@
   location: 大阪（梅田）
   url: https://2026.frontend-conf.osaka.jp/
   region: 関西
+- startDate: "2026-10-13"
+  endDate: "2026-10-13"
+  eventName: 基礎からのデジタルフォント
+  location: オンライン
+  url: https://www.kokuchpro.com/event/20261013/
+  region: オンライン
 - startDate: "2026-10-15"
   endDate: "2026-10-15"
   eventName: ViteConf
   location: オンライン
   url: https://viteconf.org/
   region: オンライン
+- startDate: "2026-10-15"
+  endDate: "2026-10-15"
+  eventName: Terminal Night 3
+  location: 東京（泉岳寺）
+  url: https://kichijojipm.connpass.com/event/404746/
+  region: 東京
 - startDate: "2026-10-16"
   endDate: "2026-10-16"
   eventName: JSTQB カンファレンス in 2026 Autumn
@@ -435,6 +495,12 @@
   location: 東京（竹芝）
   url: https://gadget2026.peatix.com/
   region: 東京
+- startDate: "2026-11-11"
+  endDate: "2026-11-11"
+  eventName: RISC-V Day Tokyo 2026 Autumn
+  location: 東京（本郷）
+  url: https://peatix.com/event/5190001
+  region: 東京
 - startDate: "2026-11-12"
   endDate: "2026-11-13"
   eventName: Open NetworkIng Conference Japan 2026
@@ -495,6 +561,18 @@
   location: 東京（有明）
   url: ""
   region: 東京
+- startDate: "2026-11-18"
+  endDate: "2026-11-20"
+  eventName: EdgeTech+ 2026
+  location: 神奈川（横浜）
+  url: https://www.jasa.or.jp/expo/
+  region: 関東
+- startDate: "2026-11-19"
+  endDate: "2026-11-24"
+  eventName: Internet Week 2026（オンライン）
+  location: オンライン
+  url: https://internetweek.jp/2026/
+  region: オンライン
 - startDate: "2026-11-20"
   endDate: "2026-11-21"
   eventName: TechRAMEN 2026 Conference
@@ -555,6 +633,12 @@
   location: 東京（神田）
   url: https://event.shoeisha.jp/devsumi/20261125
   region: 東京
+- startDate: "2026-11-25"
+  endDate: "2026-11-27"
+  eventName: Internet Week 2026（現地）
+  location: 東京（両国）
+  url: https://internetweek.jp/2026/
+  region: 東京
 - startDate: "2026-11-26"
   endDate: "2026-11-27"
   eventName: アーキテクチャConference 2026
@@ -591,6 +675,12 @@
   location: 東京（丸の内）
   url: ""
   region: 東京
+- startDate: "2026-12-02"
+  endDate: "2026-12-02"
+  eventName: 沖縄クラウドネイティブ勉強会2026
+  location: 沖縄（那覇）
+  url: https://www.okinawaopendays.com/post/ocnm2026
+  region: 沖縄
 - startDate: "2026-12-03"
   endDate: "2026-12-04"
   eventName: Okinawa Open Days 2026
@@ -621,6 +711,24 @@
   location: 東京（渋谷）
   url: ""
   region: 東京
+- startDate: "2026-12-05"
+  endDate: "2026-12-05"
+  eventName: MTDDC Meetup Tokyo 2026
+  location: 東京（赤坂見附）
+  url: https://mtddc2026.mt-tokyo.net/
+  region: 東京
+- startDate: "2026-12-05"
+  endDate: "2026-12-05"
+  eventName: Ogaki Mini Maker Faire 2026
+  location: 岐阜（大垣）
+  url: https://www.iamas.ac.jp/ommf2026/
+  region: 中部
+- startDate: "2026-12-10"
+  endDate: "2026-12-11"
+  eventName: ONE Summit
+  location: 東京
+  url: https://sonicfoundation.dev/event/sonic-booth-at-open-networking-edge-summit-one-summit/
+  region: 東京
 - startDate: "2026-12-12"
   endDate: "2026-12-12"
   eventName: オープンソースカンファレンス2026 Fukuoka
@@ -633,3 +741,9 @@
   location: 東京（聖蹟桜ヶ丘）
   url: https://tamadev.jp/events/20261213/
   region: 東京
+- startDate: "2026-12-19"
+  endDate: "2026-12-19"
+  eventName: LOCAL DEVELOPER DAY ’26 in EBETSU
+  location: 北海道（江別）
+  url: https://www.local.or.jp/2026/09/10111.html
+  region: 北海道
