@@ -7,6 +7,7 @@ import {
   yearsCoveredByRange,
   type Holiday,
 } from '@/calendar';
+import { AppFooter } from '@/components/AppFooter';
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { eventOverlapsRange } from '@/events/range';
@@ -91,8 +92,6 @@ export function CalendarPage({
     })();
   };
 
-  const monthLabel = `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`;
-
   return (
     <div className="app-shell__inner">
       <AppHeader
@@ -123,9 +122,7 @@ export function CalendarPage({
         />
       </div>
 
-      <footer className="app-footer">
-        <p>日本の祝日に対応した windhole's tech calendar（{monthLabel}）</p>
-      </footer>
+      <AppFooter>windhole's tech calendar（2026年9月〜）</AppFooter>
     </div>
   );
 }

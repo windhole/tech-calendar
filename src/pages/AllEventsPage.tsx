@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { AppFooter } from '@/components/AppFooter';
 import { AppHeader } from '@/components/AppHeader';
 import { EventList } from '@/components/EventList';
 import { formatIsoDate } from '@/calendar';
@@ -61,9 +62,7 @@ export function AllEventsPage({
         />
       </div>
 
-      <footer className="app-footer">
-        <p>すべてのイベント（今日 {today} を先頭）</p>
-      </footer>
+      <AppFooter>すべてのイベント（今日 {today} を先頭）</AppFooter>
     </div>
   );
 }

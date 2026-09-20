@@ -208,6 +208,90 @@
   color: #4b5563;
 }
 
+.app-footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.app-footer__about {
+  display: inline-flex;
+  align-items: center;
+  height: 1.75rem;
+  padding: 0 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.app-footer__about:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.app-footer__about:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.about-markdown {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #1f2937;
+  text-align: left;
+}
+
+.about-markdown h1 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.about-markdown h2 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.about-markdown h3 {
+  margin: 1rem 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.about-markdown p,
+.about-markdown ul {
+  margin: 0 0 0.75rem;
+}
+
+.about-markdown ul {
+  padding-left: 1.25rem;
+}
+
+.about-markdown li {
+  margin: 0.25rem 0;
+}
+
+.about-markdown a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.about-markdown a:hover {
+  color: #1d4ed8;
+}
+
 .app-loading {
   text-align: center;
   color: #4b5563;
