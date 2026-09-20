@@ -35,7 +35,7 @@
 
 ### Q：GitHubスポンサーで支援することは可能ですか？
 - はい、可能です。
-- 私のGitHub Sponsorページ：https://github.com/sponsors/windhole
+- [GitHub Sponsorページ](https://github.com/sponsors/windhole)からお願いします。
 - イベント情報の収集、確認と情報更新、サイト運営にコストがかかっていますので、ご支援いただけるととてもありがたいです。
 
 
