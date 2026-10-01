@@ -58,7 +58,7 @@ bun run dev
 
 ## Makefile の操作
 
-イベント CSV の変換、公開用 YAML の点検、使わない CSV の削除は Makefile から実行します。Ruby はシステムのものを使います（bun の依存には入れていません）。
+イベント CSV の変換、公開用 YAML の点検、使わない CSV の削除は Makefile から実行します。Ruby は rbenv の最新安定版で、バージョンは `.ruby-version` に書いてあります（bun の依存には入れていません）。未導入なら `rbenv install` です。
 
 | コマンド | 説明 |
 |----------|------|
@@ -79,7 +79,7 @@ bun run dev
 1 ファイルだけを見るときは、Makefile ではなく次です。
 
 ```bash
-ruby check_events.rb public/events_2026.yaml
+rbenv exec ruby check_events.rb public/events_2026.yaml
 ```
 
 変換ルールと入力チェックの詳細は下の「CSV から YAML を作る」を見てください。
@@ -142,7 +142,7 @@ ruby check_events.rb public/events_2026.yaml
 
 ## CSV から YAML を作る
 
-元データはスプレッドシートから落とした CSV です。実行は `make events`（上の「Makefile の操作」）です。`ruby csv2yaml.rb 2026-10-01` でも同じです。
+元データはスプレッドシートから落とした CSV です。実行は `make events`（上の「Makefile の操作」）です。`rbenv exec ruby csv2yaml.rb 2026-10-01` でも同じです。
 
 - 入力は `data/*.csv` のうち、ファイル名に独立した 4 桁西暦があるもの（例: `2026`、`2027`）
 - 同じ西暦の CSV が複数あるときは、更新時刻が新しい 1 ファイルだけを使う

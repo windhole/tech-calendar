@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2027 (1).csv
+# generated from techイベントデータ - 2027.csv
 # since 2026-09-01
 
 - startDate: "2027-01-06"
@@ -56,6 +56,12 @@
   eventName: EMConf 2027
   location: 東京（有明）
   url: （TBD）
+  region: 東京
+- startDate: "2027-03-27"
+  endDate: "2027-03-27"
+  eventName: キーボードマーケットトーキョー2027
+  location: 東京（浜松町）
+  url: https://event.keyket.jp/tokyo-2027
   region: 東京
 - startDate: "2027-04-10"
   endDate: "2027-04-10"

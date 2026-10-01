@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2026.csv
+# generated from techイベントデータ - 2026 (1).csv
 # since 2026-09-01
 
 - startDate: "2026-09-05"
@@ -189,6 +189,12 @@
   location: 北海道（札幌）
   url: https://no-maps.jp/2026
   region: 北海道
+- startDate: "2026-09-23"
+  endDate: "2026-09-23"
+  eventName: KC3 2026
+  location: 京都（KRP）
+  url: https://nxtend.connpass.com/event/397073/
+  region: 関西
 - startDate: "2026-09-26"
   endDate: "2026-09-26"
   eventName: Scrum Fest Kanagawa 2026  -夏の陣-
@@ -207,6 +213,48 @@
   location: 青森（八戸）
   url: https://hachinohe-tech-meetup.connpass.com/event/401136/
   region: 東北
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: "macOS native Symposium #12"
+  location: 東京（六本木）
+  url: https://macos-native.github.io/
+  region: 東京
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: 第16回　関西DB勉強会
+  location: 大阪（梅田）
+  url: https://kansaidbstudy.connpass.com/event/398751/
+  region: 関西
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: BEACON
+  location: 北海道（札幌）
+  url: https://seb-sapporo.connpass.com/event/406665/
+  region: 東京
+- startDate: "2026-09-26"
+  endDate: "2026-09-26"
+  eventName: テック文化祭 2026 by Findy Student
+  location: 東京（大崎）
+  url: https://student.findy-code.io/events/b0u9w8WfRTmI4OFWEm188Q
+  region: 東京
+- startDate: "2026-09-28"
+  endDate: "2026-09-28"
+  eventName: TC39 x Meguro.es x JSConf.jp
+  location: 東京（八重洲）
+  url: https://nodejs.connpass.com/event/405664/
+  region: 東京
+- startDate: "2026-09-29"
+  endDate: "2026-09-30"
+  eventName: 日経クロステックNEXT 東京 2026
+  location: 東京（有楽町）
+  url: https://events.nikkeibp.co.jp/xtechnext/2026tky/
+  region: 東京
+- startDate: "2026-10-01"
+  endDate: "2026-10-01"
+  eventName: "AI Infra Meetup #1"
+  location: 東京（紀尾井町）
+  url: https://ocgroups.dev/cncf/group/bqd97by/event/7fu3gfg
+  region: 東京
 - startDate: "2026-10-02"
   endDate: "2026-10-03"
   eventName: オープンソースカンファレンス2026 Online/Fall
@@ -249,12 +297,30 @@
   location: 東京（品川）
   url: https://jazug.connpass.com/event/404770/
   region: 東京
+- startDate: "2026-10-03"
+  endDate: "2026-10-03"
+  eventName: 天下一キーボードわいわい会 Vol.12
+  location: 東京（六本木）
+  url: https://tenkey.connpass.com/event/397843/
+  region: 東京
 - startDate: "2026-10-05"
   endDate: "2026-10-05"
   eventName: Sakana AI Engineer Open House
   location: 東京（虎ノ門）
   url: https://connpass.com/event/405653/
   region: 東京
+- startDate: "2026-10-06"
+  endDate: "2026-10-06"
+  eventName: TECH.ASCII「ゆるっとナイト vol.8」
+  location: 東京（文京区）
+  url: https://ascii.jp/elem/000/004/432/4432734/
+  region: 東京
+- startDate: "2026-10-06"
+  endDate: "2026-10-06"
+  eventName: Design Solution Forum 2026
+  location: 神奈川（横浜）
+  url: https://dsforum.jp/2026/
+  region: 関東
 - startDate: "2026-10-07"
   endDate: "2026-10-11"
   eventName: RAMEN TECH
@@ -267,6 +333,18 @@
   location: 東京（豊洲）
   url: https://japan.less.works/ja/
   region: 東京
+- startDate: "2026-10-08"
+  endDate: "2026-10-08"
+  eventName: 『野蛮なアジャイル』刊行前「最速」感想戦
+  location: オンライン
+  url: https://sebook.connpass.com/event/407795/
+  region: オンライン
+- startDate: "2026-10-09"
+  endDate: "2026-10-09"
+  eventName: Hot Chips 2026 報告会
+  location: 東京（御茶ノ水）
+  url: https://connpass.com/event/407262/
+  region: 東京
 - startDate: "2026-10-10"
   endDate: "2026-10-11"
   eventName: 高専プロコン2026 香川大会（本選）
@@ -278,6 +356,18 @@
   eventName: Designship 2026
   location: 東京（六本木）
   url: https://design-ship.jp/2026/
+  region: 東京
+- startDate: "2026-10-10"
+  endDate: "2026-10-10"
+  eventName: TinyGo Conference 2026 in JAPAN Workshop
+  location: 東京（秋葉原）
+  url: https://tinygo-keeb.connpass.com/event/407479/
+  region: 東京
+- startDate: "2026-10-10"
+  endDate: "2026-10-10"
+  eventName: 野蛮な舞台裏トーク
+  location: 東京（四谷）
+  url: https://sebook.connpass.com/event/407796/
   region: 東京
 - startDate: "2026-10-11"
   endDate: "2026-10-11"
@@ -303,6 +393,12 @@
   location: オンライン
   url: https://www.kokuchpro.com/event/20261013/
   region: オンライン
+- startDate: "2026-10-13"
+  endDate: "2026-10-16"
+  eventName: CEATEC 2026
+  location: 千葉（幕張メッセ）
+  url: https://www.ceatec.com/ja/
+  region: 関東
 - startDate: "2026-10-15"
   endDate: "2026-10-15"
   eventName: ViteConf
@@ -314,6 +410,12 @@
   eventName: Terminal Night 3
   location: 東京（泉岳寺）
   url: https://kichijojipm.connpass.com/event/404746/
+  region: 東京
+- startDate: "2026-10-15"
+  endDate: "2026-10-15"
+  eventName: Physical AI Day
+  location: 東京（紀尾井町）
+  url: https://wandb.ai/site/resources/events/physical-ai-day/
   region: 東京
 - startDate: "2026-10-16"
   endDate: "2026-10-16"
@@ -369,11 +471,29 @@
   location: 鹿児島（鹿児島）
   url: ""
   region: 九州
+- startDate: "2026-10-20"
+  endDate: "2026-10-29"
+  eventName: CIOイノベーションWeek 2026＜秋＞
+  location: オンライン
+  url: https://jbpress.ismedia.jp/list/jir/week/cioweek
+  region: オンライン
 - startDate: "2026-10-21"
   endDate: "2026-10-21"
   eventName: SAISON Technology Days 2026（会場開催）
   location: 東京（有楽町）
   url: https://www.saison-technology.com/days2026/
+  region: 東京
+- startDate: "2026-10-21"
+  endDate: "2026-10-22"
+  eventName: 図書館総合展
+  location: 神奈川（横浜）
+  url: https://www.libraryfair.jp/
+  region: 関東
+- startDate: "2026-10-22"
+  endDate: "2026-10-22"
+  eventName: 自作プログラミング言語を自慢する会
+  location: 東京（渋谷）
+  url: https://original.connpass.com/event/408220/
   region: 東京
 - startDate: "2026-10-23"
   endDate: "2026-10-24"
@@ -398,6 +518,12 @@
   eventName: MPLS Japan 2026
   location: 東京（本郷）
   url: https://mpls.jp/2026/index.html
+  region: 東京
+- startDate: "2026-10-26"
+  endDate: "2026-10-26"
+  eventName: 第​4回 ​OSSセキュリティMeetup
+  location: 東京（日本橋）
+  url: https://www.linuxfoundation.org/ja-jp/news/join-us-the-4th-oss-security-meetup-on-october-26-at-cybozu-and-online
   region: 東京
 - startDate: "2026-10-27"
   endDate: "2026-10-29"
@@ -441,12 +567,36 @@
   location: 東京（浜松町）
   url: https://2026.flutterkaigi.jp/
   region: 東京
+- startDate: "2026-10-29"
+  endDate: "2026-10-29"
+  eventName: "EM Meetup #22"
+  location: 東京（中野）
+  url: https://engineering-manager-meetup.connpass.com/event/407956/
+  region: 東京
 - startDate: "2026-10-31"
   endDate: "2026-10-31"
   eventName: KomeKaigi 2026
   location: 新潟（新潟）
   url: https://komekaigi.dev/
   region: 甲信越
+- startDate: "2026-10-31"
+  endDate: "2026-10-31"
+  eventName: PicoRubyKaigi 2026 Assemble Official Party
+  location: 東京（東日本橋）
+  url: https://picopicoruby.connpass.com/event/404675/
+  region: 東京
+- startDate: "2026-10-31"
+  endDate: "2026-10-31"
+  eventName: ISUCON2026
+  location: 東京（新宿）
+  url: https://isucon.net/
+  region: 東京
+- startDate: "2026-10-31"
+  endDate: "2026-10-31"
+  eventName: "hokkaido.js vol.08@Asahikawa w/ ゆるい勉強会@旭川"
+  location: 北海道（旭川）
+  url: https://hokkaido-js.connpass.com/event/407987/
+  region: 北海道
 - startDate: "2026-11-01"
   endDate: "2026-11-01"
   eventName: DojoCon Japan 2026
@@ -459,17 +609,47 @@
   location: 宮城（仙台）
   url: https://sendai.tskaigi.org/
   region: 東北
+- startDate: "2026-11-03"
+  endDate: "2026-11-03"
+  eventName: 超エレキ万博2026
+  location: 東京（秋葉原）
+  url: https://eleki-expo2026.cqpub.co.jp/
+  region: 東京
+- startDate: "2026-11-04"
+  endDate: "2026-11-04"
+  eventName: "Yokohama North Meetup #18"
+  location: 神奈川（横浜）
+  url: https://yokohama-north.connpass.com/event/406572/
+  region: 東京
 - startDate: "2026-11-05"
   endDate: "2026-11-06"
   eventName: db tech showcase 2026
   location: 東京（大手町）
   url: https://www.db-tech-showcase.com/2026/
   region: 東京
+- startDate: "2026-11-05"
+  endDate: "2026-11-05"
+  eventName: LF Japan Community Day 2026 Fukuoka
+  location: 福岡（福岡）
+  url: https://ocgroups.dev/lf-japan/group/5kvg3tf/event/s33fqa6
+  region: 九州
+- startDate: "2026-11-05"
+  endDate: "2026-11-06"
+  eventName: Web担当者Forum ミーティング2026 秋
+  location: 東京（溜池山王）
+  url: https://webtan.impress.co.jp/events/202611
+  region: 東京
 - startDate: "2026-11-06"
   endDate: "2026-11-06"
   eventName: TechLead Conference 2026 Autumn powered by connpass
   location: 東京（有明）
   url: https://techplay.jp/event/998812
+  region: 東京
+- startDate: "2026-11-06"
+  endDate: "2026-11-06"
+  eventName: "eBPF Japan Meetup #8"
+  location: 東京（西新宿）
+  url: https://ebpf.connpass.com/event/404549/
   region: 東京
 - startDate: "2026-11-07"
   endDate: "2026-11-07"
@@ -494,6 +674,12 @@
   eventName: 変態ガジェットフリマ2026
   location: 東京（竹芝）
   url: https://gadget2026.peatix.com/
+  region: 東京
+- startDate: "2026-11-10"
+  endDate: "2026-11-10"
+  eventName: TechLION vol.42 ～燃え尽きないイベント運営のコツ〜
+  location: 東京（西新宿）
+  url: https://techlion.connpass.com/event/408503/
   region: 東京
 - startDate: "2026-11-11"
   endDate: "2026-11-11"
@@ -549,6 +735,12 @@
   location: 福井（勝山）
   url: https://regional.rubykaigi.org/hokuriku02/index.html
   region: 北陸
+- startDate: "2026-11-14"
+  endDate: "2026-11-14"
+  eventName: CoLab Conf 2026秋
+  location: 東京（虎ノ門）
+  url: https://supporterz-seminar.connpass.com/event/406430/
+  region: 東京
 - startDate: "2026-11-17"
   endDate: "2026-11-18"
   eventName: CODE BLUE 2026（カンファレンス）
@@ -567,12 +759,24 @@
   location: 神奈川（横浜）
   url: https://www.jasa.or.jp/expo/
   region: 関東
+- startDate: "2026-11-18"
+  endDate: "2026-11-19"
+  eventName: AIforce World Tour Tokyo
+  location: 東京（芝公園）
+  url: https://www.salesforce.com/jp/events/world-tour/tokyo/
+  region: 東京
 - startDate: "2026-11-19"
   endDate: "2026-11-24"
   eventName: Internet Week 2026（オンライン）
   location: オンライン
   url: https://internetweek.jp/2026/
   region: オンライン
+- startDate: "2026-11-19"
+  endDate: "2026-11-19"
+  eventName: "Sapporo.sre #1"
+  location: 北海道（札幌）
+  url: https://sapporo-sre.connpass.com/event/401691/
+  region: 北海道
 - startDate: "2026-11-20"
   endDate: "2026-11-21"
   eventName: TechRAMEN 2026 Conference
@@ -669,6 +873,12 @@
   location: 神奈川（横浜）
   url: https://jbuginfo.backlog.com/backlogworld2026/
   region: 関東
+- startDate: "2026-11-28"
+  endDate: "2026-11-28"
+  eventName: JJUG CCC 2026 Fall
+  location: 東京（新宿）
+  url: https://jjug.doorkeeper.jp/events/199505
+  region: 東京
 - startDate: "2026-11-29"
   endDate: "2026-11-29"
   eventName: Google Developer Group  DevFest Tokyo 2026

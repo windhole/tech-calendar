@@ -10,7 +10,7 @@ Amends: [0015](0015-csv2yaml-yearly-public.md)
 
 ## Decision
 
-- `make clean`（`ruby csv2yaml.rb --clean`）は `data/*.csv` のうち、`make events` が使わないものだけを削除する。
+- `make clean`（`rbenv exec ruby csv2yaml.rb --clean`）は `data/*.csv` のうち、`make events` が使わないものだけを削除する。
   - ファイル名に独立した 4 桁西暦がない
   - 同じ西暦の CSV のうち、更新時刻が新しいもの以外（時刻が同じならファイル名の辞書順で後のほう以外）
 - 使う側の CSV、YAML、`public/` は触らない。

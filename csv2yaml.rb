@@ -2,13 +2,13 @@
 # frozen_string_literal: true
 
 # data/ の年付き CSV を public/events_YYYY.yaml に変換する。
-# 使い方: リポジトリ直下で `ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
+# 使い方: リポジトリ直下で `rbenv exec ruby csv2yaml.rb [YYYY-MM-DD]` または `make events`
 # 開始日（省略時は 2026-09-01）以降に始まるイベントだけを出す。
 # 同じ年の CSV が複数あるときは、更新が新しいものを 1 つ使う。
 # 2026 の CSV は public/events_2026.yaml、2027 は public/events_2027.yaml。
 # endDate が startDate より前、またはイベント名が重複しているときはエラーで止める。
 # CSV の 開催地 列は 13 種のうち 1 つ。空でなければ YAML の region にする。
-# 使わない CSV の削除は `ruby csv2yaml.rb --clean` または `make clean`。
+# 使わない CSV の削除は `rbenv exec ruby csv2yaml.rb --clean` または `make clean`。
 
 require 'csv'
 require 'date'
