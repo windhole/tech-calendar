@@ -178,6 +178,12 @@
   border-color: #1f2937;
 }
 
+.region-filter__gcal {
+  gap: 0.375rem;
+  margin-left: auto;
+  text-decoration: none;
+}
+
 .region-filter__chip:focus-visible {
   outline: 2px solid #93c5fd;
   outline-offset: 2px;

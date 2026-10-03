@@ -17,10 +17,13 @@ Status: Accepted
 - `UID` は開始日とイベント名（アプリの同一性と同じ）のハッシュから作り、ビルドをまたいで変えない。会場や URL を直しても同じ予定のまま更新される。
 - `DTSTAMP` はビルドした時刻。
 - テキストのエスケープと 75 オクテットでの折り返しは RFC 5545 に従い、マルチバイト文字の途中では折り返さない。
+- 開催地チップの行の右端に「Google カレンダーに追加」ボタンを置く。リンク先は `https://calendar.google.com/calendar/render?cid=webcal://…/events.ics` で、Google カレンダーの購読確認画面が開く。ICS の URL は表示中のオリジンと `BASE_URL` から組み立てる。
+- ボタンのアイコンは Wikimedia Commons の [File:Google_Calendar_icon_(2020).svg](https://commons.wikimedia.org/wiki/File:Google_Calendar_icon_(2020).svg) を `src/assets/google-calendar.svg` にそのまま置く。Commons では PD-logo（創作性の基準を満たさないためパブリックドメイン）で、著作権上はクレジットも要らない。ただし Google の商標なので、Google カレンダーへの追加を示すボタン以外には使わない。
 
 ## Consequences
 
 - 公開 URL `https://windhole.github.io/tech-calendar/events.ics` をカレンダーアプリに登録すれば、デプロイのたびに更新が届く。取り直しの間隔は購読側が決める。
 - 開始日かイベント名を変えると UID が変わり、購読側では古い予定が消えて新しい予定が入る。
-- 開催地での絞り込みは ICS には無い。全イベントを 1 つのカレンダーとして配る。
+- 開催地での絞り込みは ICS には無い。全イベントを 1 つのカレンダーとして配る。ボタンの title にもそう書く。
+- スマホの Google カレンダーアプリには URL で購読する機能が無いので、ボタンは主に PC のブラウザ向け。
 - ICS のロジックは `bun test` でテストする。CI でも型チェックの後に走らせる。
