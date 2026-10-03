@@ -1,7 +1,10 @@
-import { copyFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
+import { buildEventsIcs } from './src/events/ical';
+import { parseEventsYaml } from './src/events/parseEventsYaml';
+import { mergeEventLayers } from './src/utils/mergeEvents';
 
 const EVENT_YAML_NAME = /^events.*\.yaml$/;
 const EVENT_YAML_VIRTUAL = 'virtual:event-yaml-sources';
@@ -64,6 +67,51 @@ function eventYamlSourcesPlugin(): Plugin {
   };
 }
 
+const EVENTS_ICS_NAME = 'events.ics';
+
+/** public/ の events*.yaml を、アプリと同じ順（古いファイルから）で合成して ICS にする */
+function renderEventsIcs(root: string): string {
+  const layers = listEventYamlSources(root).map((file) =>
+    parseEventsYaml(readFileSync(path.join(root, 'public', file.name), 'utf8'), file.name)
+  );
+  return buildEventsIcs(mergeEventLayers(layers), {
+    calendarName: "windhole's tech calendar",
+    generatedAt: new Date(),
+    uidDomain: 'windhole.github.io',
+  });
+}
+
+/** カレンダーアプリから購読できるように、ビルド時に dist/events.ics を書き出す */
+function eventsIcsPlugin(): Plugin {
+  let root = process.cwd();
+  let base = '/';
+
+  return {
+    name: 'events-ics',
+    configResolved(config) {
+      root = config.root;
+      base = config.base;
+    },
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url?.split('?')[0] !== `${base}${EVENTS_ICS_NAME}`) {
+          next();
+          return;
+        }
+        res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+        res.end(renderEventsIcs(root));
+      });
+    },
+    generateBundle() {
+      this.emitFile({
+        type: 'asset',
+        fileName: EVENTS_ICS_NAME,
+        source: renderEventsIcs(root),
+      });
+    },
+  };
+}
+
 function githubPagesSpaFallback(): Plugin {
   return {
     name: 'github-pages-spa-fallback',
@@ -79,7 +127,7 @@ function githubPagesSpaFallback(): Plugin {
 
 export default defineConfig({
   base: '/tech-calendar/',
-  plugins: [react(), eventYamlSourcesPlugin(), githubPagesSpaFallback()],
+  plugins: [react(), eventYamlSourcesPlugin(), eventsIcsPlugin(), githubPagesSpaFallback()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

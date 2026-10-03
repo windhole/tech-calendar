@@ -25,6 +25,7 @@ jobs:
           bun-version: '1.4.0'
       - run: bun install --frozen-lockfile
       - run: bun run typecheck
+      - run: bun run test
       - run: bun run build
         env:
           VITE_GOATCOUNTER_COUNT_URL: ${{ vars.VITE_GOATCOUNTER_COUNT_URL }}
