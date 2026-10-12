@@ -1,4 +1,4 @@
-import { EVENT_REGIONS, type Event, type EventRegion } from '@/types';
+import { EVENT_REGIONS, type Event, type EventRegion } from '../types';
 
 const REGION_SET = new Set<string>(EVENT_REGIONS);
 

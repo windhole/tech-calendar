@@ -23,6 +23,7 @@ GitHub Pages で公開しています。祝日は年別 YAML、イベントは `
 - ヘッダ下の開催地チップで、カレンダー表示とリスト表示を同じ条件で絞り込む（複数選択は OR。`?region=` が URL に残る）
 - カレンダー下には、表示中の 6 週間と重なるイベントだけを表示
 - リスト表示（`/events`）で全イベントを確認（今日以降が上、その下に過去）
+- 全イベントを `events.ics`（iCalendar）でも配信し、Google カレンダーなどから購読できる（開催地チップの右端の「追加」ボタンから Google カレンダーの購読画面を開ける）
 
 ## 技術スタック
 
@@ -55,6 +56,7 @@ bun run dev
 | `bun run preview` | ビルド結果のプレビュー |
 | `bun run lint` | ESLint による静的解析 |
 | `bun run typecheck` | TypeScript の型チェック |
+| `bun run test` | `tests/` のテスト（bun test） |
 
 ## Makefile の操作
 
@@ -83,6 +85,24 @@ rbenv exec ruby check_events.rb public/events_2026.yaml
 ```
 
 変換ルールと入力チェックの詳細は下の「CSV から YAML を作る」を見てください。
+
+## カレンダーアプリで購読する（events.ics）
+
+ビルド時に、アプリと同じ規則で `public/events*.yaml` を合成し、`dist/events.ics` を書き出します。公開 URL は次です。
+
+```
+https://windhole.github.io/tech-calendar/events.ics
+```
+
+Google カレンダーでは、開催地チップの右端の「追加」ボタンを押すと購読の確認画面が開きます。手で登録するときは、PC 版の「他のカレンダー」の「+」から「URL で追加」を選び、この URL を貼ります。購読なので、デプロイ後の更新も反映されます（取り直しの間隔は Google 側が決め、数時間から 1 日ほどかかります）。
+
+- 各イベントは終日の予定になります。`DTEND` は終了日の翌日です（iCalendar の終日予定は終わりの日を含まないため）。
+- 予定の名前はイベント名、場所は `location`、説明には URL と開催地を入れます。
+- 予定は「空き時間」扱い（`TRANSP:TRANSPARENT`）で、購読者の予定を埋めません。
+- `UID` は開始日とイベント名から作ります。どちらかを変えると、購読側では別の予定として入れ替わります。
+- 開発サーバーでは `http://localhost:5173/tech-calendar/events.ics` で、そのときの YAML から作った内容を返します。
+
+設計の判断は `docs/adr/0021-events-ics.md` です。
 
 ## 祝日（YAML）
 

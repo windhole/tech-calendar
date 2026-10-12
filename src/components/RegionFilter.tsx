@@ -1,4 +1,10 @@
+import googleCalendarIcon from '@/assets/google-calendar.svg';
+import { googleCalendarSubscribeUrl } from '@/events/googleCalendar';
 import type { EventRegion } from '@/types';
+
+function eventsIcsUrl(): string {
+  return new URL(`${import.meta.env.BASE_URL}events.ics`, window.location.origin).href;
+}
 
 interface RegionFilterProps {
   regions: EventRegion[];
@@ -44,6 +50,16 @@ export function RegionFilter({
           </button>
         );
       })}
+      <a
+        className="region-filter__chip region-filter__gcal"
+        href={googleCalendarSubscribeUrl(eventsIcsUrl())}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="全イベントを Google カレンダーで購読します（開催地の絞り込みは反映されません）"
+      >
+        <img src={googleCalendarIcon} alt="Google カレンダー" width={16} height={16} />
+        追加
+      </a>
     </div>
   );
 }
