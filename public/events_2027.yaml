@@ -1,6 +1,6 @@
 # イベント一覧。date は YYYY-MM-DD（引用符推奨）。
 #
-# generated from techイベントデータ - 2027.csv
+# generated from techイベントデータ - 2027 (2).csv
 # since 2026-09-01
 
 - startDate: "2027-01-06"
@@ -15,12 +15,24 @@
   location: 富山（富山）
   url: https://burikaigi.dev/
   region: 北陸
+- startDate: "2027-01-08"
+  endDate: "2027-01-09"
+  eventName: デッカイギ2027（行政デジタル改革共創会議）
+  location: 東京（羽田）
+  url: https://dekaigi.org/
+  region: 東京
 - startDate: "2027-01-16"
   endDate: "2027-01-16"
   eventName: PHPカンファレンス関西2026
   location: 京都（丹波口）
   url: https://2026.kphpug.jp/
   region: 関西
+- startDate: "2027-01-16"
+  endDate: "2027-01-16"
+  eventName: NGK2027S
+  location: 愛知（名古屋）
+  url: https://nagoya-godo-konshinkai.github.io/ngk2027s/
+  region: 中部
 - startDate: "2027-01-20"
   endDate: "2027-01-22"
   eventName: JANOG59 Meeting
@@ -57,6 +69,12 @@
   location: 東京（有明）
   url: （TBD）
   region: 東京
+- startDate: "2027-03-20"
+  endDate: "2027-03-22"
+  eventName: PHPerKaigi 2027
+  location: 東京（TBD)
+  url: （TBD）
+  region: 東京
 - startDate: "2027-03-27"
   endDate: "2027-03-27"
   eventName: キーボードマーケットトーキョー2027
@@ -67,7 +85,7 @@
   endDate: "2027-04-10"
   eventName: PHPカンファレンス小田原2027
   location: 神奈川（小田原）
-  url: （TBD）
+  url: https://phpcon-odawara.connpass.com/event/409458/
   region: 関東
 - startDate: "2027-04-14"
   endDate: "2027-04-16"
@@ -87,3 +105,9 @@
   location: 東京（蒲田）
   url: https://gishohaku.connpass.com/event/402867/
   region: 東京
+- startDate: "2027-05-22"
+  endDate: "2027-05-22"
+  eventName: PHPカンファレンス香川
+  location: 香川（TBD）
+  url: （TBD）
+  region: 四国
